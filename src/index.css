@@ -7,33 +7,19 @@
   /* Apply reading mode styles to content sections */
 }
 
-/* In reading mode, make navigation relative instead of fixed */
-.reading-mode nav {
-  position: relative !important;
-  top: auto !important;
-  left: auto !important;
-  right: auto !important;
-  z-index: auto !important;
-  margin-bottom: 2rem !important;
+/* Exclude navigation from reading mode styles */
+.reading-mode nav,
+.reading-mode nav *,
+.reading-mode .fixed {
+  font-size: inherit !important;
+  line-height: inherit !important;
+  font-family: inherit !important;
 }
 
-/* Adjust body padding in reading mode since nav is no longer fixed */
-.reading-mode body {
-  padding-top: 0 !important;
-}
-
-/* Ensure sections don't have top padding in reading mode since nav is not fixed */
 .reading-mode section {
-  padding-top: 2rem !important;
   font-size: var(--reading-font-size, 16px) !important;
   line-height: var(--reading-line-height, 1.6) !important;
   font-family: var(--reading-font-family, system-ui) !important;
-}
-
-/* Adjust hero section specifically in reading mode */
-.reading-mode #hero {
-  padding-top: 2rem !important;
-  min-height: auto !important;
 }
 
 .reading-mode .max-w-6xl,
@@ -57,11 +43,6 @@
 .reading-mode section h4 {
   font-family: var(--reading-font-family, system-ui) !important;
   line-height: calc(var(--reading-line-height, 1.6) * 0.9) !important;
-}
-
-/* Hide floating elements in reading mode for cleaner experience */
-.reading-mode .fixed:not(nav) {
-  display: none !important;
 }
 
 /* High Contrast Mode */
@@ -112,6 +93,15 @@
 .high-contrast .bg-gray-800,
 .high-contrast .bg-gray-900 {
   background-color: rgb(240 240 240 / var(--tw-bg-opacity)) !important;
+}
+
+/* Exclude navigation from high contrast mode overrides */
+.high-contrast nav,
+.high-contrast nav *,
+.high-contrast .fixed {
+  color: inherit !important;
+  background-color: inherit !important;
+  font-weight: inherit !important;
 }
 
 /* Night Mode (Enhanced Dark Mode) */
@@ -175,12 +165,21 @@
   border-color: rgb(40 40 40) !important;
 }
 
+/* Exclude navigation from night mode overrides */
+.night-mode nav,
+.night-mode nav *,
+.night-mode .fixed {
+  background-color: inherit !important;
+  color: inherit !important;
+}
+
 /* Reading Mode Focus Styles */
 .reading-mode {
   scroll-behavior: smooth;
 }
 
 .reading-mode section {
+  padding-top: 3rem !important;
   padding-bottom: 3rem !important;
 }
 
