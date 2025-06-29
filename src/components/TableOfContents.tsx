@@ -22,10 +22,9 @@ export default function TableOfContents({
   bookmarks,
   toggleBookmark
 }: TableOfContentsProps) {
-  const [isVisible, setIsVisible] = useState(false); // Cambiado a false por defecto
+  const [isVisible, setIsVisible] = useState(false); // Siempre inicia oculto
   const [isMinimized, setIsMinimized] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [hasInteracted, setHasInteracted] = useState(false);
 
   const sections = data.navigation.items.filter(item => item.id !== 'hero');
 
@@ -40,48 +39,39 @@ export default function TableOfContents({
       switch (e.key) {
         case 'j':
         case 'ArrowDown':
-          e.preventDefault();
-          setIsVisible(true);
-          setHasInteracted(true);
-          setSelectedIndex(prev => Math.min(prev + 1, sections.length - 1));
+          if (isVisible) { // Solo funciona si ya está visible
+            e.preventDefault();
+            setSelectedIndex(prev => Math.min(prev + 1, sections.length - 1));
+          }
           break;
         case 'k':
         case 'ArrowUp':
-          e.preventDefault();
-          setIsVisible(true);
-          setHasInteracted(true);
-          setSelectedIndex(prev => Math.max(prev - 1, 0));
+          if (isVisible) { // Solo funciona si ya está visible
+            e.preventDefault();
+            setSelectedIndex(prev => Math.max(prev - 1, 0));
+          }
           break;
         case 'Enter':
         case ' ':
-          e.preventDefault();
-          if (isVisible) {
+          if (isVisible) { // Solo funciona si ya está visible
+            e.preventDefault();
             scrollToSection(sections[selectedIndex].id);
-          } else {
-            setIsVisible(true);
-            setHasInteracted(true);
           }
           break;
         case 'b':
-          e.preventDefault();
-          setIsVisible(true);
-          setHasInteracted(true);
-          toggleBookmark(sections[selectedIndex].id);
+          if (isVisible) { // Solo funciona si ya está visible
+            e.preventDefault();
+            toggleBookmark(sections[selectedIndex].id);
+          }
           break;
         case 't':
           e.preventDefault();
-          setIsVisible(!isVisible);
-          setHasInteracted(true);
+          setIsVisible(!isVisible); // Toggle manual
           break;
         case 'm':
-          e.preventDefault();
-          if (isVisible) {
+          if (isVisible) { // Solo funciona si ya está visible
+            e.preventDefault();
             setIsMinimized(!isMinimized);
-            setHasInteracted(true);
-          } else {
-            setIsVisible(true);
-            setIsMinimized(true);
-            setHasInteracted(true);
           }
           break;
       }
@@ -99,73 +89,21 @@ export default function TableOfContents({
     }
   }, [activeSection, sections]);
 
-  // Auto-hide on scroll (solo si el usuario ya interactuó)
-  useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
-    
-    const handleScroll = () => {
-      if (hasInteracted && !isMinimized) {
-        setIsVisible(true);
-        clearTimeout(timeoutId);
-        timeoutId = setTimeout(() => {
-          setIsVisible(false);
-        }, 3000);
-      }
-    };
-
-    // Mostrar automáticamente después de cierto scroll si hay marcadores
-    const handleInitialScroll = () => {
-      if (!hasInteracted && bookmarks.length > 0 && window.scrollY > 500) {
-        setIsVisible(true);
-        setIsMinimized(true);
-        setHasInteracted(true);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    window.addEventListener('scroll', handleInitialScroll);
-    
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('scroll', handleInitialScroll);
-      clearTimeout(timeoutId);
-    };
-  }, [isMinimized, hasInteracted, bookmarks.length]);
-
-  // Mostrar hint inicial después de unos segundos
-  useEffect(() => {
-    if (!hasInteracted) {
-      const hintTimeout = setTimeout(() => {
-        setIsVisible(true);
-        setTimeout(() => {
-          if (!hasInteracted) {
-            setIsVisible(false);
-          }
-        }, 2000);
-      }, 5000); // Mostrar hint después de 5 segundos
-
-      return () => clearTimeout(hintTimeout);
-    }
-  }, [hasInteracted]);
-
+  // NO auto-hide, NO auto-show - completamente manual
   const handleManualToggle = () => {
     setIsVisible(!isVisible);
-    setHasInteracted(true);
   };
 
   const handleMinimizeToggle = () => {
     setIsMinimized(!isMinimized);
-    setHasInteracted(true);
   };
 
   const handleSectionClick = (sectionId: string) => {
     scrollToSection(sectionId);
-    setHasInteracted(true);
   };
 
   const handleBookmarkToggle = (sectionId: string) => {
     toggleBookmark(sectionId);
-    setHasInteracted(true);
   };
 
   // Botón flotante para mostrar el índice cuando está oculto
@@ -183,17 +121,6 @@ export default function TableOfContents({
               <span className="text-xs text-white dark:text-gray-900 font-bold">
                 {bookmarks.length}
               </span>
-            </div>
-          )}
-          {/* Hint visual para nuevos usuarios */}
-          {!hasInteracted && (
-            <div className="absolute -left-2 top-1/2 transform -translate-y-1/2 -translate-x-full">
-              <div className="bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-xs px-2 py-1 rounded whitespace-nowrap animate-pulse">
-                {language === 'es' ? 'Presiona T' : 'Press T'}
-              </div>
-              <div className="absolute top-1/2 right-0 transform -translate-y-1/2 translate-x-full">
-                <div className="w-0 h-0 border-l-4 border-l-gray-900 dark:border-l-white border-y-4 border-y-transparent"></div>
-              </div>
             </div>
           )}
         </button>
