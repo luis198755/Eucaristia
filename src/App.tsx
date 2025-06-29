@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Navigation from './components/Navigation';
 import SearchModal from './components/SearchModal';
+import TableOfContents from './components/TableOfContents';
+import ReadingProgressBar from './components/ReadingProgressBar';
 import HeroSection from './components/sections/HeroSection';
 import DefinitionSection from './components/sections/DefinitionSection';
 import HistorySection from './components/sections/HistorySection';
@@ -14,6 +16,8 @@ import { useScrollNavigation } from './hooks/useScrollNavigation';
 import { useDarkMode } from './hooks/useDarkMode';
 import { useLanguage } from './hooks/useLanguage';
 import { useEucharistData } from './hooks/useEucharistData';
+import { useReadingProgress } from './hooks/useReadingProgress';
+import { useBookmarks } from './hooks/useBookmarks';
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -22,6 +26,8 @@ function App() {
   const { isDarkMode, toggleDarkMode } = useDarkMode();
   const { language, changeLanguage } = useLanguage();
   const { data, loading, error } = useEucharistData(language);
+  const readingProgress = useReadingProgress();
+  const { bookmarks, toggleBookmark } = useBookmarks();
 
   const handleScrollToSection = (sectionId: string) => {
     scrollToSection(sectionId);
@@ -79,6 +85,8 @@ function App() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
+      <ReadingProgressBar progress={readingProgress} />
+      
       <Navigation
         isMenuOpen={isMenuOpen}
         setIsMenuOpen={setIsMenuOpen}
@@ -98,6 +106,16 @@ function App() {
         data={data}
         language={language}
         scrollToSection={handleScrollToSection}
+      />
+
+      <TableOfContents
+        data={data}
+        language={language}
+        activeSection={activeSection}
+        scrollToSection={handleScrollToSection}
+        readingProgress={readingProgress}
+        bookmarks={bookmarks}
+        toggleBookmark={toggleBookmark}
       />
 
       <HeroSection scrollToSection={handleScrollToSection} data={data} />
