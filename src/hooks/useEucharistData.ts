@@ -15,6 +15,8 @@ export function useEucharistData(language: Language) {
         
         if (language === 'en') {
           eucharistData = await import('../data/eucharistData.en.json');
+        } else if (language === 'la') {
+          eucharistData = await import('../data/eucharistData.la.json');
         } else {
           eucharistData = await import('../data/eucharistData.json');
         }

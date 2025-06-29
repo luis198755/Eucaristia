@@ -1,0 +1,302 @@
+{
+  "site": {
+    "title": "Eucharistia",
+    "subtitle": "Sacramentum Centrale Fidei Catholicae",
+    "description": "Informatio completa de Eucharistia - Sacramentum centrale fidei catholicae",
+    "keywords": "Eucharistia, Sacramentum, Missa, Catholicismus, Fides, Iesus, Christus"
+  },
+  "navigation": {
+    "brand": "Eucharistia",
+    "items": [
+      { "id": "hero", "label": "Initium" },
+      { "id": "definition", "label": "Definitio" },
+      { "id": "history", "label": "Historia" },
+      { "id": "elements", "label": "Elementa" },
+      { "id": "theology", "label": "Theologia" },
+      { "id": "symbols", "label": "Symbola" },
+      { "id": "prayers", "label": "Orationes" },
+      { "id": "resources", "label": "Fontes" }
+    ]
+  },
+  "hero": {
+    "title": "Eucharistia",
+    "quote": "Ego sum panis vivus qui de caelo descendi",
+    "subtitle": "Sacramentum centrale fidei catholicae",
+    "cta": "Explorare"
+  },
+  "definition": {
+    "title": "Definitio",
+    "subtitle": "Eucharistia est sacramentum a Iesu Christo in Ultima Cena institutum",
+    "cards": [
+      {
+        "icon": "Heart",
+        "title": "Sacramentum Centrale",
+        "description": "Fons et culmen totius vitae christianae, ubi Christus praesens fit sub speciebus panis et vini."
+      },
+      {
+        "icon": "Cross",
+        "title": "Praesentia Realis",
+        "description": "Christus vere praesens est sub apparentiis panis et vini. Non est tantum symbolum."
+      },
+      {
+        "icon": "Users",
+        "title": "Communio",
+        "description": "Nos unit in communione cum Christo et inter nos tamquam membra Corporis Christi."
+      }
+    ]
+  },
+  "history": {
+    "title": "Historia",
+    "subtitle": "Ab Ultima Cena usque ad nostros dies",
+    "timeline": [
+      {
+        "step": "1",
+        "title": "Ultima Cena",
+        "description": "Iesus Eucharistiam instituit in Ultima Cena cum apostolis suis, accipiens panem et vinum et dicens: \"Hoc est corpus meum... Hic est sanguis meus\". Mandavit eis ut hoc facerent in sui memoriam.",
+        "quote": "Hoc facite in meam commemorationem",
+        "reference": "Lucas 22:19"
+      },
+      {
+        "step": "2",
+        "title": "Ecclesia Primitiva",
+        "description": "Primi christiani celebrabant \"fractionem panis\" sequentes mandatum Iesu. Sanctus Paulus hanc praxim in epistolis suis describit.",
+        "quote": "Ego enim accepi a Domino quod et tradidi vobis",
+        "reference": "1 Corinthios 11:23"
+      },
+      {
+        "step": "3",
+        "title": "Evolutio Liturgica",
+        "description": "Per saecula, celebratio eucharistica evoluta est in diversis traditionibus liturgicis, semper servans elementa essentialia a Christo stabilita."
+      }
+    ]
+  },
+  "elements": {
+    "title": "Elementa Missae",
+    "subtitle": "Partes principales celebrationis eucharisticae",
+    "sections": [
+      {
+        "title": "Liturgia Verbi",
+        "items": [
+          {
+            "number": "1",
+            "title": "Prima Lectio",
+            "description": "Generaliter ex Vetere Testamento"
+          },
+          {
+            "number": "2",
+            "title": "Psalmus Responsorius",
+            "description": "Responsio meditativa ad primam lectionem"
+          },
+          {
+            "number": "3",
+            "title": "Secunda Lectio",
+            "description": "Ex epistolis apostolicis"
+          },
+          {
+            "icon": "Cross",
+            "title": "Evangelium",
+            "description": "Culmen Liturgiae Verbi"
+          }
+        ]
+      },
+      {
+        "title": "Liturgia Eucharistica",
+        "items": [
+          {
+            "number": "1",
+            "title": "Oblatio Donorum",
+            "description": "Panis, vinum et oblationes fidelium"
+          },
+          {
+            "number": "2",
+            "title": "Prex Eucharistica",
+            "description": "Consecratio panis et vini"
+          },
+          {
+            "number": "3",
+            "title": "Pater Noster",
+            "description": "Oratio quam Iesus nos docuit"
+          },
+          {
+            "icon": "Heart",
+            "title": "Communio",
+            "description": "Receptio Corporis et Sanguinis Christi"
+          }
+        ]
+      }
+    ]
+  },
+  "theology": {
+    "title": "Significatio Theologica",
+    "subtitle": "Mysterium profundum Eucharistiae in fide catholica",
+    "aspects": [
+      {
+        "icon": "Cross",
+        "title": "Sacrificium",
+        "description": "Eucharistia modo incruentо actualizat sacrificium Christi in cruce. Idem est sacrificium, non repetitio."
+      },
+      {
+        "icon": "Heart",
+        "title": "Communio",
+        "description": "Est convivium sacrum ubi Christum recipimus tamquam cibum spiritualem, nos intime cum Eo uniens."
+      },
+      {
+        "icon": "Users",
+        "title": "Praesentia",
+        "description": "Christus vere, realiter et substantialiter praesens est sub speciebus eucharisticis."
+      }
+    ],
+    "effects": {
+      "title": "Effectus Eucharistiae",
+      "items": [
+        {
+          "icon": "Heart",
+          "title": "Gratia Sanctificans",
+          "description": "Auget vitam divinam in anima"
+        },
+        {
+          "icon": "Users",
+          "title": "Unio cum Christo",
+          "description": "Firmat relationem nostram personalem"
+        },
+        {
+          "icon": "Cross",
+          "title": "Remissio Peccatorum",
+          "description": "Delet peccata venialia"
+        },
+        {
+          "icon": "Book",
+          "title": "Vita Aeterna",
+          "description": "Pignus resurrectionis"
+        }
+      ]
+    }
+  },
+  "symbols": {
+    "title": "Symbola Eucharistica",
+    "subtitle": "Signa sacra quae nos adiuvant ad mysterium intelligendum",
+    "items": [
+      {
+        "symbol": "circle",
+        "title": "Panis",
+        "description": "Symbolum cibi fundamentalis, repraesentat Christum tamquam panem vitae qui nostram existentiam spiritualem sustinet."
+      },
+      {
+        "symbol": "circle-gray",
+        "title": "Vinum",
+        "description": "Repraesentat sanguinem Christi pro nobis effusum. Est symbolum gaudii et novi foederis."
+      },
+      {
+        "icon": "Cross",
+        "title": "Crux",
+        "description": "Symbolum centrale christianismi, praesens in omni Eucharistia tamquam memoria sacrificii redemptoris."
+      },
+      {
+        "icon": "Users",
+        "title": "Coetus",
+        "description": "Communitas congregata repraesentat Corpus Christi, unita in celebratione mysterii eucharistici."
+      },
+      {
+        "symbol": "light",
+        "title": "Lux",
+        "description": "Candelae repraesentant Christum tamquam lucem mundi, qui tenebras peccati illuminat."
+      },
+      {
+        "icon": "Heart",
+        "title": "Cor",
+        "description": "Symbolum amoris infiniti Christi, qui se complete tradit in omni Eucharistia."
+      }
+    ]
+  },
+  "prayers": {
+    "title": "Orationes Eucharisticae",
+    "subtitle": "Orationes traditionales ante et post communionem",
+    "sections": [
+      {
+        "title": "Ante Communionem",
+        "prayers": [
+          {
+            "title": "Oratio Praeparationis",
+            "text": "Domine, non sum dignus ut intres sub tectum meum, sed tantum dic verbum et sanabitur anima mea. Praepara cor meum ad te recipiendum cum fide, spe et caritate."
+          },
+          {
+            "title": "Actus Fidei",
+            "text": "Domine mi Iesu Christe, firmiter credo te in hoc Sacramento praesentem esse, verum Deum et verum hominem."
+          }
+        ]
+      },
+      {
+        "title": "Post Communionem",
+        "prayers": [
+          {
+            "title": "Gratiarum Actio",
+            "text": "Gratias tibi ago, Domine Iesu Christe, quia me Corpore et Sanguine tuo nutristi. Haec communio sit mihi fons vitae aeternae."
+          },
+          {
+            "title": "Oblatio Personalis",
+            "text": "Anima Christi, sanctifica me. Corpus Christi, salva me. Sanguis Christi, inebria me. Intra tua vulnera, absconde me."
+          }
+        ]
+      }
+    ],
+    "universal": {
+      "title": "Prex Universalis",
+      "text": "Deus, qui nobis sub sacramento mirabili passionis tuae memoriam reliquisti, tribue, quaesumus, ita nos Corporis et Sanguinis tui sacra mysteria venerari, ut redemptionis tuae fructum in nobis iugiter sentiamus.",
+      "author": "Oratio Sancti Thomae Aquinatis"
+    }
+  },
+  "resources": {
+    "title": "Fontes Additionali",
+    "subtitle": "Materiae ad cognitionem Eucharistiae profundandam",
+    "categories": [
+      {
+        "icon": "Book",
+        "title": "Documenta Officialia",
+        "items": [
+          "Catechismus Ecclesiae Catholicae",
+          "Concilium Vaticanum Secundum",
+          "Encyclica Ecclesia de Eucharistia",
+          "Institutio Generalis Missalis Romani"
+        ]
+      },
+      {
+        "icon": "Users",
+        "title": "Sancti Eucharistici",
+        "items": [
+          "Sanctus Thomas Aquinas",
+          "Sanctus Tarcisius",
+          "Sancta Iuliana de Cornillon",
+          "Sanctus Ioannes Maria Vianney",
+          "Sancta Teresia ab Avila"
+        ]
+      },
+      {
+        "icon": "Heart",
+        "title": "Devotiones",
+        "items": [
+          "Adoratio Eucharistica",
+          "Corpus Christi",
+          "Hora Sancta",
+          "Prima Communio",
+          "Communio spiritualis"
+        ]
+      }
+    ],
+    "deepening": {
+      "title": "Vis profundius cognoscere?",
+      "description": "Eucharistia est mysterium inexhaustum. Te invitamus ad continuandam formationem tuam spiritualem et theologicam de hoc sacramento centrali fidei nostrae.",
+      "tags": [
+        "Catechesis paroecialis",
+        "Lectiones spirituales",
+        "Adoratio Eucharistica",
+        "Directio spiritualis"
+      ]
+    }
+  },
+  "footer": {
+    "title": "Eucharistia",
+    "quote": "Qui manducat meam carnem et bibit meum sanguinem, habet vitam aeternam, et ego resuscitabo eum in novissimo die",
+    "reference": "Ioannes 6:54",
+    "copyright": "Elaboratum cum devotione ad gloriam Dei"
+  }
+}

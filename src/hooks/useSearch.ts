@@ -37,22 +37,36 @@ export function useSearch(data: EucharistData, query: string, filters: string[],
       return '';
     };
 
+    // Language-specific keywords
+    const getKeywords = () => {
+      switch (language) {
+        case 'en':
+          return ['eucharist', 'sacrament', 'jesus', 'christ', 'mass', 'communion', 'bread', 'wine', 'body', 'blood'];
+        case 'la':
+          return ['eucharistia', 'sacramentum', 'iesus', 'christus', 'missa', 'communio', 'panis', 'vinum', 'corpus', 'sanguis'];
+        default: // 'es'
+          return ['eucaristía', 'sacramento', 'jesús', 'cristo', 'misa', 'comunión', 'pan', 'vino', 'cuerpo', 'sangre'];
+      }
+    };
+
+    const keywords = getKeywords();
+
     // Add hero section
     index.push({
       title: data.hero.title,
       content: `${data.hero.quote} ${data.hero.subtitle}`,
-      section: language === 'es' ? 'Inicio' : 'Home',
+      section: language === 'es' ? 'Inicio' : language === 'en' ? 'Home' : 'Initium',
       sectionId: 'hero',
-      keywords: ['eucaristía', 'eucharist', 'sacramento', 'sacrament', 'jesús', 'jesus', 'cristo', 'christ']
+      keywords
     });
 
     // Add definition section
     index.push({
       title: data.definition.title,
       content: `${data.definition.subtitle} ${data.definition.cards.map(card => `${card.title} ${card.description}`).join(' ')}`,
-      section: language === 'es' ? 'Definición' : 'Definition',
+      section: language === 'es' ? 'Definición' : language === 'en' ? 'Definition' : 'Definitio',
       sectionId: 'definition',
-      keywords: ['definición', 'definition', 'sacramento', 'sacrament', 'presencia', 'presence', 'comunión', 'communion']
+      keywords: [...keywords, language === 'es' ? 'definición' : language === 'en' ? 'definition' : 'definitio']
     });
 
     // Add history section
@@ -60,9 +74,9 @@ export function useSearch(data: EucharistData, query: string, filters: string[],
       index.push({
         title: item.title,
         content: `${item.description} ${item.quote || ''} ${item.reference || ''}`,
-        section: language === 'es' ? 'Historia' : 'History',
+        section: language === 'es' ? 'Historia' : language === 'en' ? 'History' : 'Historia',
         sectionId: 'history',
-        keywords: ['historia', 'history', 'última cena', 'last supper', 'jesús', 'jesus', 'apóstoles', 'apostles']
+        keywords: [...keywords, language === 'es' ? 'historia' : language === 'en' ? 'history' : 'historia']
       });
     });
 
@@ -72,9 +86,9 @@ export function useSearch(data: EucharistData, query: string, filters: string[],
         index.push({
           title: item.title,
           content: item.description,
-          section: language === 'es' ? 'Elementos' : 'Elements',
+          section: language === 'es' ? 'Elementos' : language === 'en' ? 'Elements' : 'Elementa',
           sectionId: 'elements',
-          keywords: ['misa', 'mass', 'liturgia', 'liturgy', 'palabra', 'word', 'eucarística', 'eucharistic']
+          keywords: [...keywords, language === 'es' ? 'elementos' : language === 'en' ? 'elements' : 'elementa']
         });
       });
     });
@@ -84,9 +98,9 @@ export function useSearch(data: EucharistData, query: string, filters: string[],
       index.push({
         title: aspect.title,
         content: aspect.description,
-        section: language === 'es' ? 'Teología' : 'Theology',
+        section: language === 'es' ? 'Teología' : language === 'en' ? 'Theology' : 'Theologia',
         sectionId: 'theology',
-        keywords: ['teología', 'theology', 'sacrificio', 'sacrifice', 'presencia', 'presence', 'comunión', 'communion']
+        keywords: [...keywords, language === 'es' ? 'teología' : language === 'en' ? 'theology' : 'theologia']
       });
     });
 
@@ -94,9 +108,9 @@ export function useSearch(data: EucharistData, query: string, filters: string[],
       index.push({
         title: effect.title,
         content: effect.description,
-        section: language === 'es' ? 'Teología' : 'Theology',
+        section: language === 'es' ? 'Teología' : language === 'en' ? 'Theology' : 'Theologia',
         sectionId: 'theology',
-        keywords: ['efectos', 'effects', 'gracia', 'grace', 'vida eterna', 'eternal life']
+        keywords: [...keywords, language === 'es' ? 'efectos' : language === 'en' ? 'effects' : 'effectus']
       });
     });
 
@@ -105,9 +119,9 @@ export function useSearch(data: EucharistData, query: string, filters: string[],
       index.push({
         title: symbol.title,
         content: symbol.description,
-        section: language === 'es' ? 'Símbolos' : 'Symbols',
+        section: language === 'es' ? 'Símbolos' : language === 'en' ? 'Symbols' : 'Symbola',
         sectionId: 'symbols',
-        keywords: ['símbolos', 'symbols', 'pan', 'bread', 'vino', 'wine', 'cruz', 'cross', 'luz', 'light']
+        keywords: [...keywords, language === 'es' ? 'símbolos' : language === 'en' ? 'symbols' : 'symbola']
       });
     });
 
@@ -117,9 +131,9 @@ export function useSearch(data: EucharistData, query: string, filters: string[],
         index.push({
           title: prayer.title,
           content: prayer.text,
-          section: language === 'es' ? 'Oraciones' : 'Prayers',
+          section: language === 'es' ? 'Oraciones' : language === 'en' ? 'Prayers' : 'Orationes',
           sectionId: 'prayers',
-          keywords: ['oración', 'prayer', 'comunión', 'communion', 'preparación', 'preparation', 'acción de gracias', 'thanksgiving']
+          keywords: [...keywords, language === 'es' ? 'oraciones' : language === 'en' ? 'prayers' : 'orationes']
         });
       });
     });
@@ -128,9 +142,9 @@ export function useSearch(data: EucharistData, query: string, filters: string[],
     index.push({
       title: data.prayers.universal.title,
       content: `${data.prayers.universal.text} ${data.prayers.universal.author}`,
-      section: language === 'es' ? 'Oraciones' : 'Prayers',
+      section: language === 'es' ? 'Oraciones' : language === 'en' ? 'Prayers' : 'Orationes',
       sectionId: 'prayers',
-      keywords: ['oración universal', 'universal prayer', 'santo tomás', 'saint thomas', 'aquino', 'aquinas']
+      keywords: [...keywords, language === 'es' ? 'oración universal' : language === 'en' ? 'universal prayer' : 'prex universalis']
     });
 
     // Add resources section
@@ -138,9 +152,9 @@ export function useSearch(data: EucharistData, query: string, filters: string[],
       index.push({
         title: category.title,
         content: category.items.join(' '),
-        section: language === 'es' ? 'Recursos' : 'Resources',
+        section: language === 'es' ? 'Recursos' : language === 'en' ? 'Resources' : 'Fontes',
         sectionId: 'resources',
-        keywords: ['recursos', 'resources', 'documentos', 'documents', 'santos', 'saints', 'devociones', 'devotions']
+        keywords: [...keywords, language === 'es' ? 'recursos' : language === 'en' ? 'resources' : 'fontes']
       });
     });
 

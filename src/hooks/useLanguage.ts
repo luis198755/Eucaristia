@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export type Language = 'es' | 'en';
+export type Language = 'es' | 'en' | 'la';
 
 export function useLanguage() {
   const [language, setLanguage] = useState<Language>('es');
@@ -10,7 +10,7 @@ export function useLanguage() {
     const savedLanguage = localStorage.getItem('language') as Language;
     const browserLanguage = navigator.language.startsWith('en') ? 'en' : 'es';
     
-    if (savedLanguage && (savedLanguage === 'es' || savedLanguage === 'en')) {
+    if (savedLanguage && (savedLanguage === 'es' || savedLanguage === 'en' || savedLanguage === 'la')) {
       setLanguage(savedLanguage);
     } else {
       setLanguage(browserLanguage);
