@@ -121,7 +121,11 @@ function App() {
       {/* Hero Section */}
       <section id="hero" className="pt-16 min-h-screen flex items-center justify-center bg-white">
         <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
-          <Cross className="w-12 h-12 text-gray-900 mx-auto mb-8" />
+          <img 
+            src="https://images.pexels.com/photos/8468/bread-food-eating-breakfast.jpg?auto=compress&cs=tinysrgb&w=400" 
+            alt="Hostia Consagrada" 
+            className="w-24 h-24 mx-auto mb-8 rounded-full object-cover shadow-sm"
+          />
           
           <h1 className="text-5xl md:text-7xl font-light text-gray-900 mb-8 tracking-tight">
             La Eucaristía
