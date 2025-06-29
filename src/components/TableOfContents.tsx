@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronRight, ChevronDown, BookOpen, Bookmark, BookmarkCheck, Eye, EyeOff } from 'lucide-react';
+import { ChevronRight, ChevronDown, Menu, Bookmark, BookmarkCheck, Eye, EyeOff } from 'lucide-react';
 import { EucharistData } from '../types/eucharist';
 import { Language } from '../hooks/useLanguage';
 
@@ -115,7 +115,7 @@ export default function TableOfContents({
           className="reading-mode-menu-button bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group"
           title={language === 'es' ? 'Mostrar índice (T)' : 'Show index (T)'}
         >
-          <BookOpen className="w-5 h-5 text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white transition-colors" />
+          <Menu className="w-5 h-5 text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white transition-colors" />
           {bookmarks.length > 0 && (
             <div className="absolute -top-1 -right-1 w-3 h-3 bg-gray-900 dark:bg-white rounded-full flex items-center justify-center">
               <span className="text-xs text-white dark:text-gray-900 font-bold">
@@ -137,7 +137,7 @@ export default function TableOfContents({
         <div className="flex items-center justify-between p-3 border-b border-gray-200 dark:border-gray-700">
           {!isMinimized && (
             <div className="flex items-center space-x-2">
-              <BookOpen className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+              <Menu className="w-4 h-4 text-gray-600 dark:text-gray-400" />
               <span className="text-sm font-medium text-gray-900 dark:text-white">
                 {language === 'es' ? 'Índice' : 'Contents'}
               </span>
