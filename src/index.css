@@ -16,6 +16,42 @@
   font-family: inherit !important;
 }
 
+/* Reading Mode Menu Spacing */
+.reading-mode .table-of-contents {
+  right: 2rem !important; /* Más espacio desde el borde derecho */
+}
+
+.reading-mode .table-of-contents .w-64 {
+  width: 20rem !important; /* Menú más ancho */
+}
+
+.reading-mode .table-of-contents .max-h-96 {
+  max-height: 28rem !important; /* Más altura para mejor navegación */
+}
+
+.reading-mode .table-of-contents .p-3 {
+  padding: 1rem !important; /* Más padding interno */
+}
+
+.reading-mode .table-of-contents .space-y-1 > * + * {
+  margin-top: 0.75rem !important; /* Más espacio entre elementos */
+}
+
+.reading-mode .table-of-contents .text-sm {
+  font-size: 0.95rem !important; /* Texto ligeramente más grande */
+  line-height: 1.5 !important; /* Mejor espaciado de líneas */
+}
+
+.reading-mode .table-of-contents .text-xs {
+  font-size: 0.8rem !important; /* Texto pequeño más legible */
+}
+
+/* Botón flotante del menú en modo lectura */
+.reading-mode .reading-mode-menu-button {
+  right: 2rem !important; /* Alineado con el menú expandido */
+  padding: 0.875rem !important; /* Botón más grande */
+}
+
 .reading-mode section {
   font-size: var(--reading-font-size, 16px) !important;
   line-height: var(--reading-line-height, 1.6) !important;
