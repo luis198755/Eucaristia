@@ -1,3 +1,208 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Reading Mode Styles */
+.reading-mode {
+  /* Apply reading mode styles to content sections */
+}
+
+.reading-mode section {
+  font-size: var(--reading-font-size, 16px) !important;
+  line-height: var(--reading-line-height, 1.6) !important;
+  font-family: var(--reading-font-family, system-ui) !important;
+}
+
+.reading-mode .max-w-6xl,
+.reading-mode .max-w-4xl,
+.reading-mode .max-w-3xl,
+.reading-mode .max-w-2xl {
+  max-width: var(--reading-max-width, 800px) !important;
+}
+
+.reading-mode p,
+.reading-mode li,
+.reading-mode blockquote {
+  font-size: var(--reading-font-size, 16px) !important;
+  line-height: var(--reading-line-height, 1.6) !important;
+  font-family: var(--reading-font-family, system-ui) !important;
+}
+
+.reading-mode h1,
+.reading-mode h2,
+.reading-mode h3,
+.reading-mode h4 {
+  font-family: var(--reading-font-family, system-ui) !important;
+  line-height: calc(var(--reading-line-height, 1.6) * 0.9) !important;
+}
+
+/* High Contrast Mode */
+.high-contrast {
+  --tw-bg-opacity: 1;
+  --tw-text-opacity: 1;
+}
+
+.high-contrast,
+.high-contrast.dark {
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity)) !important;
+  color: rgb(0 0 0 / var(--tw-text-opacity)) !important;
+}
+
+.high-contrast * {
+  border-color: rgb(0 0 0 / 0.3) !important;
+}
+
+.high-contrast h1,
+.high-contrast h2,
+.high-contrast h3,
+.high-contrast h4,
+.high-contrast h5,
+.high-contrast h6 {
+  color: rgb(0 0 0 / var(--tw-text-opacity)) !important;
+  font-weight: 700 !important;
+}
+
+.high-contrast p,
+.high-contrast li,
+.high-contrast span,
+.high-contrast div {
+  color: rgb(0 0 0 / var(--tw-text-opacity)) !important;
+}
+
+.high-contrast button {
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity)) !important;
+  color: rgb(255 255 255 / var(--tw-text-opacity)) !important;
+  border: 2px solid rgb(0 0 0 / var(--tw-border-opacity, 1)) !important;
+}
+
+.high-contrast button:hover {
+  background-color: rgb(64 64 64 / var(--tw-bg-opacity)) !important;
+}
+
+.high-contrast .bg-gray-50,
+.high-contrast .bg-gray-100,
+.high-contrast .bg-gray-800,
+.high-contrast .bg-gray-900 {
+  background-color: rgb(240 240 240 / var(--tw-bg-opacity)) !important;
+}
+
+/* Night Mode (Enhanced Dark Mode) */
+.night-mode {
+  background-color: rgb(15 15 15) !important;
+  color: rgb(220 220 220) !important;
+}
+
+.night-mode section {
+  background-color: rgb(15 15 15) !important;
+}
+
+.night-mode .bg-white {
+  background-color: rgb(15 15 15) !important;
+}
+
+.night-mode .bg-gray-50 {
+  background-color: rgb(25 25 25) !important;
+}
+
+.night-mode .bg-gray-100 {
+  background-color: rgb(30 30 30) !important;
+}
+
+.night-mode .bg-gray-800 {
+  background-color: rgb(25 25 25) !important;
+}
+
+.night-mode .bg-gray-900 {
+  background-color: rgb(15 15 15) !important;
+}
+
+.night-mode h1,
+.night-mode h2,
+.night-mode h3,
+.night-mode h4,
+.night-mode h5,
+.night-mode h6 {
+  color: rgb(240 240 240) !important;
+}
+
+.night-mode p,
+.night-mode li,
+.night-mode span {
+  color: rgb(200 200 200) !important;
+}
+
+.night-mode .text-gray-600,
+.night-mode .text-gray-500,
+.night-mode .text-gray-400 {
+  color: rgb(160 160 160) !important;
+}
+
+.night-mode .border-gray-200,
+.night-mode .border-gray-300 {
+  border-color: rgb(60 60 60) !important;
+}
+
+.night-mode .border-gray-700,
+.night-mode .border-gray-800 {
+  border-color: rgb(40 40 40) !important;
+}
+
+/* Reading Mode Focus Styles */
+.reading-mode {
+  scroll-behavior: smooth;
+}
+
+.reading-mode section {
+  padding-top: 3rem !important;
+  padding-bottom: 3rem !important;
+}
+
+.reading-mode .max-w-6xl > *,
+.reading-mode .max-w-4xl > * {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Improved readability for reading mode */
+.reading-mode blockquote {
+  padding: 1.5rem !important;
+  margin: 2rem 0 !important;
+  border-left: 4px solid currentColor !important;
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+.night-mode blockquote {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+.reading-mode ul,
+.reading-mode ol {
+  padding-left: 2rem !important;
+  margin: 1.5rem 0 !important;
+}
+
+.reading-mode li {
+  margin: 0.75rem 0 !important;
+}
+
+/* Focus indicators for reading mode */
+.reading-mode button:focus,
+.reading-mode a:focus {
+  outline: 3px solid currentColor !important;
+  outline-offset: 2px !important;
+}
+
+/* Print styles for reading mode */
+@media print {
+  .reading-mode {
+    font-size: 12pt !important;
+    line-height: 1.5 !important;
+    color: black !important;
+    background: white !important;
+  }
+  
+  .reading-mode * {
+    color: black !important;
+    background: white !important;
+  }
+}

@@ -3,6 +3,7 @@ import Navigation from './components/Navigation';
 import SearchModal from './components/SearchModal';
 import TableOfContents from './components/TableOfContents';
 import ReadingProgressBar from './components/ReadingProgressBar';
+import ReadingModePanel from './components/ReadingModePanel';
 import HeroSection from './components/sections/HeroSection';
 import DefinitionSection from './components/sections/DefinitionSection';
 import HistorySection from './components/sections/HistorySection';
@@ -117,6 +118,8 @@ function App() {
         bookmarks={bookmarks}
         toggleBookmark={toggleBookmark}
       />
+
+      <ReadingModePanel language={language} />
 
       <HeroSection scrollToSection={handleScrollToSection} data={data} />
       <DefinitionSection data={data} />
