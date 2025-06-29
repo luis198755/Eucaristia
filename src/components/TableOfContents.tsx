@@ -22,9 +22,10 @@ export default function TableOfContents({
   bookmarks,
   toggleBookmark
 }: TableOfContentsProps) {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false); // Cambiado a false por defecto
   const [isMinimized, setIsMinimized] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [hasInteracted, setHasInteracted] = useState(false);
 
   const sections = data.navigation.items.filter(item => item.id !== 'hero');
 
@@ -40,29 +41,48 @@ export default function TableOfContents({
         case 'j':
         case 'ArrowDown':
           e.preventDefault();
+          setIsVisible(true);
+          setHasInteracted(true);
           setSelectedIndex(prev => Math.min(prev + 1, sections.length - 1));
           break;
         case 'k':
         case 'ArrowUp':
           e.preventDefault();
+          setIsVisible(true);
+          setHasInteracted(true);
           setSelectedIndex(prev => Math.max(prev - 1, 0));
           break;
         case 'Enter':
         case ' ':
           e.preventDefault();
-          scrollToSection(sections[selectedIndex].id);
+          if (isVisible) {
+            scrollToSection(sections[selectedIndex].id);
+          } else {
+            setIsVisible(true);
+            setHasInteracted(true);
+          }
           break;
         case 'b':
           e.preventDefault();
+          setIsVisible(true);
+          setHasInteracted(true);
           toggleBookmark(sections[selectedIndex].id);
           break;
         case 't':
           e.preventDefault();
           setIsVisible(!isVisible);
+          setHasInteracted(true);
           break;
         case 'm':
           e.preventDefault();
-          setIsMinimized(!isMinimized);
+          if (isVisible) {
+            setIsMinimized(!isMinimized);
+            setHasInteracted(true);
+          } else {
+            setIsVisible(true);
+            setIsMinimized(true);
+            setHasInteracted(true);
+          }
           break;
       }
     };
@@ -79,33 +99,110 @@ export default function TableOfContents({
     }
   }, [activeSection, sections]);
 
-  // Auto-hide on scroll
+  // Auto-hide on scroll (solo si el usuario ya interactuó)
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;
     
     const handleScroll = () => {
-      setIsVisible(true);
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
-        if (!isMinimized) {
+      if (hasInteracted && !isMinimized) {
+        setIsVisible(true);
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
           setIsVisible(false);
-        }
-      }, 3000);
+        }, 3000);
+      }
+    };
+
+    // Mostrar automáticamente después de cierto scroll si hay marcadores
+    const handleInitialScroll = () => {
+      if (!hasInteracted && bookmarks.length > 0 && window.scrollY > 500) {
+        setIsVisible(true);
+        setIsMinimized(true);
+        setHasInteracted(true);
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleInitialScroll);
+    
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('scroll', handleInitialScroll);
       clearTimeout(timeoutId);
     };
-  }, [isMinimized]);
+  }, [isMinimized, hasInteracted, bookmarks.length]);
 
-  if (!isVisible && !isMinimized) return null;
+  // Mostrar hint inicial después de unos segundos
+  useEffect(() => {
+    if (!hasInteracted) {
+      const hintTimeout = setTimeout(() => {
+        setIsVisible(true);
+        setTimeout(() => {
+          if (!hasInteracted) {
+            setIsVisible(false);
+          }
+        }, 2000);
+      }, 5000); // Mostrar hint después de 5 segundos
+
+      return () => clearTimeout(hintTimeout);
+    }
+  }, [hasInteracted]);
+
+  const handleManualToggle = () => {
+    setIsVisible(!isVisible);
+    setHasInteracted(true);
+  };
+
+  const handleMinimizeToggle = () => {
+    setIsMinimized(!isMinimized);
+    setHasInteracted(true);
+  };
+
+  const handleSectionClick = (sectionId: string) => {
+    scrollToSection(sectionId);
+    setHasInteracted(true);
+  };
+
+  const handleBookmarkToggle = (sectionId: string) => {
+    toggleBookmark(sectionId);
+    setHasInteracted(true);
+  };
+
+  // Botón flotante para mostrar el índice cuando está oculto
+  if (!isVisible) {
+    return (
+      <div className="fixed right-6 top-1/2 transform -translate-y-1/2 z-40">
+        <button
+          onClick={handleManualToggle}
+          className="bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group"
+          title={language === 'es' ? 'Mostrar índice (T)' : 'Show index (T)'}
+        >
+          <BookOpen className="w-5 h-5 text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white transition-colors" />
+          {bookmarks.length > 0 && (
+            <div className="absolute -top-1 -right-1 w-3 h-3 bg-gray-900 dark:bg-white rounded-full flex items-center justify-center">
+              <span className="text-xs text-white dark:text-gray-900 font-bold">
+                {bookmarks.length}
+              </span>
+            </div>
+          )}
+          {/* Hint visual para nuevos usuarios */}
+          {!hasInteracted && (
+            <div className="absolute -left-2 top-1/2 transform -translate-y-1/2 -translate-x-full">
+              <div className="bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-xs px-2 py-1 rounded whitespace-nowrap animate-pulse">
+                {language === 'es' ? 'Presiona T' : 'Press T'}
+              </div>
+              <div className="absolute top-1/2 right-0 transform -translate-y-1/2 translate-x-full">
+                <div className="w-0 h-0 border-l-4 border-l-gray-900 dark:border-l-white border-y-4 border-y-transparent"></div>
+              </div>
+            </div>
+          )}
+        </button>
+      </div>
+    );
+  }
 
   return (
-    <div className={`fixed right-6 top-1/2 transform -translate-y-1/2 z-40 transition-all duration-300 ${
-      isVisible || isMinimized ? 'opacity-100' : 'opacity-0 pointer-events-none'
-    }`}>
+    <div className="fixed right-6 top-1/2 transform -translate-y-1/2 z-40 transition-all duration-300">
       <div className={`bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg transition-all duration-300 ${
         isMinimized ? 'w-12' : 'w-64'
       }`}>
@@ -121,11 +218,18 @@ export default function TableOfContents({
           )}
           <div className="flex items-center space-x-1">
             <button
-              onClick={() => setIsMinimized(!isMinimized)}
+              onClick={handleMinimizeToggle}
               className="p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
-              title={isMinimized ? (language === 'es' ? 'Expandir' : 'Expand') : (language === 'es' ? 'Minimizar' : 'Minimize')}
+              title={isMinimized ? (language === 'es' ? 'Expandir (M)' : 'Expand (M)') : (language === 'es' ? 'Minimizar (M)' : 'Minimize (M)')}
             >
               {isMinimized ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
+            </button>
+            <button
+              onClick={handleManualToggle}
+              className="p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+              title={language === 'es' ? 'Ocultar (T)' : 'Hide (T)'}
+            >
+              <ChevronRight className="w-4 h-4" />
             </button>
           </div>
         </div>
@@ -167,7 +271,7 @@ export default function TableOfContents({
                     }`}
                   >
                     <button
-                      onClick={() => scrollToSection(section.id)}
+                      onClick={() => handleSectionClick(section.id)}
                       className="w-full flex items-center justify-between p-3 text-left hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                     >
                       <div className="flex items-center space-x-3">
@@ -199,12 +303,12 @@ export default function TableOfContents({
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
-                        toggleBookmark(section.id);
+                        handleBookmarkToggle(section.id);
                       }}
                       className="absolute right-8 top-1/2 transform -translate-y-1/2 p-1 opacity-0 group-hover:opacity-100 transition-opacity"
                       title={isBookmarked 
-                        ? (language === 'es' ? 'Quitar marcador' : 'Remove bookmark')
-                        : (language === 'es' ? 'Agregar marcador' : 'Add bookmark')
+                        ? (language === 'es' ? 'Quitar marcador (B)' : 'Remove bookmark (B)')
+                        : (language === 'es' ? 'Agregar marcador (B)' : 'Add bookmark (B)')
                       }
                     >
                       {isBookmarked ? (
@@ -262,7 +366,12 @@ export default function TableOfContents({
               </div>
               {bookmarks.length > 0 && (
                 <div className="flex justify-center">
-                  <BookmarkCheck className="w-4 h-4 text-gray-900 dark:text-white" />
+                  <div className="relative">
+                    <BookmarkCheck className="w-4 h-4 text-gray-900 dark:text-white" />
+                    <span className="absolute -top-1 -right-1 text-xs bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-full w-3 h-3 flex items-center justify-center font-bold">
+                      {bookmarks.length}
+                    </span>
+                  </div>
                 </div>
               )}
             </div>
