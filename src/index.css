@@ -7,6 +7,15 @@
   /* Apply reading mode styles to content sections */
 }
 
+/* Exclude navigation from reading mode styles */
+.reading-mode nav,
+.reading-mode nav *,
+.reading-mode .fixed {
+  font-size: inherit !important;
+  line-height: inherit !important;
+  font-family: inherit !important;
+}
+
 .reading-mode section {
   font-size: var(--reading-font-size, 16px) !important;
   line-height: var(--reading-line-height, 1.6) !important;
@@ -20,18 +29,18 @@
   max-width: var(--reading-max-width, 800px) !important;
 }
 
-.reading-mode p,
-.reading-mode li,
-.reading-mode blockquote {
+.reading-mode section p,
+.reading-mode section li,
+.reading-mode section blockquote {
   font-size: var(--reading-font-size, 16px) !important;
   line-height: var(--reading-line-height, 1.6) !important;
   font-family: var(--reading-font-family, system-ui) !important;
 }
 
-.reading-mode h1,
-.reading-mode h2,
-.reading-mode h3,
-.reading-mode h4 {
+.reading-mode section h1,
+.reading-mode section h2,
+.reading-mode section h3,
+.reading-mode section h4 {
   font-family: var(--reading-font-family, system-ui) !important;
   line-height: calc(var(--reading-line-height, 1.6) * 0.9) !important;
 }
@@ -84,6 +93,15 @@
 .high-contrast .bg-gray-800,
 .high-contrast .bg-gray-900 {
   background-color: rgb(240 240 240 / var(--tw-bg-opacity)) !important;
+}
+
+/* Exclude navigation from high contrast mode overrides */
+.high-contrast nav,
+.high-contrast nav *,
+.high-contrast .fixed {
+  color: inherit !important;
+  background-color: inherit !important;
+  font-weight: inherit !important;
 }
 
 /* Night Mode (Enhanced Dark Mode) */
@@ -147,6 +165,14 @@
   border-color: rgb(40 40 40) !important;
 }
 
+/* Exclude navigation from night mode overrides */
+.night-mode nav,
+.night-mode nav *,
+.night-mode .fixed {
+  background-color: inherit !important;
+  color: inherit !important;
+}
+
 /* Reading Mode Focus Styles */
 .reading-mode {
   scroll-behavior: smooth;
@@ -164,24 +190,24 @@
 }
 
 /* Improved readability for reading mode */
-.reading-mode blockquote {
+.reading-mode section blockquote {
   padding: 1.5rem !important;
   margin: 2rem 0 !important;
   border-left: 4px solid currentColor !important;
   background-color: rgba(0, 0, 0, 0.05) !important;
 }
 
-.night-mode blockquote {
+.night-mode section blockquote {
   background-color: rgba(255, 255, 255, 0.05) !important;
 }
 
-.reading-mode ul,
-.reading-mode ol {
+.reading-mode section ul,
+.reading-mode section ol {
   padding-left: 2rem !important;
   margin: 1.5rem 0 !important;
 }
 
-.reading-mode li {
+.reading-mode section li {
   margin: 0.75rem 0 !important;
 }
 
