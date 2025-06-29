@@ -4,6 +4,7 @@ import SearchModal from './components/SearchModal';
 import TableOfContents from './components/TableOfContents';
 import ReadingProgressBar from './components/ReadingProgressBar';
 import ReadingModePanel from './components/ReadingModePanel';
+import SEOHead from './components/SEOHead';
 import HeroSection from './components/sections/HeroSection';
 import DefinitionSection from './components/sections/DefinitionSection';
 import HistorySection from './components/sections/HistorySection';
@@ -86,6 +87,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
+      <SEOHead data={data} language={language} currentSection={activeSection} />
       <ReadingProgressBar progress={readingProgress} />
       
       <Navigation
@@ -121,14 +123,17 @@ function App() {
 
       <ReadingModePanel language={language} />
 
-      <HeroSection scrollToSection={handleScrollToSection} data={data} />
-      <DefinitionSection data={data} />
-      <HistorySection data={data} />
-      <ElementsSection data={data} />
-      <TheologySection data={data} />
-      <SymbolsSection data={data} />
-      <PrayersSection data={data} />
-      <ResourcesSection data={data} />
+      <main role="main">
+        <HeroSection scrollToSection={handleScrollToSection} data={data} />
+        <DefinitionSection data={data} />
+        <HistorySection data={data} />
+        <ElementsSection data={data} />
+        <TheologySection data={data} />
+        <SymbolsSection data={data} />
+        <PrayersSection data={data} />
+        <ResourcesSection data={data} />
+      </main>
+      
       <Footer data={data} />
     </div>
   );
