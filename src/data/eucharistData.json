@@ -1,0 +1,302 @@
+{
+  "site": {
+    "title": "La Eucaristía",
+    "subtitle": "Sacramento Central de la Fe Católica",
+    "description": "Información completa sobre la Eucaristía - Sacramento central de la fe católica",
+    "keywords": "Eucaristía, Sacramento, Misa, Catolicismo, Fe, Jesús, Cristo"
+  },
+  "navigation": {
+    "brand": "Eucaristía",
+    "items": [
+      { "id": "hero", "label": "Inicio" },
+      { "id": "definition", "label": "Definición" },
+      { "id": "history", "label": "Historia" },
+      { "id": "elements", "label": "Elementos" },
+      { "id": "theology", "label": "Teología" },
+      { "id": "symbols", "label": "Símbolos" },
+      { "id": "prayers", "label": "Oraciones" },
+      { "id": "resources", "label": "Recursos" }
+    ]
+  },
+  "hero": {
+    "title": "La Eucaristía",
+    "quote": "Yo soy el pan vivo que ha bajado del cielo",
+    "subtitle": "Sacramento central de la fe católica",
+    "cta": "Explorar"
+  },
+  "definition": {
+    "title": "Definición",
+    "subtitle": "La Eucaristía es el sacramento instituido por Jesucristo en la Última Cena",
+    "cards": [
+      {
+        "icon": "Heart",
+        "title": "Sacramento Central",
+        "description": "Fuente y cumbre de toda la vida cristiana, donde Cristo se hace presente bajo las especies del pan y del vino."
+      },
+      {
+        "icon": "Cross",
+        "title": "Presencia Real",
+        "description": "Cristo está verdaderamente presente bajo las apariencias del pan y del vino. No es solo un símbolo."
+      },
+      {
+        "icon": "Users",
+        "title": "Comunión",
+        "description": "Nos une en comunión con Cristo y entre nosotros como miembros del Cuerpo de Cristo."
+      }
+    ]
+  },
+  "history": {
+    "title": "Historia",
+    "subtitle": "Desde la Última Cena hasta nuestros días",
+    "timeline": [
+      {
+        "step": "1",
+        "title": "La Última Cena",
+        "description": "Jesús instituyó la Eucaristía durante la Última Cena con sus apóstoles, tomando pan y vino y diciendo: \"Esto es mi cuerpo... Esta es mi sangre\". Les mandó hacerlo en memoria suya.",
+        "quote": "Haced esto en conmemoración mía",
+        "reference": "Lucas 22:19"
+      },
+      {
+        "step": "2",
+        "title": "La Iglesia Primitiva",
+        "description": "Los primeros cristianos celebraban la \"fracción del pan\" siguiendo el mandato de Jesús. San Pablo describe esta práctica en sus cartas.",
+        "quote": "Porque yo recibí del Señor lo que os he enseñado",
+        "reference": "1 Corintios 11:23"
+      },
+      {
+        "step": "3",
+        "title": "Desarrollo Litúrgico",
+        "description": "A lo largo de los siglos, la celebración eucarística se desarrolló en diferentes tradiciones litúrgicas, manteniendo siempre los elementos esenciales establecidos por Cristo."
+      }
+    ]
+  },
+  "elements": {
+    "title": "Elementos de la Misa",
+    "subtitle": "Las partes principales de la celebración eucarística",
+    "sections": [
+      {
+        "title": "Liturgia de la Palabra",
+        "items": [
+          {
+            "number": "1",
+            "title": "Primera Lectura",
+            "description": "Generalmente del Antiguo Testamento"
+          },
+          {
+            "number": "2",
+            "title": "Salmo Responsorial",
+            "description": "Respuesta meditativa a la primera lectura"
+          },
+          {
+            "number": "3",
+            "title": "Segunda Lectura",
+            "description": "De las cartas apostólicas"
+          },
+          {
+            "icon": "Cross",
+            "title": "Evangelio",
+            "description": "La culminación de la Liturgia de la Palabra"
+          }
+        ]
+      },
+      {
+        "title": "Liturgia Eucarística",
+        "items": [
+          {
+            "number": "1",
+            "title": "Presentación de las Ofrendas",
+            "description": "Pan, vino y ofrendas de los fieles"
+          },
+          {
+            "number": "2",
+            "title": "Plegaria Eucarística",
+            "description": "Consagración del pan y del vino"
+          },
+          {
+            "number": "3",
+            "title": "Padre Nuestro",
+            "description": "La oración que nos enseñó Jesús"
+          },
+          {
+            "icon": "Heart",
+            "title": "Comunión",
+            "description": "Recepción del Cuerpo y Sangre de Cristo"
+          }
+        ]
+      }
+    ]
+  },
+  "theology": {
+    "title": "Significado Teológico",
+    "subtitle": "El misterio profundo de la Eucaristía en la fe católica",
+    "aspects": [
+      {
+        "icon": "Cross",
+        "title": "Sacrificio",
+        "description": "La Eucaristía actualiza de manera incruenta el sacrificio de Cristo en la cruz. Es el mismo sacrificio, no una repetición."
+      },
+      {
+        "icon": "Heart",
+        "title": "Comunión",
+        "description": "Es el banquete sagrado donde recibimos a Cristo como alimento espiritual, uniéndonos íntimamente con Él."
+      },
+      {
+        "icon": "Users",
+        "title": "Presencia",
+        "description": "Cristo está verdadera, real y sustancialmente presente bajo las especies eucarísticas."
+      }
+    ],
+    "effects": {
+      "title": "Efectos de la Eucaristía",
+      "items": [
+        {
+          "icon": "Heart",
+          "title": "Gracia Santificante",
+          "description": "Aumenta la vida divina en el alma"
+        },
+        {
+          "icon": "Users",
+          "title": "Unión con Cristo",
+          "description": "Estrecha nuestra relación personal"
+        },
+        {
+          "icon": "Cross",
+          "title": "Perdón de Pecados",
+          "description": "Borra los pecados veniales"
+        },
+        {
+          "icon": "Book",
+          "title": "Vida Eterna",
+          "description": "Garantía de resurrección"
+        }
+      ]
+    }
+  },
+  "symbols": {
+    "title": "Símbolos Eucarísticos",
+    "subtitle": "Los signos sagrados que nos ayudan a comprender el misterio",
+    "items": [
+      {
+        "symbol": "circle",
+        "title": "Pan",
+        "description": "Símbolo del alimento básico, representa a Cristo como el pan de vida que sostiene nuestra existencia espiritual."
+      },
+      {
+        "symbol": "circle-gray",
+        "title": "Vino",
+        "description": "Representa la sangre de Cristo derramada por nosotros. Es símbolo de alegría y de la nueva alianza."
+      },
+      {
+        "icon": "Cross",
+        "title": "Cruz",
+        "description": "El símbolo central del cristianismo, presente en cada Eucaristía como recordatorio del sacrificio redentor."
+      },
+      {
+        "icon": "Users",
+        "title": "Asamblea",
+        "description": "La comunidad reunida representa el Cuerpo de Cristo, unida en la celebración del misterio eucarístico."
+      },
+      {
+        "symbol": "light",
+        "title": "Luz",
+        "description": "Las velas representan a Cristo como luz del mundo, que ilumina las tinieblas del pecado."
+      },
+      {
+        "icon": "Heart",
+        "title": "Corazón",
+        "description": "Símbolo del amor infinito de Cristo, que se entrega completamente en cada Eucaristía."
+      }
+    ]
+  },
+  "prayers": {
+    "title": "Oraciones Eucarísticas",
+    "subtitle": "Oraciones tradicionales para antes y después de la comunión",
+    "sections": [
+      {
+        "title": "Antes de la Comunión",
+        "prayers": [
+          {
+            "title": "Oración de Preparación",
+            "text": "Señor, no soy digno de que entres en mi casa, pero una palabra tuya bastará para sanarme. Prepara mi corazón para reciberte con fe, esperanza y caridad."
+          },
+          {
+            "title": "Acto de Fe",
+            "text": "Señor mío Jesucristo, creo firmemente que estás presente en este Sacramento, verdadero Dios y verdadero hombre."
+          }
+        ]
+      },
+      {
+        "title": "Después de la Comunión",
+        "prayers": [
+          {
+            "title": "Acción de Gracias",
+            "text": "Te doy gracias, Señor Jesucristo, por haberme alimentado con tu Cuerpo y Sangre. Que esta comunión sea para mí fuente de vida eterna."
+          },
+          {
+            "title": "Ofrenda Personal",
+            "text": "Alma de Cristo, santifícame. Cuerpo de Cristo, sálvame. Sangre de Cristo, embriágame. Dentro de tus llagas, escóndeme."
+          }
+        ]
+      }
+    ],
+    "universal": {
+      "title": "Plegaria Universal",
+      "text": "Oh Dios, que en este Sacramento admirable nos dejaste el memorial de tu Pasión, te pedimos nos concedas venerar de tal modo los sagrados misterios de tu Cuerpo y de tu Sangre, que experimentemos constantemente en nosotros el fruto de tu redención.",
+      "author": "Oración de Santo Tomás de Aquino"
+    }
+  },
+  "resources": {
+    "title": "Recursos Adicionales",
+    "subtitle": "Materiales para profundizar en el conocimiento de la Eucaristía",
+    "categories": [
+      {
+        "icon": "Book",
+        "title": "Documentos Oficiales",
+        "items": [
+          "Catecismo de la Iglesia Católica",
+          "Concilio Vaticano II",
+          "Encíclica Ecclesia de Eucharistia",
+          "Instrucción General del Misal"
+        ]
+      },
+      {
+        "icon": "Users",
+        "title": "Santos Eucarísticos",
+        "items": [
+          "Santo Tomás de Aquino",
+          "San Tarsicio",
+          "Santa Juliana de Cornillon",
+          "San Juan María Vianney",
+          "Santa Teresa de Ávila"
+        ]
+      },
+      {
+        "icon": "Heart",
+        "title": "Devociones",
+        "items": [
+          "Adoración Eucarística",
+          "Corpus Christi",
+          "Hora Santa",
+          "Primera Comunión",
+          "Comunión espiritual"
+        ]
+      }
+    ],
+    "deepening": {
+      "title": "¿Deseas profundizar más?",
+      "description": "La Eucaristía es un misterio inagotable. Te invitamos a continuar tu formación espiritual y teológica sobre este sacramento central de nuestra fe.",
+      "tags": [
+        "Catequesis parroquial",
+        "Lecturas espirituales",
+        "Adoración Eucarística",
+        "Dirección espiritual"
+      ]
+    }
+  },
+  "footer": {
+    "title": "Eucaristía",
+    "quote": "El que come mi carne y bebe mi sangre, tiene vida eterna, y yo le resucitaré en el último día",
+    "reference": "Juan 6:54",
+    "copyright": "Desarrollado con devoción para la gloria de Dios"
+  }
+}
