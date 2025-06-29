@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Navigation from './components/Navigation';
+import SearchModal from './components/SearchModal';
 import HeroSection from './components/sections/HeroSection';
 import DefinitionSection from './components/sections/DefinitionSection';
 import HistorySection from './components/sections/HistorySection';
@@ -16,6 +17,7 @@ import { useEucharistData } from './hooks/useEucharistData';
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { activeSection, scrollToSection } = useScrollNavigation();
   const { isDarkMode, toggleDarkMode } = useDarkMode();
   const { language, changeLanguage } = useLanguage();
@@ -25,6 +27,27 @@ function App() {
     scrollToSection(sectionId);
     setIsMenuOpen(false);
   };
+
+  const handleSearchOpen = () => {
+    setIsSearchOpen(true);
+  };
+
+  const handleSearchClose = () => {
+    setIsSearchOpen(false);
+  };
+
+  // Keyboard shortcut for search
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        setIsSearchOpen(true);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   if (loading) {
     return (
@@ -66,6 +89,15 @@ function App() {
         data={data}
         language={language}
         changeLanguage={changeLanguage}
+        onSearchOpen={handleSearchOpen}
+      />
+
+      <SearchModal
+        isOpen={isSearchOpen}
+        onClose={handleSearchClose}
+        data={data}
+        language={language}
+        scrollToSection={handleScrollToSection}
       />
 
       <HeroSection scrollToSection={handleScrollToSection} data={data} />
