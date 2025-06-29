@@ -1,0 +1,108 @@
+import React from 'react';
+import { Cross, Menu, X, Moon, Sun } from 'lucide-react';
+
+interface NavigationProps {
+  isMenuOpen: boolean;
+  setIsMenuOpen: (open: boolean) => void;
+  activeSection: string;
+  isDarkMode: boolean;
+  toggleDarkMode: () => void;
+  scrollToSection: (sectionId: string) => void;
+}
+
+const navigationItems = [
+  { id: 'hero', label: 'Inicio' },
+  { id: 'definition', label: 'Definición' },
+  { id: 'history', label: 'Historia' },
+  { id: 'elements', label: 'Elementos' },
+  { id: 'theology', label: 'Teología' },
+  { id: 'symbols', label: 'Símbolos' },
+  { id: 'prayers', label: 'Oraciones' },
+  { id: 'resources', label: 'Recursos' }
+];
+
+export default function Navigation({
+  isMenuOpen,
+  setIsMenuOpen,
+  activeSection,
+  isDarkMode,
+  toggleDarkMode,
+  scrollToSection
+}: NavigationProps) {
+  return (
+    <nav className="fixed top-0 left-0 right-0 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm z-50 border-b border-gray-100 dark:border-gray-800 transition-colors duration-300">
+      <div className="max-w-6xl mx-auto px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          <div className="flex items-center space-x-3">
+            <Cross className="w-6 h-6 text-gray-900 dark:text-white" />
+            <span className="text-lg font-medium text-gray-900 dark:text-white">Eucaristía</span>
+          </div>
+          
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-8">
+            {navigationItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => scrollToSection(item.id)}
+                className={`text-sm font-medium transition-colors duration-200 ${
+                  activeSection === item.id
+                    ? 'text-gray-900 dark:text-white border-b-2 border-gray-900 dark:border-white pb-1'
+                    : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
+                }`}
+              >
+                {item.label}
+              </button>
+            ))}
+            
+            {/* Dark Mode Toggle */}
+            <button
+              onClick={toggleDarkMode}
+              className="p-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors duration-200"
+              aria-label="Toggle dark mode"
+            >
+              {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+            </button>
+          </div>
+
+          {/* Mobile menu button */}
+          <div className="md:hidden flex items-center space-x-2">
+            <button
+              onClick={toggleDarkMode}
+              className="p-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors duration-200"
+              aria-label="Toggle dark mode"
+            >
+              {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+            </button>
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="p-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors duration-200"
+            >
+              {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Navigation */}
+      {isMenuOpen && (
+        <div className="md:hidden bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 transition-colors duration-300">
+          <div className="px-6 py-4 space-y-3">
+            {navigationItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => scrollToSection(item.id)}
+                className={`block w-full text-left text-sm font-medium transition-colors duration-200 ${
+                  activeSection === item.id
+                    ? 'text-gray-900 dark:text-white'
+                    : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
+                }`}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+    </nav>
+  );
+}
