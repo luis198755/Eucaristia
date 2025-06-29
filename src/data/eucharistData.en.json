@@ -1,0 +1,302 @@
+{
+  "site": {
+    "title": "The Eucharist",
+    "subtitle": "Central Sacrament of the Catholic Faith",
+    "description": "Complete information about the Eucharist - Central sacrament of the Catholic faith",
+    "keywords": "Eucharist, Sacrament, Mass, Catholicism, Faith, Jesus, Christ"
+  },
+  "navigation": {
+    "brand": "Eucharist",
+    "items": [
+      { "id": "hero", "label": "Home" },
+      { "id": "definition", "label": "Definition" },
+      { "id": "history", "label": "History" },
+      { "id": "elements", "label": "Elements" },
+      { "id": "theology", "label": "Theology" },
+      { "id": "symbols", "label": "Symbols" },
+      { "id": "prayers", "label": "Prayers" },
+      { "id": "resources", "label": "Resources" }
+    ]
+  },
+  "hero": {
+    "title": "The Eucharist",
+    "quote": "I am the living bread that came down from heaven",
+    "subtitle": "Central sacrament of the Catholic faith",
+    "cta": "Explore"
+  },
+  "definition": {
+    "title": "Definition",
+    "subtitle": "The Eucharist is the sacrament instituted by Jesus Christ at the Last Supper",
+    "cards": [
+      {
+        "icon": "Heart",
+        "title": "Central Sacrament",
+        "description": "Source and summit of all Christian life, where Christ becomes present under the species of bread and wine."
+      },
+      {
+        "icon": "Cross",
+        "title": "Real Presence",
+        "description": "Christ is truly present under the appearances of bread and wine. It is not just a symbol."
+      },
+      {
+        "icon": "Users",
+        "title": "Communion",
+        "description": "It unites us in communion with Christ and among ourselves as members of the Body of Christ."
+      }
+    ]
+  },
+  "history": {
+    "title": "History",
+    "subtitle": "From the Last Supper to our days",
+    "timeline": [
+      {
+        "step": "1",
+        "title": "The Last Supper",
+        "description": "Jesus instituted the Eucharist during the Last Supper with his apostles, taking bread and wine and saying: \"This is my body... This is my blood\". He commanded them to do this in memory of him.",
+        "quote": "Do this in remembrance of me",
+        "reference": "Luke 22:19"
+      },
+      {
+        "step": "2",
+        "title": "The Early Church",
+        "description": "The first Christians celebrated the \"breaking of bread\" following Jesus' command. Saint Paul describes this practice in his letters.",
+        "quote": "For I received from the Lord what I also passed on to you",
+        "reference": "1 Corinthians 11:23"
+      },
+      {
+        "step": "3",
+        "title": "Liturgical Development",
+        "description": "Throughout the centuries, the Eucharistic celebration developed in different liturgical traditions, always maintaining the essential elements established by Christ."
+      }
+    ]
+  },
+  "elements": {
+    "title": "Elements of the Mass",
+    "subtitle": "The main parts of the Eucharistic celebration",
+    "sections": [
+      {
+        "title": "Liturgy of the Word",
+        "items": [
+          {
+            "number": "1",
+            "title": "First Reading",
+            "description": "Generally from the Old Testament"
+          },
+          {
+            "number": "2",
+            "title": "Responsorial Psalm",
+            "description": "Meditative response to the first reading"
+          },
+          {
+            "number": "3",
+            "title": "Second Reading",
+            "description": "From the apostolic letters"
+          },
+          {
+            "icon": "Cross",
+            "title": "Gospel",
+            "description": "The culmination of the Liturgy of the Word"
+          }
+        ]
+      },
+      {
+        "title": "Eucharistic Liturgy",
+        "items": [
+          {
+            "number": "1",
+            "title": "Presentation of Gifts",
+            "description": "Bread, wine and offerings from the faithful"
+          },
+          {
+            "number": "2",
+            "title": "Eucharistic Prayer",
+            "description": "Consecration of bread and wine"
+          },
+          {
+            "number": "3",
+            "title": "Our Father",
+            "description": "The prayer that Jesus taught us"
+          },
+          {
+            "icon": "Heart",
+            "title": "Communion",
+            "description": "Reception of the Body and Blood of Christ"
+          }
+        ]
+      }
+    ]
+  },
+  "theology": {
+    "title": "Theological Meaning",
+    "subtitle": "The profound mystery of the Eucharist in the Catholic faith",
+    "aspects": [
+      {
+        "icon": "Cross",
+        "title": "Sacrifice",
+        "description": "The Eucharist actualizes in an unbloody manner the sacrifice of Christ on the cross. It is the same sacrifice, not a repetition."
+      },
+      {
+        "icon": "Heart",
+        "title": "Communion",
+        "description": "It is the sacred banquet where we receive Christ as spiritual food, uniting us intimately with Him."
+      },
+      {
+        "icon": "Users",
+        "title": "Presence",
+        "description": "Christ is truly, really and substantially present under the Eucharistic species."
+      }
+    ],
+    "effects": {
+      "title": "Effects of the Eucharist",
+      "items": [
+        {
+          "icon": "Heart",
+          "title": "Sanctifying Grace",
+          "description": "Increases divine life in the soul"
+        },
+        {
+          "icon": "Users",
+          "title": "Union with Christ",
+          "description": "Strengthens our personal relationship"
+        },
+        {
+          "icon": "Cross",
+          "title": "Forgiveness of Sins",
+          "description": "Erases venial sins"
+        },
+        {
+          "icon": "Book",
+          "title": "Eternal Life",
+          "description": "Guarantee of resurrection"
+        }
+      ]
+    }
+  },
+  "symbols": {
+    "title": "Eucharistic Symbols",
+    "subtitle": "The sacred signs that help us understand the mystery",
+    "items": [
+      {
+        "symbol": "circle",
+        "title": "Bread",
+        "description": "Symbol of basic food, represents Christ as the bread of life that sustains our spiritual existence."
+      },
+      {
+        "symbol": "circle-gray",
+        "title": "Wine",
+        "description": "Represents the blood of Christ shed for us. It is a symbol of joy and the new covenant."
+      },
+      {
+        "icon": "Cross",
+        "title": "Cross",
+        "description": "The central symbol of Christianity, present in every Eucharist as a reminder of the redemptive sacrifice."
+      },
+      {
+        "icon": "Users",
+        "title": "Assembly",
+        "description": "The gathered community represents the Body of Christ, united in the celebration of the Eucharistic mystery."
+      },
+      {
+        "symbol": "light",
+        "title": "Light",
+        "description": "Candles represent Christ as the light of the world, who illuminates the darkness of sin."
+      },
+      {
+        "icon": "Heart",
+        "title": "Heart",
+        "description": "Symbol of Christ's infinite love, who gives himself completely in every Eucharist."
+      }
+    ]
+  },
+  "prayers": {
+    "title": "Eucharistic Prayers",
+    "subtitle": "Traditional prayers for before and after communion",
+    "sections": [
+      {
+        "title": "Before Communion",
+        "prayers": [
+          {
+            "title": "Prayer of Preparation",
+            "text": "Lord, I am not worthy that you should enter under my roof, but only say the word and my soul shall be healed. Prepare my heart to receive you with faith, hope and charity."
+          },
+          {
+            "title": "Act of Faith",
+            "text": "My Lord Jesus Christ, I firmly believe that you are present in this Sacrament, true God and true man."
+          }
+        ]
+      },
+      {
+        "title": "After Communion",
+        "prayers": [
+          {
+            "title": "Thanksgiving",
+            "text": "I thank you, Lord Jesus Christ, for having nourished me with your Body and Blood. May this communion be for me a source of eternal life."
+          },
+          {
+            "title": "Personal Offering",
+            "text": "Soul of Christ, sanctify me. Body of Christ, save me. Blood of Christ, inebriate me. Within your wounds, hide me."
+          }
+        ]
+      }
+    ],
+    "universal": {
+      "title": "Universal Prayer",
+      "text": "O God, who in this wonderful Sacrament left us a memorial of your Passion, grant us, we beseech you, so to venerate the sacred mysteries of your Body and Blood that we may always experience within ourselves the fruit of your redemption.",
+      "author": "Prayer of Saint Thomas Aquinas"
+    }
+  },
+  "resources": {
+    "title": "Additional Resources",
+    "subtitle": "Materials to deepen knowledge of the Eucharist",
+    "categories": [
+      {
+        "icon": "Book",
+        "title": "Official Documents",
+        "items": [
+          "Catechism of the Catholic Church",
+          "Second Vatican Council",
+          "Encyclical Ecclesia de Eucharistia",
+          "General Instruction of the Roman Missal"
+        ]
+      },
+      {
+        "icon": "Users",
+        "title": "Eucharistic Saints",
+        "items": [
+          "Saint Thomas Aquinas",
+          "Saint Tarcisius",
+          "Saint Juliana of Cornillon",
+          "Saint John Mary Vianney",
+          "Saint Teresa of Avila"
+        ]
+      },
+      {
+        "icon": "Heart",
+        "title": "Devotions",
+        "items": [
+          "Eucharistic Adoration",
+          "Corpus Christi",
+          "Holy Hour",
+          "First Communion",
+          "Spiritual Communion"
+        ]
+      }
+    ],
+    "deepening": {
+      "title": "Do you wish to deepen further?",
+      "description": "The Eucharist is an inexhaustible mystery. We invite you to continue your spiritual and theological formation on this central sacrament of our faith.",
+      "tags": [
+        "Parish catechesis",
+        "Spiritual readings",
+        "Eucharistic Adoration",
+        "Spiritual direction"
+      ]
+    }
+  },
+  "footer": {
+    "title": "Eucharist",
+    "quote": "Whoever eats my flesh and drinks my blood has eternal life, and I will raise them up at the last day",
+    "reference": "John 6:54",
+    "copyright": "Developed with devotion for the glory of God"
+  }
+}

@@ -1,6 +1,7 @@
 import React from 'react';
-import { Cross, Menu, X, Moon, Sun } from 'lucide-react';
+import { Cross, Menu, X, Moon, Sun, Globe } from 'lucide-react';
 import { EucharistData } from '../types/eucharist';
+import { Language } from '../hooks/useLanguage';
 
 interface NavigationProps {
   isMenuOpen: boolean;
@@ -10,6 +11,8 @@ interface NavigationProps {
   toggleDarkMode: () => void;
   scrollToSection: (sectionId: string) => void;
   data: EucharistData;
+  language: Language;
+  changeLanguage: (language: Language) => void;
 }
 
 export default function Navigation({
@@ -19,7 +22,9 @@ export default function Navigation({
   isDarkMode,
   toggleDarkMode,
   scrollToSection,
-  data
+  data,
+  language,
+  changeLanguage
 }: NavigationProps) {
   return (
     <nav className="fixed top-0 left-0 right-0 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm z-50 border-b border-gray-100 dark:border-gray-800 transition-colors duration-300">
@@ -46,6 +51,18 @@ export default function Navigation({
               </button>
             ))}
             
+            {/* Language Selector */}
+            <div className="relative">
+              <button
+                onClick={() => changeLanguage(language === 'es' ? 'en' : 'es')}
+                className="flex items-center space-x-1 p-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors duration-200"
+                aria-label="Change language"
+              >
+                <Globe className="w-4 h-4" />
+                <span className="text-sm font-medium">{language.toUpperCase()}</span>
+              </button>
+            </div>
+            
             {/* Dark Mode Toggle */}
             <button
               onClick={toggleDarkMode}
@@ -58,6 +75,14 @@ export default function Navigation({
 
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center space-x-2">
+            <button
+              onClick={() => changeLanguage(language === 'es' ? 'en' : 'es')}
+              className="flex items-center space-x-1 p-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors duration-200"
+              aria-label="Change language"
+            >
+              <Globe className="w-4 h-4" />
+              <span className="text-xs font-medium">{language.toUpperCase()}</span>
+            </button>
             <button
               onClick={toggleDarkMode}
               className="p-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors duration-200"

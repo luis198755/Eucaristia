@@ -11,13 +11,15 @@ import ResourcesSection from './components/sections/ResourcesSection';
 import Footer from './components/Footer';
 import { useScrollNavigation } from './hooks/useScrollNavigation';
 import { useDarkMode } from './hooks/useDarkMode';
+import { useLanguage } from './hooks/useLanguage';
 import { useEucharistData } from './hooks/useEucharistData';
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { activeSection, scrollToSection } = useScrollNavigation();
   const { isDarkMode, toggleDarkMode } = useDarkMode();
-  const { data, loading, error } = useEucharistData();
+  const { language, changeLanguage } = useLanguage();
+  const { data, loading, error } = useEucharistData(language);
 
   const handleScrollToSection = (sectionId: string) => {
     scrollToSection(sectionId);
@@ -29,7 +31,9 @@ function App() {
       <div className="min-h-screen bg-white dark:bg-gray-900 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 dark:border-white mx-auto mb-4"></div>
-          <p className="text-gray-600 dark:text-gray-300">Cargando...</p>
+          <p className="text-gray-600 dark:text-gray-300">
+            {language === 'es' ? 'Cargando...' : 'Loading...'}
+          </p>
         </div>
       </div>
     );
@@ -39,7 +43,12 @@ function App() {
     return (
       <div className="min-h-screen bg-white dark:bg-gray-900 flex items-center justify-center">
         <div className="text-center">
-          <p className="text-red-600 dark:text-red-400">Error al cargar los datos: {error}</p>
+          <p className="text-red-600 dark:text-red-400">
+            {language === 'es' 
+              ? `Error al cargar los datos: ${error}` 
+              : `Error loading data: ${error}`
+            }
+          </p>
         </div>
       </div>
     );
@@ -55,6 +64,8 @@ function App() {
         toggleDarkMode={toggleDarkMode}
         scrollToSection={handleScrollToSection}
         data={data}
+        language={language}
+        changeLanguage={changeLanguage}
       />
 
       <HeroSection scrollToSection={handleScrollToSection} data={data} />
