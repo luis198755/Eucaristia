@@ -34,7 +34,7 @@ export default function Navigation({
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center space-x-3">
             <Cross className="w-6 h-6 text-gray-900 dark:text-white" />
-            <span className="text-lg font-medium text-gray-900 dark:text-white">{data.navigation.brand}</span>
+            {/* <span className="text-lg font-medium text-gray-900 dark:text-white">{data.navigation.brand}</span> */}
           </div>
           
           {/* Desktop Navigation */}
