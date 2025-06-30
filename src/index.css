@@ -16,63 +16,96 @@
   font-family: inherit !important;
 }
 
-/* Reading Mode Navigation - Mantener centrado */
+/* Reading Mode Navigation - Centrado perfecto */
+.reading-mode nav {
+  /* Asegurar que la navegación no se vea afectada por elementos flotantes */
+  position: relative !important;
+  z-index: 60 !important;
+}
+
 .reading-mode nav .max-w-6xl {
-  /* Remover padding excesivo que descentraba la navegación */
-  padding-left: 1.5rem !important;
-  padding-right: 1.5rem !important;
+  /* Centrado perfecto sin interferencias */
+  max-width: 72rem !important;
   margin-left: auto !important;
   margin-right: auto !important;
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+  /* Asegurar que no haya desplazamientos */
+  transform: none !important;
+  left: auto !important;
+  right: auto !important;
 }
 
 .reading-mode nav .flex.items-center.justify-between {
-  /* Mantener la navegación centrada sin márgenes adicionales */
-  margin-left: 0 !important;
-  margin-right: 0 !important;
+  /* Mantener distribución equilibrada */
+  justify-content: space-between !important;
+  align-items: center !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
-/* Reading Mode Menu Spacing - Updated for top positioning */
+/* Asegurar que el logo/marca esté en su posición correcta */
+.reading-mode nav .flex.items-center.space-x-3 {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Asegurar que los controles de la derecha estén en su posición */
+.reading-mode nav .hidden.md\\:flex,
+.reading-mode nav .md\\:hidden {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Reading Mode Menu Spacing - Posicionamiento independiente */
 .reading-mode .table-of-contents {
-  left: 1.5rem !important; /* Posicionado a la izquierda */
-  top: 5rem !important; /* Más espacio desde arriba */
+  left: 1.5rem !important;
+  top: 5rem !important;
+  /* Asegurar que no interfiera con la navegación */
+  z-index: 40 !important;
 }
 
 .reading-mode .table-of-contents .w-64 {
-  width: 20rem !important; /* Menú más ancho */
+  width: 20rem !important;
 }
 
 .reading-mode .table-of-contents .max-h-96 {
-  max-height: 28rem !important; /* Más altura para mejor navegación */
+  max-height: 28rem !important;
 }
 
 .reading-mode .table-of-contents .p-3 {
-  padding: 1rem !important; /* Más padding interno */
+  padding: 1rem !important;
 }
 
 .reading-mode .table-of-contents .space-y-1 > * + * {
-  margin-top: 0.75rem !important; /* Más espacio entre elementos */
+  margin-top: 0.75rem !important;
 }
 
 .reading-mode .table-of-contents .text-sm {
-  font-size: 0.95rem !important; /* Texto ligeramente más grande */
-  line-height: 1.5 !important; /* Mejor espaciado de líneas */
+  font-size: 0.95rem !important;
+  line-height: 1.5 !important;
 }
 
 .reading-mode .table-of-contents .text-xs {
-  font-size: 0.8rem !important; /* Texto pequeño más legible */
+  font-size: 0.8rem !important;
 }
 
-/* Botón flotante del menú en modo lectura - Updated for top positioning */
+/* Botón flotante del menú en modo lectura */
 .reading-mode .reading-mode-menu-button {
-  left: 1.5rem !important; /* Alineado con el menú expandido a la izquierda */
-  top: 5rem !important; /* Posicionado en la parte superior */
-  padding: 0.875rem !important; /* Botón más grande */
+  left: 1.5rem !important;
+  top: 5rem !important;
+  padding: 0.875rem !important;
+  /* Asegurar que no interfiera con la navegación */
+  z-index: 40 !important;
 }
 
-/* Botón de modo lectura - mantener posición derecha */
+/* Botón de modo lectura - posicionamiento independiente */
 .reading-mode .fixed.right-6.top-20 {
   right: 1.5rem !important;
   top: 5rem !important;
+  /* Asegurar que no interfiera con la navegación */
+  z-index: 40 !important;
 }
 
 .reading-mode section {
@@ -282,18 +315,24 @@
   /* Move floating buttons to avoid overlap on mobile */
   .fixed.right-6.top-20,
   .fixed.left-6.top-20 {
-    top: 4.5rem !important; /* Closer to navigation on mobile */
+    top: 4.5rem !important;
   }
   
-  /* Mantener navegación centrada en móvil */
+  /* Mantener navegación perfectamente centrada en móvil */
   .reading-mode nav .max-w-6xl {
     padding-left: 1rem !important;
     padding-right: 1rem !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    /* Asegurar centrado perfecto en móvil */
+    width: 100% !important;
+    max-width: 100% !important;
   }
   
   .reading-mode nav .flex.items-center.justify-between {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
   }
   
   /* Adjust table of contents positioning on mobile */
