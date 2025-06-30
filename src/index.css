@@ -16,20 +16,24 @@
   font-family: inherit !important;
 }
 
-/* Reading Mode Navigation Spacing - Updated for top positioning */
+/* Reading Mode Navigation - Mantener centrado */
 .reading-mode nav .max-w-6xl {
-  padding-left: 24rem !important; /* Espacio a la izquierda para el índice */
-  padding-right: 24rem !important; /* Espacio a la derecha para el modo lectura */
+  /* Remover padding excesivo que descentraba la navegación */
+  padding-left: 1.5rem !important;
+  padding-right: 1.5rem !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
 
 .reading-mode nav .flex.items-center.justify-between {
-  margin-left: 2rem !important; /* Margen adicional para la navegación */
-  margin-right: 2rem !important; /* Margen adicional para la navegación */
+  /* Mantener la navegación centrada sin márgenes adicionales */
+  margin-left: 0 !important;
+  margin-right: 0 !important;
 }
 
 /* Reading Mode Menu Spacing - Updated for top positioning */
 .reading-mode .table-of-contents {
-  left: 2rem !important; /* Posicionado a la izquierda */
+  left: 1.5rem !important; /* Posicionado a la izquierda */
   top: 5rem !important; /* Más espacio desde arriba */
 }
 
@@ -60,15 +64,15 @@
 
 /* Botón flotante del menú en modo lectura - Updated for top positioning */
 .reading-mode .reading-mode-menu-button {
-  left: 2rem !important; /* Alineado con el menú expandido a la izquierda */
+  left: 1.5rem !important; /* Alineado con el menú expandido a la izquierda */
   top: 5rem !important; /* Posicionado en la parte superior */
   padding: 0.875rem !important; /* Botón más grande */
 }
 
-/* Espaciado específico para el ícono de la cruz en navegación */
-.reading-mode nav .flex.items-center.space-x-3 {
-  margin-left: 4rem !important; /* Espacio adicional para evitar encimarse */
-  margin-right: 4rem !important; /* Espacio adicional para evitar encimarse */
+/* Botón de modo lectura - mantener posición derecha */
+.reading-mode .fixed.right-6.top-20 {
+  right: 1.5rem !important;
+  top: 5rem !important;
 }
 
 .reading-mode section {
@@ -281,7 +285,7 @@
     top: 4.5rem !important; /* Closer to navigation on mobile */
   }
   
-  /* Adjust reading mode spacing on mobile */
+  /* Mantener navegación centrada en móvil */
   .reading-mode nav .max-w-6xl {
     padding-left: 1rem !important;
     padding-right: 1rem !important;
@@ -303,6 +307,11 @@
   /* Adjust reading mode button positioning on mobile */
   .reading-mode .reading-mode-menu-button {
     left: 1rem !important;
+  }
+  
+  /* Botón de modo lectura en móvil */
+  .reading-mode .fixed.right-6.top-20 {
+    right: 1rem !important;
   }
 }
 
