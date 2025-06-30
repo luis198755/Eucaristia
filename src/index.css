@@ -16,18 +16,21 @@
   font-family: inherit !important;
 }
 
-/* Reading Mode Navigation Spacing */
+/* Reading Mode Navigation Spacing - Updated for top positioning */
 .reading-mode nav .max-w-6xl {
-  padding-right: 24rem !important; /* Más espacio a la derecha para evitar encimarse con el menú */
+  padding-left: 24rem !important; /* Espacio a la izquierda para el índice */
+  padding-right: 24rem !important; /* Espacio a la derecha para el modo lectura */
 }
 
 .reading-mode nav .flex.items-center.justify-between {
+  margin-left: 2rem !important; /* Margen adicional para la navegación */
   margin-right: 2rem !important; /* Margen adicional para la navegación */
 }
 
-/* Reading Mode Menu Spacing */
+/* Reading Mode Menu Spacing - Updated for top positioning */
 .reading-mode .table-of-contents {
-  right: 2rem !important; /* Más espacio desde el borde derecho */
+  left: 2rem !important; /* Posicionado a la izquierda */
+  top: 5rem !important; /* Más espacio desde arriba */
 }
 
 .reading-mode .table-of-contents .w-64 {
@@ -55,14 +58,16 @@
   font-size: 0.8rem !important; /* Texto pequeño más legible */
 }
 
-/* Botón flotante del menú en modo lectura */
+/* Botón flotante del menú en modo lectura - Updated for top positioning */
 .reading-mode .reading-mode-menu-button {
-  right: 2rem !important; /* Alineado con el menú expandido */
+  left: 2rem !important; /* Alineado con el menú expandido a la izquierda */
+  top: 5rem !important; /* Posicionado en la parte superior */
   padding: 0.875rem !important; /* Botón más grande */
 }
 
 /* Espaciado específico para el ícono de la cruz en navegación */
 .reading-mode nav .flex.items-center.space-x-3 {
+  margin-left: 4rem !important; /* Espacio adicional para evitar encimarse */
   margin-right: 4rem !important; /* Espacio adicional para evitar encimarse */
 }
 
@@ -266,6 +271,39 @@
 .reading-mode a:focus {
   outline: 3px solid currentColor !important;
   outline-offset: 2px !important;
+}
+
+/* Responsive adjustments for floating buttons */
+@media (max-width: 768px) {
+  /* Move floating buttons to avoid overlap on mobile */
+  .fixed.right-6.top-20,
+  .fixed.left-6.top-20 {
+    top: 4.5rem !important; /* Closer to navigation on mobile */
+  }
+  
+  /* Adjust reading mode spacing on mobile */
+  .reading-mode nav .max-w-6xl {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
+  .reading-mode nav .flex.items-center.justify-between {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  
+  /* Adjust table of contents positioning on mobile */
+  .reading-mode .table-of-contents {
+    left: 1rem !important;
+    right: 1rem !important;
+    width: calc(100vw - 2rem) !important;
+    max-width: 20rem !important;
+  }
+  
+  /* Adjust reading mode button positioning on mobile */
+  .reading-mode .reading-mode-menu-button {
+    left: 1rem !important;
+  }
 }
 
 /* Print styles for reading mode */

@@ -106,10 +106,10 @@ export default function TableOfContents({
     toggleBookmark(sectionId);
   };
 
-  // Botón flotante para mostrar el índice cuando está oculto
+  // Botón flotante para mostrar el índice cuando está oculto - Moved to top
   if (!isVisible) {
     return (
-      <div className="fixed right-6 top-1/2 transform -translate-y-1/2 z-40">
+      <div className="fixed left-6 top-20 z-40">
         <button
           onClick={handleManualToggle}
           className="reading-mode-menu-button bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group"
@@ -129,7 +129,7 @@ export default function TableOfContents({
   }
 
   return (
-    <div className="fixed right-6 top-1/2 transform -translate-y-1/2 z-40 transition-all duration-300 table-of-contents">
+    <div className="fixed left-6 top-20 z-40 transition-all duration-300 table-of-contents">
       <div className={`bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg transition-all duration-300 ${
         isMinimized ? 'w-12' : 'w-64'
       }`}>

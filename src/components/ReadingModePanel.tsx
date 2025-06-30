@@ -66,8 +66,8 @@ export default function ReadingModePanel({ language }: ReadingModePanelProps) {
 
   return (
     <>
-      {/* Floating Reading Mode Button */}
-      <div className="fixed left-6 top-1/2 transform -translate-y-1/2 z-40">
+      {/* Floating Reading Mode Button - Moved to top */}
+      <div className="fixed right-6 top-20 z-40">
         <div className="flex flex-col space-y-2">
           <button
             onClick={toggleReadingMode}
