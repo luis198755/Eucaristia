@@ -358,9 +358,9 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
                   <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg shadow-lg max-h-80 overflow-y-auto z-10">
                     {bookCategories.map((category, categoryIndex) => (
                       <div key={categoryIndex}>
-                        {/* Category Header */}
-                        <div className="sticky top-0 bg-gray-100 dark:bg-gray-700 px-4 py-2 border-b border-gray-200 dark:border-gray-600">
-                          <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                        {/* Category Header - Enhanced styling */}
+                        <div className="sticky top-0 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 px-4 py-3 border-b border-blue-500 dark:border-blue-400">
+                          <h4 className="text-sm font-bold text-white uppercase tracking-wide">
                             {category.name}
                           </h4>
                         </div>
