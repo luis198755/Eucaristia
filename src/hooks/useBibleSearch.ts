@@ -24,11 +24,18 @@ interface BibleSearchResult {
   translation_note: string;
 }
 
+interface KeywordSearchResult {
+  keyword: string;
+  verses: Verse[];
+  count: number;
+}
+
 const API_BASE_URL = 'https://apigo.luissalberto.com';
 
 export function useBibleSearch() {
   const [books, setBooks] = useState<Book[]>([]);
   const [searchResult, setSearchResult] = useState<BibleSearchResult | null>(null);
+  const [keywordResults, setKeywordResults] = useState<KeywordSearchResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -56,6 +63,7 @@ export function useBibleSearch() {
 
     setIsLoading(true);
     setError(null);
+    setKeywordResults(null);
 
     try {
       // Clean and format the query for the API
@@ -85,6 +93,7 @@ export function useBibleSearch() {
 
     setIsLoading(true);
     setError(null);
+    setKeywordResults(null);
 
     try {
       const response = await fetch(`${API_BASE_URL}/${encodeURIComponent(reference)}`);
@@ -107,18 +116,57 @@ export function useBibleSearch() {
     }
   };
 
+  const searchByKeyword = async (keyword: string, limit: number = 20) => {
+    if (!keyword.trim()) return;
+
+    setIsLoading(true);
+    setError(null);
+    setSearchResult(null);
+
+    try {
+      const params = new URLSearchParams({
+        q: keyword.trim(),
+        limit: limit.toString()
+      });
+      
+      const response = await fetch(`${API_BASE_URL}/search?${params}`);
+      
+      if (!response.ok) {
+        if (response.status === 400) {
+          throw new Error('Parámetros de búsqueda inválidos');
+        }
+        if (response.status === 404) {
+          throw new Error('No se encontraron versículos con esta palabra clave');
+        }
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      setKeywordResults(data);
+    } catch (err) {
+      console.error('Error searching by keyword:', err);
+      setError(err instanceof Error ? err.message : 'Error al buscar por palabra clave');
+      setKeywordResults(null);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const clearResults = () => {
     setSearchResult(null);
+    setKeywordResults(null);
     setError(null);
   };
 
   return {
     books,
     searchResult,
+    keywordResults,
     isLoading,
     error,
     searchVerse,
     searchByReference,
+    searchByKeyword,
     clearResults
   };
 }

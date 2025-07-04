@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Search, X, Book, ChevronDown, ChevronRight, BookOpen, Quote } from 'lucide-react';
+import { Search, X, Book, ChevronDown, ChevronRight, BookOpen, Quote, Filter } from 'lucide-react';
 import { Language } from '../hooks/useLanguage';
 import { useBibleSearch } from '../hooks/useBibleSearch';
 
@@ -16,15 +16,20 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
   const [verse, setVerse] = useState('');
   const [verseEnd, setVerseEnd] = useState('');
   const [showBooksList, setShowBooksList] = useState(false);
+  const [searchMode, setSearchMode] = useState<'quick' | 'reference' | 'keyword'>('quick');
+  const [keywordQuery, setKeywordQuery] = useState('');
+  const [resultLimit, setResultLimit] = useState(20);
   const searchInputRef = useRef<HTMLInputElement>(null);
   
   const { 
     books, 
     searchResult, 
+    keywordResults,
     isLoading, 
     error, 
     searchVerse, 
     searchByReference,
+    searchByKeyword,
     clearResults 
   } = useBibleSearch();
 
@@ -54,7 +59,14 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
 
   const handleQuickSearch = () => {
     if (query.trim()) {
-      searchVerse(query);
+      // Detect if it's a reference or keyword search
+      const referencePattern = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+\+?\d+:\d+(-\d+)?$/;
+      if (referencePattern.test(query.trim())) {
+        searchVerse(query);
+      } else {
+        // It's a keyword search
+        searchByKeyword(query, resultLimit);
+      }
     }
   };
 
@@ -67,6 +79,12 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
     }
   };
 
+  const handleKeywordSearch = () => {
+    if (keywordQuery.trim()) {
+      searchByKeyword(keywordQuery, resultLimit);
+    }
+  };
+
   const handleBookSelect = (bookName: string) => {
     setSelectedBook(bookName);
     setShowBooksList(false);
@@ -74,7 +92,11 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
-      handleQuickSearch();
+      if (searchMode === 'keyword') {
+        handleKeywordSearch();
+      } else {
+        handleQuickSearch();
+      }
     }
   };
 
@@ -86,18 +108,24 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
           subtitle: 'Search in the Jerusalem Bible',
           quickSearch: 'Quick Search',
           quickSearchPlaceholder: 'e.g., "John 3:16" or "love"',
-          advancedSearch: 'Advanced Search',
+          referenceSearch: 'Reference Search',
+          keywordSearch: 'Keyword Search',
+          keywordPlaceholder: 'e.g., "love", "peace", "salvation"',
           selectBook: 'Select Book',
           chapter: 'Chapter',
           verse: 'Verse',
           verseEnd: 'End Verse',
+          resultLimit: 'Result Limit',
           search: 'Search',
           clear: 'Clear',
           loading: 'Searching...',
           noResults: 'No results found',
           error: 'Error searching',
           reference: 'Reference',
-          translation: 'Translation'
+          translation: 'Translation',
+          resultsFound: 'results found',
+          showingResults: 'Showing',
+          of: 'of'
         };
       case 'la':
         return {
@@ -105,18 +133,24 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
           subtitle: 'Quaerere in Biblia Hierosolymitana',
           quickSearch: 'Quaerere Celeriter',
           quickSearchPlaceholder: 'e.g., "Ioannes 3:16" vel "amor"',
-          advancedSearch: 'Quaerere Accuratius',
+          referenceSearch: 'Quaerere per Referentiam',
+          keywordSearch: 'Quaerere per Verbum',
+          keywordPlaceholder: 'e.g., "amor", "pax", "salus"',
           selectBook: 'Eligere Librum',
           chapter: 'Capitulum',
           verse: 'Versus',
           verseEnd: 'Versus Finalis',
+          resultLimit: 'Numerus Resultatum',
           search: 'Quaerere',
           clear: 'Purgare',
           loading: 'Quaerens...',
           noResults: 'Nihil inventum',
           error: 'Error quaerendi',
           reference: 'Referentia',
-          translation: 'Translatio'
+          translation: 'Translatio',
+          resultsFound: 'resultata inventa',
+          showingResults: 'Ostendere',
+          of: 'ex'
         };
       default: // 'es'
         return {
@@ -124,18 +158,24 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
           subtitle: 'Buscar en la Biblia de Jerusalén',
           quickSearch: 'Búsqueda Rápida',
           quickSearchPlaceholder: 'ej. "Juan 3:16" o "amor"',
-          advancedSearch: 'Búsqueda Avanzada',
+          referenceSearch: 'Búsqueda por Referencia',
+          keywordSearch: 'Búsqueda por Palabra Clave',
+          keywordPlaceholder: 'ej. "amor", "paz", "salvación"',
           selectBook: 'Seleccionar Libro',
           chapter: 'Capítulo',
           verse: 'Versículo',
           verseEnd: 'Versículo Final',
+          resultLimit: 'Límite de Resultados',
           search: 'Buscar',
           clear: 'Limpiar',
           loading: 'Buscando...',
           noResults: 'No se encontraron resultados',
           error: 'Error al buscar',
           reference: 'Referencia',
-          translation: 'Traducción'
+          translation: 'Traducción',
+          resultsFound: 'resultados encontrados',
+          showingResults: 'Mostrando',
+          of: 'de'
         };
     }
   };
@@ -146,7 +186,7 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-white dark:bg-gray-900 rounded-lg shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col">
+      <div className="bg-white dark:bg-gray-900 rounded-lg shadow-2xl w-full max-w-5xl max-h-[90vh] flex flex-col">
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
           <div className="flex items-center space-x-3">
@@ -168,13 +208,31 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
           </button>
         </div>
 
+        {/* Search Mode Tabs */}
+        <div className="flex border-b border-gray-200 dark:border-gray-700">
+          {[
+            { id: 'quick' as const, label: texts.quickSearch, icon: Search },
+            { id: 'reference' as const, label: texts.referenceSearch, icon: Book },
+            { id: 'keyword' as const, label: texts.keywordSearch, icon: Filter }
+          ].map(mode => (
+            <button
+              key={mode.id}
+              onClick={() => setSearchMode(mode.id)}
+              className={`flex items-center space-x-2 px-6 py-3 text-sm font-medium transition-colors ${
+                searchMode === mode.id
+                  ? 'text-gray-900 dark:text-white border-b-2 border-gray-900 dark:border-white'
+                  : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
+              }`}
+            >
+              <mode.icon className="w-4 h-4" />
+              <span>{mode.label}</span>
+            </button>
+          ))}
+        </div>
+
         {/* Search Interface */}
         <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-          {/* Quick Search */}
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-900 dark:text-white mb-3">
-              {texts.quickSearch}
-            </label>
+          {searchMode === 'quick' && (
             <div className="flex space-x-3">
               <div className="flex-1 relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -196,13 +254,9 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
                 {texts.search}
               </button>
             </div>
-          </div>
+          )}
 
-          {/* Advanced Search */}
-          <div>
-            <label className="block text-sm font-medium text-gray-900 dark:text-white mb-3">
-              {texts.advancedSearch}
-            </label>
+          {searchMode === 'reference' && (
             <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
               {/* Book Selector */}
               <div className="md:col-span-2 relative">
@@ -265,20 +319,58 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
                   {texts.search}
                 </button>
               </div>
-            </div>
 
-            {/* Optional End Verse */}
-            <div className="mt-3">
-              <input
-                type="number"
-                value={verseEnd}
-                onChange={(e) => setVerseEnd(e.target.value)}
-                placeholder={`${texts.verseEnd} (${language === 'es' ? 'opcional' : language === 'en' ? 'optional' : 'optionale'})`}
-                min="1"
-                className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-gray-900 dark:focus:ring-white focus:border-transparent"
-              />
+              {/* Optional End Verse - Full Width */}
+              <div className="md:col-span-5">
+                <input
+                  type="number"
+                  value={verseEnd}
+                  onChange={(e) => setVerseEnd(e.target.value)}
+                  placeholder={`${texts.verseEnd} (${language === 'es' ? 'opcional' : language === 'en' ? 'optional' : 'optionale'})`}
+                  min="1"
+                  className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-gray-900 dark:focus:ring-white focus:border-transparent"
+                />
+              </div>
             </div>
-          </div>
+          )}
+
+          {searchMode === 'keyword' && (
+            <div className="space-y-4">
+              <div className="flex space-x-3">
+                <div className="flex-1 relative">
+                  <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                  <input
+                    type="text"
+                    value={keywordQuery}
+                    onChange={(e) => setKeywordQuery(e.target.value)}
+                    onKeyPress={handleKeyPress}
+                    placeholder={texts.keywordPlaceholder}
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-gray-900 dark:focus:ring-white focus:border-transparent"
+                  />
+                </div>
+                <select
+                  value={resultLimit}
+                  onChange={(e) => setResultLimit(Number(e.target.value))}
+                  className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-gray-900 dark:focus:ring-white focus:border-transparent"
+                >
+                  <option value={10}>10</option>
+                  <option value={20}>20</option>
+                  <option value={50}>50</option>
+                  <option value={100}>100</option>
+                </select>
+                <button
+                  onClick={handleKeywordSearch}
+                  disabled={!keywordQuery.trim() || isLoading}
+                  className="px-6 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg hover:bg-gray-800 dark:hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                >
+                  {texts.search}
+                </button>
+              </div>
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                {texts.resultLimit}: {resultLimit} {texts.resultsFound}
+              </p>
+            </div>
+          )}
         </div>
 
         {/* Results */}
@@ -291,6 +383,43 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
           ) : error ? (
             <div className="text-center py-12">
               <p className="text-red-600 dark:text-red-400">{texts.error}: {error}</p>
+            </div>
+          ) : keywordResults ? (
+            <div className="space-y-6">
+              {/* Keyword Results Header */}
+              <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="text-lg font-medium text-gray-900 dark:text-white flex items-center">
+                    <Filter className="w-5 h-5 mr-2" />
+                    "{keywordResults.keyword}"
+                  </h3>
+                  <button
+                    onClick={clearResults}
+                    className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
+                  >
+                    {texts.clear}
+                  </button>
+                </div>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  {texts.showingResults} {keywordResults.verses.length} {texts.of} {keywordResults.count} {texts.resultsFound}
+                </p>
+              </div>
+
+              {/* Keyword Results */}
+              <div className="space-y-4">
+                {keywordResults.verses.map((verse, index) => (
+                  <div key={index} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-sm font-medium text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-full">
+                        {verse.book_name} {verse.chapter}:{verse.verse}
+                      </span>
+                    </div>
+                    <p className="text-gray-900 dark:text-white leading-relaxed">
+                      {verse.text}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
           ) : searchResult ? (
             <div className="space-y-6">
