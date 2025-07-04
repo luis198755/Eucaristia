@@ -9,6 +9,16 @@ interface BibleSearchModalProps {
   language: Language;
 }
 
+interface BookCategory {
+  name: string;
+  books: Array<{
+    id: string;
+    name: string;
+    abbreviation: string;
+    order: number;
+  }>;
+}
+
 export default function BibleSearchModal({ isOpen, onClose, language }: BibleSearchModalProps) {
   const [query, setQuery] = useState('');
   const [selectedBook, setSelectedBook] = useState('');
@@ -32,6 +42,80 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
     searchByKeyword,
     clearResults 
   } = useBibleSearch();
+
+  // Organize books by categories
+  const organizeBooksByCategories = (): BookCategory[] => {
+    const categories: BookCategory[] = [];
+
+    // Define book categories with their order ranges
+    const categoryDefinitions = [
+      {
+        name: language === 'es' ? 'Pentateuco' : language === 'en' ? 'Pentateuch' : 'Pentateuchos',
+        range: [1, 5] // Genesis to Deuteronomy
+      },
+      {
+        name: language === 'es' ? 'Libros Históricos' : language === 'en' ? 'Historical Books' : 'Libri Historici',
+        range: [6, 16] // Joshua to Esther
+      },
+      {
+        name: language === 'es' ? 'Libros Sapienciales' : language === 'en' ? 'Wisdom Books' : 'Libri Sapientialia',
+        range: [17, 23] // Job to Sirach
+      },
+      {
+        name: language === 'es' ? 'Libros Proféticos' : language === 'en' ? 'Prophetic Books' : 'Libri Prophetici',
+        range: [24, 46] // Isaiah to Malachi
+      },
+      {
+        name: language === 'es' ? 'Evangelios' : language === 'en' ? 'Gospels' : 'Evangelia',
+        range: [47, 50] // Matthew to John
+      },
+      {
+        name: language === 'es' ? 'Hechos y Cartas' : language === 'en' ? 'Acts and Letters' : 'Actus et Epistolae',
+        range: [51, 72] // Acts to Jude
+      },
+      {
+        name: language === 'es' ? 'Apocalipsis' : language === 'en' ? 'Revelation' : 'Apocalypsis',
+        range: [73, 73] // Revelation
+      }
+    ];
+
+    // Deuterocanonical books (scattered throughout)
+    const deuterocanonicalOrders = [12, 13, 14, 15, 16, 20, 21, 22, 23, 40, 41, 42, 43, 44, 45, 46];
+
+    categoryDefinitions.forEach(categoryDef => {
+      const categoryBooks = books.filter(book => 
+        book.order >= categoryDef.range[0] && book.order <= categoryDef.range[1]
+      );
+
+      if (categoryBooks.length > 0) {
+        categories.push({
+          name: categoryDef.name,
+          books: categoryBooks
+        });
+      }
+    });
+
+    // Add Deuterocanonical books as a separate category
+    const deuterocanonicalBooks = books.filter(book => 
+      deuterocanonicalOrders.includes(book.order)
+    );
+
+    if (deuterocanonicalBooks.length > 0) {
+      // Insert Deuterocanonical after Historical Books
+      const insertIndex = categories.findIndex(cat => 
+        cat.name.includes('Históricos') || cat.name.includes('Historical') || cat.name.includes('Historici')
+      ) + 1;
+
+      categories.splice(insertIndex, 0, {
+        name: language === 'es' ? 'Libros Deuterocanónicos' : language === 'en' ? 'Deuterocanonical Books' : 'Libri Deuterocanonicos',
+        books: deuterocanonicalBooks
+      });
+    }
+
+    return categories;
+  };
+
+  const bookCategories = organizeBooksByCategories();
 
   useEffect(() => {
     if (isOpen && searchInputRef.current) {
@@ -271,15 +355,32 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
                 </button>
                 
                 {showBooksList && (
-                  <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg shadow-lg max-h-60 overflow-y-auto z-10">
-                    {books.map((book) => (
-                      <button
-                        key={book.id}
-                        onClick={() => handleBookSelect(book.name)}
-                        className="w-full text-left px-4 py-2 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-900 dark:text-white transition-colors"
-                      >
-                        {book.name}
-                      </button>
+                  <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg shadow-lg max-h-80 overflow-y-auto z-10">
+                    {bookCategories.map((category, categoryIndex) => (
+                      <div key={categoryIndex}>
+                        {/* Category Header */}
+                        <div className="sticky top-0 bg-gray-100 dark:bg-gray-700 px-4 py-2 border-b border-gray-200 dark:border-gray-600">
+                          <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                            {category.name}
+                          </h4>
+                        </div>
+                        
+                        {/* Books in Category */}
+                        {category.books.map((book) => (
+                          <button
+                            key={book.id}
+                            onClick={() => handleBookSelect(book.name)}
+                            className="w-full text-left px-4 py-2 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-900 dark:text-white transition-colors border-b border-gray-100 dark:border-gray-700 last:border-b-0"
+                          >
+                            <div className="flex items-center justify-between">
+                              <span>{book.name}</span>
+                              <span className="text-xs text-gray-500 dark:text-gray-400">
+                                {book.abbreviation}
+                              </span>
+                            </div>
+                          </button>
+                        ))}
+                      </div>
                     ))}
                   </div>
                 )}
