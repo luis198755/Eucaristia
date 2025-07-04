@@ -45,6 +45,11 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
 
   // Organize books by categories
   const organizeBooksByCategories = (): BookCategory[] => {
+    // Return empty array if books is not available yet
+    if (!books || !Array.isArray(books)) {
+      return [];
+    }
+
     const categories: BookCategory[] = [];
 
     // Define book categories with their order ranges
@@ -98,7 +103,7 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
     // Add Deuterocanonical books as a separate category
     const deuterocanonicalBooks = books.filter(book => 
       deuterocanonicalOrders.includes(book.order)
-    );
+    ) || [];
 
     if (deuterocanonicalBooks.length > 0) {
       // Insert Deuterocanonical after Historical Books
