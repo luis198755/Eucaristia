@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Navigation from './components/Navigation';
 import SearchModal from './components/SearchModal';
+import BibleSearchModal from './components/BibleSearchModal';
+import BibleSearchButton from './components/BibleSearchButton';
 import TableOfContents from './components/TableOfContents';
 import ReadingProgressBar from './components/ReadingProgressBar';
 import ReadingModePanel from './components/ReadingModePanel';
@@ -24,6 +26,7 @@ import { useBookmarks } from './hooks/useBookmarks';
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isBibleSearchOpen, setIsBibleSearchOpen] = useState(false);
   const { activeSection, scrollToSection } = useScrollNavigation();
   const { isDarkMode, toggleDarkMode } = useDarkMode();
   const { language, changeLanguage } = useLanguage();
@@ -44,12 +47,24 @@ function App() {
     setIsSearchOpen(false);
   };
 
-  // Keyboard shortcut for search
+  const handleBibleSearchOpen = () => {
+    setIsBibleSearchOpen(true);
+  };
+
+  const handleBibleSearchClose = () => {
+    setIsBibleSearchOpen(false);
+  };
+
+  // Keyboard shortcuts
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
         e.preventDefault();
         setIsSearchOpen(true);
+      }
+      if ((e.ctrlKey || e.metaKey) && e.key === 'b') {
+        e.preventDefault();
+        setIsBibleSearchOpen(true);
       }
     };
 
@@ -111,6 +126,12 @@ function App() {
         scrollToSection={handleScrollToSection}
       />
 
+      <BibleSearchModal
+        isOpen={isBibleSearchOpen}
+        onClose={handleBibleSearchClose}
+        language={language}
+      />
+
       <TableOfContents
         data={data}
         language={language}
@@ -122,6 +143,17 @@ function App() {
       />
 
       <ReadingModePanel language={language} />
+
+      {/* Floating Action Buttons */}
+      <div className="fixed right-6 top-20 z-40">
+        <div className="flex flex-col space-y-2">
+          <ReadingModePanel language={language} />
+          <BibleSearchButton 
+            onClick={handleBibleSearchOpen}
+            language={language}
+          />
+        </div>
+      </div>
 
       <main role="main">
         <HeroSection scrollToSection={handleScrollToSection} data={data} />

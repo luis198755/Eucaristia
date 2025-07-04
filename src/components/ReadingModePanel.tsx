@@ -66,35 +66,32 @@ export default function ReadingModePanel({ language }: ReadingModePanelProps) {
 
   return (
     <>
-      {/* Floating Reading Mode Button - Moved to top */}
-      <div className="fixed right-6 top-20 z-40">
-        <div className="flex flex-col space-y-2">
-          <button
-            onClick={toggleReadingMode}
-            className={`p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-105 ${
-              isReadingMode
-                ? 'bg-gray-900 dark:bg-white text-white dark:text-gray-900'
-                : 'bg-white/90 dark:bg-gray-900/90 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
-            } backdrop-blur-sm border border-gray-200 dark:border-gray-700`}
-            title={language === 'es' 
-              ? `${isReadingMode ? 'Desactivar' : 'Activar'} modo lectura (Alt+R)` 
-              : `${isReadingMode ? 'Disable' : 'Enable'} reading mode (Alt+R)`
-            }
-          >
-            <BookOpen className="w-5 h-5" />
-          </button>
+      {/* Reading Mode Toggle Button */}
+      <button
+        onClick={toggleReadingMode}
+        className={`p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-105 ${
+          isReadingMode
+            ? 'bg-gray-900 dark:bg-white text-white dark:text-gray-900'
+            : 'bg-white/90 dark:bg-gray-900/90 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+        } backdrop-blur-sm border border-gray-200 dark:border-gray-700`}
+        title={language === 'es' 
+          ? `${isReadingMode ? 'Desactivar' : 'Activar'} modo lectura (Alt+R)` 
+          : `${isReadingMode ? 'Disable' : 'Enable'} reading mode (Alt+R)`
+        }
+      >
+        <BookOpen className="w-5 h-5" />
+      </button>
 
-          {isReadingMode && (
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-105 bg-white/90 dark:bg-gray-900/90 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white backdrop-blur-sm border border-gray-200 dark:border-gray-700"
-              title={language === 'es' ? 'Configurar lectura' : 'Reading settings'}
-            >
-              <Settings className="w-5 h-5" />
-            </button>
-          )}
-        </div>
-      </div>
+      {/* Settings Button (only visible when reading mode is active) */}
+      {isReadingMode && (
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-105 bg-white/90 dark:bg-gray-900/90 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white backdrop-blur-sm border border-gray-200 dark:border-gray-700"
+          title={language === 'es' ? 'Configurar lectura' : 'Reading settings'}
+        >
+          <Settings className="w-5 h-5" />
+        </button>
+      )}
 
       {/* Reading Mode Settings Panel */}
       {isOpen && isReadingMode && (
