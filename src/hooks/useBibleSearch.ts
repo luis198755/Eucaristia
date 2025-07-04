@@ -48,7 +48,10 @@ export function useBibleSearch() {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        setBooks(data.books || []);
+        
+        // Sort books by canonical order using the 'order' field
+        const sortedBooks = (data.books || []).sort((a: Book, b: Book) => a.order - b.order);
+        setBooks(sortedBooks);
       } catch (err) {
         console.error('Error loading books:', err);
         setError(err instanceof Error ? err.message : 'Error loading books');
