@@ -46,7 +46,7 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
   // Organize books by categories
   const organizeBooksByCategories = (): BookCategory[] => {
     // Return empty array if books is not available yet
-    if (!books || !Array.isArray(books)) {
+    if (!books || !Array.isArray(books) || books.length === 0) {
       return [];
     }
 
@@ -103,9 +103,9 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
     // Add Deuterocanonical books as a separate category
     const deuterocanonicalBooks = books.filter(book => 
       deuterocanonicalOrders.includes(book.order)
-    ) || [];
+    );
 
-    if (deuterocanonicalBooks.length > 0) {
+    if (deuterocanonicalBooks && deuterocanonicalBooks.length > 0) {
       // Insert Deuterocanonical after Historical Books
       const insertIndex = categories.findIndex(cat => 
         cat.name.includes('Históricos') || cat.name.includes('Historical') || cat.name.includes('Historici')
@@ -490,7 +490,7 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
             <div className="text-center py-12">
               <p className="text-red-600 dark:text-red-400">{texts.error}: {error}</p>
             </div>
-          ) : keywordResults ? (
+          ) : keywordResults && keywordResults.verses && keywordResults.verses.length > 0 ? (
             <div className="space-y-6">
               {/* Keyword Results Header */}
               <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
@@ -527,7 +527,7 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
                 ))}
               </div>
             </div>
-          ) : searchResult ? (
+          ) : searchResult && searchResult.verses && searchResult.verses.length > 0 ? (
             <div className="space-y-6">
               {/* Reference Info */}
               <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">

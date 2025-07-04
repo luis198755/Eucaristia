@@ -81,6 +81,12 @@ export function useBibleSearch() {
       }
       
       const data = await response.json();
+      
+      // Handle null verses in response
+      if (!data.verses || data.verses === null) {
+        throw new Error('No se encontraron versículos para esta referencia');
+      }
+      
       setSearchResult(data);
     } catch (err) {
       console.error('Error searching verse:', err);
@@ -109,6 +115,12 @@ export function useBibleSearch() {
       }
       
       const data = await response.json();
+      
+      // Handle null verses in response
+      if (!data.verses || data.verses === null) {
+        throw new Error('No se encontraron versículos para esta referencia');
+      }
+      
       setSearchResult(data);
     } catch (err) {
       console.error('Error searching by reference:', err);
@@ -145,7 +157,20 @@ export function useBibleSearch() {
       }
       
       const data = await response.json();
-      setKeywordResults(data);
+      
+      // Handle null verses in keyword search response
+      if (!data.verses || data.verses === null || data.count === 0) {
+        throw new Error(`No se encontraron versículos con la palabra "${keyword}"`);
+      }
+      
+      // Ensure verses is always an array
+      const processedData = {
+        ...data,
+        verses: Array.isArray(data.verses) ? data.verses : [],
+        count: data.count || 0
+      };
+      
+      setKeywordResults(processedData);
     } catch (err) {
       console.error('Error searching by keyword:', err);
       setError(err instanceof Error ? err.message : 'Error al buscar por palabra clave');
