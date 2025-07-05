@@ -27,12 +27,14 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
   const [verseEnd, setVerseEnd] = useState('');
   const [showBooksList, setShowBooksList] = useState(false);
   const [searchMode, setSearchMode] = useState<'quick' | 'reference' | 'keyword'>('quick');
+  const [selectedTranslation, setSelectedTranslation] = useState('');
   const [keywordQuery, setKeywordQuery] = useState('');
   const [resultLimit, setResultLimit] = useState(20);
   const searchInputRef = useRef<HTMLInputElement>(null);
   
   const { 
     books, 
+    translations,
     searchResult, 
     keywordResults,
     isLoading, 
@@ -151,10 +153,10 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
       // Detect if it's a reference or keyword search
       const referencePattern = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+\+?\d+:\d+(-\d+)?$/;
       if (referencePattern.test(query.trim())) {
-        searchVerse(query);
+        searchVerse(query, selectedTranslation || undefined);
       } else {
         // It's a keyword search
-        searchByKeyword(query, resultLimit);
+        searchByKeyword(query, resultLimit, selectedTranslation || undefined);
       }
     }
   };
@@ -164,13 +166,13 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
       const reference = verseEnd 
         ? `${selectedBook}+${chapter}:${verse}-${verseEnd}`
         : `${selectedBook}+${chapter}:${verse}`;
-      searchByReference(reference);
+      searchByReference(reference, selectedTranslation || undefined);
     }
   };
 
   const handleKeywordSearch = () => {
     if (keywordQuery.trim()) {
-      searchByKeyword(keywordQuery, resultLimit);
+      searchByKeyword(keywordQuery, resultLimit, selectedTranslation || undefined);
     }
   };
 
@@ -201,6 +203,8 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
           keywordSearch: 'Keyword Search',
           keywordPlaceholder: 'e.g., "love", "peace", "salvation"',
           selectBook: 'Select Book',
+          selectTranslation: 'Select Translation',
+          allTranslations: 'All translations',
           chapter: 'Chapter',
           verse: 'Verse',
           verseEnd: 'End Verse',
@@ -226,6 +230,8 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
           keywordSearch: 'Quaerere per Verbum',
           keywordPlaceholder: 'e.g., "amor", "pax", "salus"',
           selectBook: 'Eligere Librum',
+          selectTranslation: 'Eligere Translationem',
+          allTranslations: 'Omnes translationes',
           chapter: 'Capitulum',
           verse: 'Versus',
           verseEnd: 'Versus Finalis',
@@ -251,6 +257,8 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
           keywordSearch: 'Búsqueda por Palabra Clave',
           keywordPlaceholder: 'ej. "amor", "paz", "salvación"',
           selectBook: 'Seleccionar Libro',
+          selectTranslation: 'Seleccionar Traducción',
+          allTranslations: 'Todas las traducciones',
           chapter: 'Capítulo',
           verse: 'Versículo',
           verseEnd: 'Versículo Final',
@@ -321,6 +329,26 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
 
         {/* Search Interface */}
         <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+          {/* Translation Selector - Common for all modes */}
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              {texts.selectTranslation}
+            </label>
+            <select
+              value={selectedTranslation}
+              onChange={(e) => setSelectedTranslation(e.target.value)}
+              className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-gray-900 dark:focus:ring-white focus:border-transparent"
+            >
+              <option value="">{texts.allTranslations}</option>
+              {translations.map((translation) => (
+                <option key={translation.id} value={translation.id}>
+                  {translation.name}
+                  {translation.note && ` - ${translation.note}`}
+                </option>
+              ))}
+            </select>
+          </div>
+
           {searchMode === 'quick' && (
             <div className="flex space-x-3">
               <div className="flex-1 relative">
@@ -498,6 +526,11 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
                   <h3 className="text-lg font-medium text-gray-900 dark:text-white flex items-center">
                     <Filter className="w-5 h-5 mr-2" />
                     "{keywordResults.keyword}"
+                    {selectedTranslation && (
+                      <span className="ml-2 text-sm bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">
+                        {translations.find(t => t.id === selectedTranslation)?.name || selectedTranslation}
+                      </span>
+                    )}
                   </h3>
                   <button
                     onClick={clearResults}
@@ -535,6 +568,11 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
                   <h3 className="text-lg font-medium text-gray-900 dark:text-white flex items-center">
                     <Quote className="w-5 h-5 mr-2" />
                     {searchResult.reference}
+                    {selectedTranslation && (
+                      <span className="ml-2 text-sm bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">
+                        {translations.find(t => t.id === selectedTranslation)?.name || selectedTranslation}
+                      </span>
+                    )}
                   </h3>
                   <button
                     onClick={clearResults}

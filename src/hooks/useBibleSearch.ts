@@ -7,12 +7,21 @@ interface Book {
   order: number;
 }
 
+interface Translation {
+  id: string;
+  name: string;
+  note: string;
+}
+
 interface Verse {
   book_id: string;
   book_name: string;
   chapter: number;
   verse: number;
   text: string;
+  translation_id?: string;
+  translation_name?: string;
+  translation_note?: string;
 }
 
 interface BibleSearchResult {
@@ -34,12 +43,13 @@ const API_BASE_URL = 'https://apibible.luissalberto.com';
 
 export function useBibleSearch() {
   const [books, setBooks] = useState<Book[]>([]);
+  const [translations, setTranslations] = useState<Translation[]>([]);
   const [searchResult, setSearchResult] = useState<BibleSearchResult | null>(null);
   const [keywordResults, setKeywordResults] = useState<KeywordSearchResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Load books on mount
+  // Load books and translations on mount
   useEffect(() => {
     const loadBooks = async () => {
       try {
@@ -58,10 +68,25 @@ export function useBibleSearch() {
       }
     };
 
+    const loadTranslations = async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/translations`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setTranslations(data.translations || []);
+      } catch (err) {
+        console.error('Error loading translations:', err);
+        // Don't set error for translations as it's not critical
+      }
+    };
+
     loadBooks();
+    loadTranslations();
   }, []);
 
-  const searchVerse = async (query: string) => {
+  const searchVerse = async (query: string, translationId?: string) => {
     if (!query.trim()) return;
 
     setIsLoading(true);
@@ -71,7 +96,11 @@ export function useBibleSearch() {
     try {
       // Clean and format the query for the API
       const cleanQuery = query.trim().replace(/\s+/g, '+');
-      const response = await fetch(`${API_BASE_URL}/${encodeURIComponent(cleanQuery)}`);
+      const url = new URL(`${API_BASE_URL}/${encodeURIComponent(cleanQuery)}`);
+      if (translationId) {
+        url.searchParams.append('translation', translationId);
+      }
+      const response = await fetch(url.toString());
       
       if (!response.ok) {
         if (response.status === 404) {
@@ -97,7 +126,7 @@ export function useBibleSearch() {
     }
   };
 
-  const searchByReference = async (reference: string) => {
+  const searchByReference = async (reference: string, translationId?: string) => {
     if (!reference.trim()) return;
 
     setIsLoading(true);
@@ -105,7 +134,11 @@ export function useBibleSearch() {
     setKeywordResults(null);
 
     try {
-      const response = await fetch(`${API_BASE_URL}/${encodeURIComponent(reference)}`);
+      const url = new URL(`${API_BASE_URL}/${encodeURIComponent(reference)}`);
+      if (translationId) {
+        url.searchParams.append('translation', translationId);
+      }
+      const response = await fetch(url.toString());
       
       if (!response.ok) {
         if (response.status === 404) {
@@ -131,7 +164,7 @@ export function useBibleSearch() {
     }
   };
 
-  const searchByKeyword = async (keyword: string, limit: number = 20) => {
+  const searchByKeyword = async (keyword: string, limit: number = 20, translationId?: string) => {
     if (!keyword.trim()) return;
 
     setIsLoading(true);
@@ -143,6 +176,10 @@ export function useBibleSearch() {
         q: keyword.trim(),
         limit: limit.toString()
       });
+      
+      if (translationId) {
+        params.append('translation', translationId);
+      }
       
       const response = await fetch(`${API_BASE_URL}/search?${params}`);
       
@@ -188,6 +225,7 @@ export function useBibleSearch() {
 
   return {
     books,
+    translations,
     searchResult,
     keywordResults,
     isLoading,
