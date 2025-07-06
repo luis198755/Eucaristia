@@ -305,7 +305,8 @@
 @media (max-width: 768px) {
   /* Move floating buttons to avoid overlap on mobile */
   .fixed.right-6.top-20,
-  .fixed.left-6.top-20 {
+  .fixed.left-6.top-20,
+  .fixed.left-6.top-36 {
     top: 4.5rem !important;
   }
   
@@ -342,6 +343,12 @@
   /* Botón de modo lectura en móvil */
   .reading-mode .fixed.right-6.top-20 {
     right: 1rem !important;
+  }
+  
+  /* Botón de modo lectura en el lado izquierdo en móvil */
+  .reading-mode .fixed.left-6.top-36 {
+    left: 1rem !important;
+    top: 4.5rem !important;
   }
 }
 
