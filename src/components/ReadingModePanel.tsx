@@ -168,46 +168,46 @@ export default function ReadingModePanel({ language }: ReadingModePanelProps) {
             </div>
 
             {/* Content */}
-            <div className="p-6 flex-1 overflow-y-auto">
+            <div className="p-3 flex-1 overflow-y-auto">
               {activeTab === 'font' && (
-                <div className="space-y-6">
+                <div className="space-y-3">
                   {/* Font Size */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-900 dark:text-white mb-3">
+                    <label className="block text-xs font-medium text-gray-900 dark:text-white mb-2">
                       {language === 'es' ? 'Tamaño de fuente' : 'Font size'}
                     </label>
-                    <div className="flex items-center space-x-4">
+                    <div className="flex items-center space-x-2">
                       <button
                         onClick={decreaseFontSize}
                         disabled={settings.fontSize <= 12}
-                        className="p-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                        className="p-1.5 border border-gray-300 dark:border-gray-600 rounded hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                       >
-                        <Minus className="w-4 h-4" />
+                        <Minus className="w-3 h-3" />
                       </button>
                       <div className="flex-1 text-center">
-                        <span className="text-lg font-medium text-gray-900 dark:text-white">
+                        <span className="text-sm font-medium text-gray-900 dark:text-white">
                           {settings.fontSize}px
                         </span>
-                        <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                        <div className="text-xs text-gray-500 dark:text-gray-400">
                           {language === 'es' ? 'Tamaño actual' : 'Current size'}
                         </div>
                       </div>
                       <button
                         onClick={increaseFontSize}
                         disabled={settings.fontSize >= 24}
-                        className="p-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                        className="p-1.5 border border-gray-300 dark:border-gray-600 rounded hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                       >
-                        <Plus className="w-4 h-4" />
+                        <Plus className="w-3 h-3" />
                       </button>
                     </div>
                   </div>
 
                   {/* Font Family */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-900 dark:text-white mb-3">
+                    <label className="block text-xs font-medium text-gray-900 dark:text-white mb-2">
                       {language === 'es' ? 'Tipo de fuente' : 'Font family'}
                     </label>
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-3 gap-2">
                       {fontFamilies.map(font => (
                         <button
                           key={font.id}
@@ -219,10 +219,10 @@ export default function ReadingModePanel({ language }: ReadingModePanelProps) {
                           }`}
                         >
                           <div className="flex items-center justify-between">
-                            <span className="text-sm font-medium text-gray-900 dark:text-white">
+                            <span className="text-xs font-medium text-gray-900 dark:text-white">
                               {font.name}
                             </span>
-                            <span className="text-lg text-gray-600 dark:text-gray-400">
+                            <span className="text-sm text-gray-600 dark:text-gray-400">
                               {font.preview}
                             </span>
                           </div>
@@ -234,58 +234,58 @@ export default function ReadingModePanel({ language }: ReadingModePanelProps) {
               )}
 
               {activeTab === 'spacing' && (
-                <div className="space-y-6">
+                <div className="space-y-3">
                   {/* Line Height */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-900 dark:text-white mb-3">
+                    <label className="block text-xs font-medium text-gray-900 dark:text-white mb-2">
                       {language === 'es' ? 'Altura de línea' : 'Line height'}
                     </label>
-                    <div className="flex items-center space-x-4">
+                    <div className="flex items-center space-x-2">
                       <button
                         onClick={decreaseLineHeight}
                         disabled={settings.lineHeight <= 1.2}
-                        className="p-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                        className="p-1.5 border border-gray-300 dark:border-gray-600 rounded hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                       >
-                        <Minus className="w-4 h-4" />
+                        <Minus className="w-3 h-3" />
                       </button>
                       <div className="flex-1 text-center">
-                        <span className="text-lg font-medium text-gray-900 dark:text-white">
+                        <span className="text-sm font-medium text-gray-900 dark:text-white">
                           {settings.lineHeight}
                         </span>
-                        <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                        <div className="text-xs text-gray-500 dark:text-gray-400">
                           {language === 'es' ? 'Espaciado actual' : 'Current spacing'}
                         </div>
                       </div>
                       <button
                         onClick={increaseLineHeight}
                         disabled={settings.lineHeight >= 2.5}
-                        className="p-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                        className="p-1.5 border border-gray-300 dark:border-gray-600 rounded hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                       >
-                        <Plus className="w-4 h-4" />
+                        <Plus className="w-3 h-3" />
                       </button>
                     </div>
                   </div>
 
                   {/* Max Width */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-900 dark:text-white mb-3">
+                    <label className="block text-xs font-medium text-gray-900 dark:text-white mb-2">
                       {language === 'es' ? 'Ancho de columna' : 'Column width'}
                     </label>
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-4 gap-2">
                       {maxWidths.map(width => (
                         <button
                           key={width.value}
                           onClick={() => updateSettings({ maxWidth: width.value })}
-                          className={`p-3 border rounded-lg text-center transition-colors ${
+                          className={`p-2 border rounded text-center transition-colors ${
                             settings.maxWidth === width.value
                               ? 'border-gray-900 dark:border-white bg-gray-50 dark:bg-gray-800'
                               : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500'
                           }`}
                         >
-                          <div className="text-sm font-medium text-gray-900 dark:text-white">
+                          <div className="text-xs font-medium text-gray-900 dark:text-white">
                             {width.label}
                           </div>
-                          <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                          <div className="text-xs text-gray-500 dark:text-gray-400">
                             {width.value}px
                           </div>
                         </button>
@@ -296,16 +296,16 @@ export default function ReadingModePanel({ language }: ReadingModePanelProps) {
               )}
 
               {activeTab === 'appearance' && (
-                <div className="space-y-6">
+                <div className="space-y-3">
                   {/* High Contrast */}
-                  <div className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
-                    <div className="flex items-center space-x-3">
-                      <Eye className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                  <div className="flex items-center justify-between p-3 border border-gray-200 dark:border-gray-700 rounded">
+                    <div className="flex items-center space-x-2">
+                      <Eye className="w-4 h-4 text-gray-600 dark:text-gray-400" />
                       <div>
-                        <div className="font-medium text-gray-900 dark:text-white">
+                        <div className="text-xs font-medium text-gray-900 dark:text-white">
                           {language === 'es' ? 'Alto contraste' : 'High contrast'}
                         </div>
-                        <div className="text-sm text-gray-500 dark:text-gray-400">
+                        <div className="text-xs text-gray-500 dark:text-gray-400">
                           {language === 'es' 
                             ? 'Mejora la legibilidad con colores más contrastados' 
                             : 'Improves readability with higher contrast colors'
@@ -315,27 +315,27 @@ export default function ReadingModePanel({ language }: ReadingModePanelProps) {
                     </div>
                     <button
                       onClick={() => updateSettings({ isHighContrast: !settings.isHighContrast })}
-                      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                      className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${
                         settings.isHighContrast ? 'bg-gray-900 dark:bg-white' : 'bg-gray-200 dark:bg-gray-700'
                       }`}
                     >
                       <span
-                        className={`inline-block h-4 w-4 transform rounded-full bg-white dark:bg-gray-900 transition-transform ${
-                          settings.isHighContrast ? 'translate-x-6' : 'translate-x-1'
+                        className={`inline-block h-3 w-3 transform rounded-full bg-white dark:bg-gray-900 transition-transform ${
+                          settings.isHighContrast ? 'translate-x-5' : 'translate-x-1'
                         }`}
                       />
                     </button>
                   </div>
 
                   {/* Night Mode */}
-                  <div className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
-                    <div className="flex items-center space-x-3">
-                      <Moon className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                  <div className="flex items-center justify-between p-3 border border-gray-200 dark:border-gray-700 rounded">
+                    <div className="flex items-center space-x-2">
+                      <Moon className="w-4 h-4 text-gray-600 dark:text-gray-400" />
                       <div>
-                        <div className="font-medium text-gray-900 dark:text-white">
+                        <div className="text-xs font-medium text-gray-900 dark:text-white">
                           {language === 'es' ? 'Modo nocturno' : 'Night mode'}
                         </div>
-                        <div className="text-sm text-gray-500 dark:text-gray-400">
+                        <div className="text-xs text-gray-500 dark:text-gray-400">
                           {language === 'es' 
                             ? 'Colores optimizados para lectura nocturna' 
                             : 'Colors optimized for night reading'
@@ -345,25 +345,25 @@ export default function ReadingModePanel({ language }: ReadingModePanelProps) {
                     </div>
                     <button
                       onClick={() => updateSettings({ isNightMode: !settings.isNightMode })}
-                      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                      className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${
                         settings.isNightMode ? 'bg-gray-900 dark:bg-white' : 'bg-gray-200 dark:bg-gray-700'
                       }`}
                     >
                       <span
-                        className={`inline-block h-4 w-4 transform rounded-full bg-white dark:bg-gray-900 transition-transform ${
-                          settings.isNightMode ? 'translate-x-6' : 'translate-x-1'
+                        className={`inline-block h-3 w-3 transform rounded-full bg-white dark:bg-gray-900 transition-transform ${
+                          settings.isNightMode ? 'translate-x-5' : 'translate-x-1'
                         }`}
                       />
                     </button>
                   </div>
 
                   {/* Preview */}
-                  <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
-                    <div className="text-sm font-medium text-gray-900 dark:text-white mb-2">
+                  <div className="p-3 border border-gray-200 dark:border-gray-700 rounded">
+                    <div className="text-xs font-medium text-gray-900 dark:text-white mb-2">
                       {language === 'es' ? 'Vista previa' : 'Preview'}
                     </div>
                     <div 
-                      className="text-gray-700 dark:text-gray-300 leading-relaxed"
+                      className="text-xs text-gray-700 dark:text-gray-300 leading-relaxed"
                       style={{
                         fontSize: `${settings.fontSize}px`,
                         lineHeight: settings.lineHeight,
@@ -382,16 +382,16 @@ export default function ReadingModePanel({ language }: ReadingModePanelProps) {
             </div>
 
             {/* Footer */}
-            <div className="flex items-center justify-between p-6 border-t border-gray-200 dark:border-gray-700">
+            <div className="flex items-center justify-between p-3 border-t border-gray-200 dark:border-gray-700">
               <button
                 onClick={resetSettings}
-                className="flex items-center space-x-2 px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800"
+                className="flex items-center space-x-1 px-3 py-1.5 text-xs font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors border border-gray-300 dark:border-gray-600 rounded hover:bg-gray-50 dark:hover:bg-gray-800"
               >
-                <RotateCcw className="w-4 h-4" />
+                <RotateCcw className="w-3 h-3" />
                 <span>{language === 'es' ? 'Restablecer' : 'Reset'}</span>
               </button>
               
-              <div className="text-sm font-medium text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 px-3 py-2 rounded-lg">
+              <div className="text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">
                 {language === 'es' ? 'Alt+R para activar/desactivar' : 'Alt+R to toggle'}
               </div>
             </div>
