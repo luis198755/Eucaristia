@@ -130,18 +130,18 @@ export default function ReadingModePanel({ language }: ReadingModePanelProps) {
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
           <div className="bg-white dark:bg-gray-900 rounded-lg shadow-2xl w-full max-w-2xl my-8 flex flex-col">
             {/* Header */}
-            <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
+            <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
               <div className="flex items-center space-x-3">
-                <Eye className="w-6 h-6 text-gray-900 dark:text-white" />
-                <h2 className="text-xl font-medium text-gray-900 dark:text-white">
+                <Eye className="w-5 h-5 text-gray-900 dark:text-white" />
+                <h2 className="text-lg font-medium text-gray-900 dark:text-white">
                   {language === 'es' ? 'Configuración de Lectura' : 'Reading Settings'}
                 </h2>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                className="p-1.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4" />
               </button>
             </div>
 
