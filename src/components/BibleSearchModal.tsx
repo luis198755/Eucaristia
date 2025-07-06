@@ -524,16 +524,14 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
                 {searchResult.verses.map((verse, index) => (
                   <div key={index} className="border-l-2 border-gray-300 dark:border-gray-600 pl-2">
                     <div className="flex items-center space-x-1 mb-1">
-                      <div className="flex items-center space-x-2">
-                        <span className="text-xs font-medium text-gray-500 dark:text-gray-400">
-                          {verse.book_name} {verse.chapter}:{verse.verse}
+                      <span className="text-xs font-medium text-gray-500 dark:text-gray-400">
+                        {verse.chapter}:{verse.verse}
+                      </span>
+                      {searchResult.translation_name && (
+                        <span className="text-xs text-gray-400 dark:text-gray-500">
+                          ({searchResult.translation_name})
                         </span>
-                        {verse.translation_name && (
-                          <span className="text-xs text-gray-400 dark:text-gray-500">
-                            ({verse.translation_name})
-                          </span>
-                        )}
-                      </div>
+                      )}
                     </div>
                     <p className="text-sm text-gray-900 dark:text-white leading-relaxed">{verse.text}</p>
                   </div>
