@@ -491,7 +491,7 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
                   <div key={index} className="border border-gray-200 dark:border-gray-700 rounded p-2 hover:bg-gray-50 dark:hover:bg-gray-800">
                     <div className="flex items-center justify-between mb-1">
                       <span className="text-xs font-medium text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-700 px-1.5 py-0.5 rounded">
-                        {verse.book_name} {verse.chapter}:{verse.verse}
+                        {verse.chapter}:{verse.verse}
                       </span>
                     </div>
                     <p className="text-sm text-gray-900 dark:text-white leading-relaxed">{verse.text}</p>
@@ -518,7 +518,7 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
                   <div key={index} className="border-l-2 border-gray-300 dark:border-gray-600 pl-2">
                     <div className="flex items-center space-x-1 mb-1">
                       <span className="text-xs font-medium text-gray-500 dark:text-gray-400">
-                        {verse.book_name} {verse.chapter}:{verse.verse}
+                        {verse.chapter}:{verse.verse}
                       </span>
                     </div>
                     <p className="text-sm text-gray-900 dark:text-white leading-relaxed">{verse.text}</p>
