@@ -306,7 +306,7 @@
   /* Move floating buttons to avoid overlap on mobile */
   .fixed.right-6.top-20,
   .fixed.left-6.top-20,
-  .fixed.left-6.top-36 {
+  .fixed.left-6.top-20 {
     top: 4.5rem !important;
   }
   
@@ -343,24 +343,6 @@
   /* Botón de modo lectura en móvil */
   .reading-mode .fixed.right-6.top-20 {
     right: 1rem !important;
-  }
-  
-  /* Botón de modo lectura en el lado izquierdo en móvil */
-  .reading-mode .fixed.left-6.top-36 {
-    left: 1rem !important;
-    top: 4.5rem !important;
-  }
-  
-  /* Asegurar que el espaciado horizontal se mantenga en móvil */
-  .reading-mode .fixed.left-6.top-36 .flex.items-center.space-x-3 {
-    gap: 0.75rem !important;
-  }
-  
-  /* En pantallas muy pequeñas, reducir el espaciado */
-  @media (max-width: 480px) {
-    .fixed.left-6.top-36 .flex.items-center.space-x-3 {
-      gap: 0.5rem !important;
-    }
   }
 }
 
