@@ -112,7 +112,7 @@ export default function TableOfContents({
       <div className="fixed left-6 top-20 z-40">
         <button
           onClick={handleManualToggle}
-          className="reading-mode-menu-button bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group"
+          className="bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group"
           title={language === 'es' ? 'Mostrar índice (T)' : 'Show index (T)'}
         >
           <Menu className="w-5 h-5 text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white transition-colors" />

@@ -92,15 +92,6 @@
 }
 
 /* Botón flotante del menú en modo lectura */
-.reading-mode .reading-mode-menu-button {
-  left: 1.5rem !important;
-  top: 5rem !important;
-  padding: 0.875rem !important;
-  /* Asegurar que no interfiera con la navegación */
-  z-index: 40 !important;
-}
-
-/* Botón de modo lectura - posicionamiento independiente */
 .reading-mode .fixed.right-6.top-20 {
   right: 1.5rem !important;
   top: 5rem !important;
