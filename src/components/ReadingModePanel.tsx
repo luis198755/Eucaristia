@@ -104,8 +104,8 @@ export default function ReadingModePanel({ language }: ReadingModePanelProps) {
       >
         <Eye className="w-5 h-5" />
         
-        {/* Discrete label behind the icon */}
-        <span className="absolute left-full ml-3 top-1/2 transform -translate-y-1/2 px-2 py-1 bg-gray-900/80 dark:bg-white/80 text-white dark:text-gray-900 text-xs font-medium rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none">
+        {/* Discrete label below the icon */}
+        <span className="absolute top-full mt-2 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-gray-900/80 dark:bg-white/80 text-white dark:text-gray-900 text-xs font-medium rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none">
           {getReadingModeLabel()}
         </span>
         </button>
@@ -119,8 +119,8 @@ export default function ReadingModePanel({ language }: ReadingModePanelProps) {
         >
           <Settings className="w-5 h-5" />
           
-          {/* Discrete label behind the icon */}
-          <span className="absolute left-full ml-3 top-1/2 transform -translate-y-1/2 px-2 py-1 bg-gray-900/80 dark:bg-white/80 text-white dark:text-gray-900 text-xs font-medium rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none">
+          {/* Discrete label below the icon */}
+          <span className="absolute top-full mt-2 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-gray-900/80 dark:bg-white/80 text-white dark:text-gray-900 text-xs font-medium rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none">
             {getSettingsLabel()}
           </span>
         </button>
