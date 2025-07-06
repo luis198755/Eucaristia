@@ -142,9 +142,11 @@ function App() {
         toggleBookmark={toggleBookmark}
       />
 
-      {/* Reading Mode Button - Left side below menu */}
+      {/* Reading Mode Buttons - Left side below menu with horizontal spacing */}
       <div className="fixed left-6 top-36 z-40">
+        <div className="flex items-center space-x-3">
         <ReadingModePanel language={language} />
+        </div>
       </div>
 
       {/* Bible Search Button - Right side */}
