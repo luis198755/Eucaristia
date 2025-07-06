@@ -495,7 +495,7 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
                           {verse.book_name} {verse.chapter}:{verse.verse}
                         </span>
                         {verse.translation_name && (
-                          <span className="text-xs text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-800 px-1 py-0.5 rounded">
+                          <span className="text-xs text-gray-400 dark:text-gray-600 opacity-60">
                             {verse.translation_name}
                           </span>
                         )}
@@ -528,7 +528,7 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
                         {verse.chapter}:{verse.verse}
                       </span>
                       {searchResult.translation_name && (
-                        <span className="text-xs text-gray-400 dark:text-gray-500">
+                        <span className="text-xs text-gray-400 dark:text-gray-600 opacity-50">
                           ({searchResult.translation_name})
                         </span>
                       )}
