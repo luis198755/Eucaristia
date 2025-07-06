@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Search, X, Book, ChevronDown, ChevronRight, BookOpen, Quote, Filter } from 'lucide-react';
+import { Search, X, Book, ChevronDown, BookOpen, Quote, Filter } from 'lucide-react';
 import { Language } from '../hooks/useLanguage';
 import { useBibleSearch } from '../hooks/useBibleSearch';
 
@@ -47,47 +47,41 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
 
   // Organize books by categories
   const organizeBooksByCategories = (): BookCategory[] => {
-    // Return empty array if books is not available yet
     if (!books || !Array.isArray(books) || books.length === 0) {
       return [];
     }
 
     const categories: BookCategory[] = [];
-
-    // Define book categories with their order ranges
     const categoryDefinitions = [
       {
         name: language === 'es' ? 'Pentateuco' : language === 'en' ? 'Pentateuch' : 'Pentateuchos',
-        range: [1, 5] // Genesis to Deuteronomy
+        range: [1, 5]
       },
       {
-        name: language === 'es' ? 'Libros Históricos' : language === 'en' ? 'Historical Books' : 'Libri Historici',
-        range: [6, 16] // Joshua to Esther
+        name: language === 'es' ? 'Históricos' : language === 'en' ? 'Historical' : 'Historici',
+        range: [6, 16]
       },
       {
-        name: language === 'es' ? 'Libros Sapienciales' : language === 'en' ? 'Wisdom Books' : 'Libri Sapientialia',
-        range: [17, 23] // Job to Sirach
+        name: language === 'es' ? 'Sapienciales' : language === 'en' ? 'Wisdom' : 'Sapientialia',
+        range: [17, 23]
       },
       {
-        name: language === 'es' ? 'Libros Proféticos' : language === 'en' ? 'Prophetic Books' : 'Libri Prophetici',
-        range: [24, 46] // Isaiah to Malachi
+        name: language === 'es' ? 'Proféticos' : language === 'en' ? 'Prophetic' : 'Prophetici',
+        range: [24, 46]
       },
       {
         name: language === 'es' ? 'Evangelios' : language === 'en' ? 'Gospels' : 'Evangelia',
-        range: [47, 50] // Matthew to John
+        range: [47, 50]
       },
       {
-        name: language === 'es' ? 'Hechos y Cartas' : language === 'en' ? 'Acts and Letters' : 'Actus et Epistolae',
-        range: [51, 72] // Acts to Jude
+        name: language === 'es' ? 'NT Cartas' : language === 'en' ? 'NT Letters' : 'Epistolae',
+        range: [51, 72]
       },
       {
         name: language === 'es' ? 'Apocalipsis' : language === 'en' ? 'Revelation' : 'Apocalypsis',
-        range: [73, 73] // Revelation
+        range: [73, 73]
       }
     ];
-
-    // Deuterocanonical books (scattered throughout)
-    const deuterocanonicalOrders = [12, 13, 14, 15, 16, 20, 21, 22, 23, 40, 41, 42, 43, 44, 45, 46];
 
     categoryDefinitions.forEach(categoryDef => {
       const categoryBooks = books.filter(book => 
@@ -101,23 +95,6 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
         });
       }
     });
-
-    // Add Deuterocanonical books as a separate category
-    const deuterocanonicalBooks = books.filter(book => 
-      deuterocanonicalOrders.includes(book.order)
-    );
-
-    if (deuterocanonicalBooks && deuterocanonicalBooks.length > 0) {
-      // Insert Deuterocanonical after Historical Books
-      const insertIndex = categories.findIndex(cat => 
-        cat.name.includes('Históricos') || cat.name.includes('Historical') || cat.name.includes('Historici')
-      ) + 1;
-
-      categories.splice(insertIndex, 0, {
-        name: language === 'es' ? 'Libros Deuterocanónicos' : language === 'en' ? 'Deuterocanonical Books' : 'Libri Deuterocanonicos',
-        books: deuterocanonicalBooks
-      });
-    }
 
     return categories;
   };
@@ -150,12 +127,10 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
 
   const handleQuickSearch = () => {
     if (query.trim()) {
-      // Detect if it's a reference or keyword search
       const referencePattern = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+\+?\d+:\d+(-\d+)?$/;
       if (referencePattern.test(query.trim())) {
         searchVerse(query, selectedTranslation || undefined);
       } else {
-        // It's a keyword search
         searchByKeyword(query, resultLimit, selectedTranslation || undefined);
       }
     }
@@ -185,6 +160,8 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
     if (e.key === 'Enter') {
       if (searchMode === 'keyword') {
         handleKeywordSearch();
+      } else if (searchMode === 'reference') {
+        handleReferenceSearch();
       } else {
         handleQuickSearch();
       }
@@ -195,84 +172,60 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
     switch (language) {
       case 'en':
         return {
-          title: 'Bible Search',
-          subtitle: 'Search in the Jerusalem Bible',
-          quickSearch: 'Quick Search',
-          quickSearchPlaceholder: 'e.g., "John 3:16" or "love"',
-          referenceSearch: 'Reference Search',
-          keywordSearch: 'Keyword Search',
-          keywordPlaceholder: 'e.g., "love", "peace", "salvation"',
-          selectBook: 'Select Book',
-          selectTranslation: 'Select Translation',
-          allTranslations: 'All translations',
-          chapter: 'Chapter',
-          verse: 'Verse',
-          verseEnd: 'End Verse',
-          resultLimit: 'Result Limit',
+          title: 'Bible',
+          quick: 'Quick',
+          ref: 'Reference',
+          word: 'Word',
+          allTrans: 'All translations',
+          selectBook: 'Book',
+          chapter: 'Ch',
+          verse: 'V',
+          end: 'End',
           search: 'Search',
           clear: 'Clear',
           loading: 'Searching...',
-          noResults: 'No results found',
-          error: 'Error searching',
-          reference: 'Reference',
-          translation: 'Translation',
-          resultsFound: 'results found',
-          showingResults: 'Showing',
-          of: 'of'
+          noResults: 'No results',
+          showing: 'Showing',
+          of: 'of',
+          results: 'results'
         };
       case 'la':
         return {
-          title: 'Quaerere in Biblia',
-          subtitle: 'Quaerere in Biblia Hierosolymitana',
-          quickSearch: 'Quaerere Celeriter',
-          quickSearchPlaceholder: 'e.g., "Ioannes 3:16" vel "amor"',
-          referenceSearch: 'Quaerere per Referentiam',
-          keywordSearch: 'Quaerere per Verbum',
-          keywordPlaceholder: 'e.g., "amor", "pax", "salus"',
-          selectBook: 'Eligere Librum',
-          selectTranslation: 'Eligere Translationem',
-          allTranslations: 'Omnes translationes',
-          chapter: 'Capitulum',
-          verse: 'Versus',
-          verseEnd: 'Versus Finalis',
-          resultLimit: 'Numerus Resultatum',
+          title: 'Biblia',
+          quick: 'Celeriter',
+          ref: 'Referentia',
+          word: 'Verbum',
+          allTrans: 'Omnes',
+          selectBook: 'Liber',
+          chapter: 'Cap',
+          verse: 'V',
+          end: 'Fin',
           search: 'Quaerere',
           clear: 'Purgare',
           loading: 'Quaerens...',
-          noResults: 'Nihil inventum',
-          error: 'Error quaerendi',
-          reference: 'Referentia',
-          translation: 'Translatio',
-          resultsFound: 'resultata inventa',
-          showingResults: 'Ostendere',
-          of: 'ex'
+          noResults: 'Nihil',
+          showing: 'Ostendere',
+          of: 'ex',
+          results: 'resultata'
         };
-      default: // 'es'
+      default:
         return {
-          title: 'Búsqueda Bíblica',
-          subtitle: 'Buscar en la Biblia de Jerusalén',
-          quickSearch: 'Búsqueda Rápida',
-          quickSearchPlaceholder: 'ej. "Juan 3:16" o "amor"',
-          referenceSearch: 'Búsqueda por Referencia',
-          keywordSearch: 'Búsqueda por Palabra Clave',
-          keywordPlaceholder: 'ej. "amor", "paz", "salvación"',
-          selectBook: 'Seleccionar Libro',
-          selectTranslation: 'Seleccionar Traducción',
-          allTranslations: 'Todas las traducciones',
-          chapter: 'Capítulo',
-          verse: 'Versículo',
-          verseEnd: 'Versículo Final',
-          resultLimit: 'Límite de Resultados',
+          title: 'Biblia',
+          quick: 'Rápida',
+          ref: 'Referencia',
+          word: 'Palabra',
+          allTrans: 'Todas',
+          selectBook: 'Libro',
+          chapter: 'Cap',
+          verse: 'V',
+          end: 'Fin',
           search: 'Buscar',
           clear: 'Limpiar',
           loading: 'Buscando...',
-          noResults: 'No se encontraron resultados',
-          error: 'Error al buscar',
-          reference: 'Referencia',
-          translation: 'Traducción',
-          resultsFound: 'resultados encontrados',
-          showingResults: 'Mostrando',
-          of: 'de'
+          noResults: 'Sin resultados',
+          showing: 'Mostrando',
+          of: 'de',
+          results: 'resultados'
         };
     }
   };
@@ -282,87 +235,75 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-start justify-center p-2 md:p-4 md:items-center">
-      <div className="bg-white dark:bg-gray-900 rounded-lg shadow-2xl w-full max-w-5xl max-h-[95vh] md:max-h-[90vh] flex flex-col mt-2 md:mt-0">
-        {/* Header */}
-        <div className="flex items-center justify-between p-3 md:p-6 border-b border-gray-200 dark:border-gray-700">
-          <div className="flex items-center space-x-3">
-            <BookOpen className="w-6 h-6 text-gray-900 dark:text-white" />
-            <div>
-              <h2 className="text-lg md:text-xl font-medium text-gray-900 dark:text-white">
-                {texts.title}
-              </h2>
-              <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400">
-                {texts.subtitle}
-              </p>
-            </div>
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-2">
+      <div className="bg-white dark:bg-gray-900 rounded-lg shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col">
+        {/* Ultra-compact Header */}
+        <div className="flex items-center justify-between p-2 border-b border-gray-200 dark:border-gray-700">
+          <div className="flex items-center space-x-2">
+            <BookOpen className="w-5 h-5 text-gray-900 dark:text-white" />
+            <h2 className="text-base font-medium text-gray-900 dark:text-white">{texts.title}</h2>
           </div>
-          <button
-            onClick={onClose}
-            className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
-          >
-            <X className="w-5 h-5" />
+          <button onClick={onClose} className="p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+            <X className="w-4 h-4" />
           </button>
         </div>
 
-        {/* Search Mode Tabs */}
-        <div className="flex border-b border-gray-200 dark:border-gray-700 overflow-x-auto">
+        {/* Compact Tabs */}
+        <div className="flex border-b border-gray-200 dark:border-gray-700">
           {[
-            { id: 'quick' as const, label: texts.quickSearch, icon: Search },
-            { id: 'reference' as const, label: texts.referenceSearch, icon: Book },
-            { id: 'keyword' as const, label: texts.keywordSearch, icon: Filter }
+            { id: 'quick' as const, label: texts.quick, icon: Search },
+            { id: 'reference' as const, label: texts.ref, icon: Book },
+            { id: 'keyword' as const, label: texts.word, icon: Filter }
           ].map(mode => (
             <button
               key={mode.id}
               onClick={() => setSearchMode(mode.id)}
-              className={`flex items-center space-x-2 px-6 py-3 text-sm font-medium transition-colors ${
+              className={`flex items-center space-x-1 px-3 py-2 text-xs font-medium transition-colors ${
                 searchMode === mode.id
                   ? 'text-gray-900 dark:text-white border-b-2 border-gray-900 dark:border-white'
                   : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
-              } whitespace-nowrap`}
+              }`}
             >
-              <mode.icon className="w-4 h-4" />
+              <mode.icon className="w-3 h-3" />
               <span>{mode.label}</span>
             </button>
           ))}
         </div>
 
-        {/* Search Interface */}
-        <div className="p-3 border-b border-gray-200 dark:border-gray-700">
-          {/* Compact Translation Selector */}
-          <div className="mb-3">
-            <select
-              value={selectedTranslation}
-              onChange={(e) => setSelectedTranslation(e.target.value)}
-              className="w-full p-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-1 focus:ring-gray-900 dark:focus:ring-white focus:border-transparent"
-            >
-              <option value="">{texts.allTranslations}</option>
-              {translations.map((translation) => (
-                <option key={translation.id} value={translation.id}>
-                  {translation.name}
-                </option>
-              ))}
-            </select>
-          </div>
+        {/* Ultra-compact Search Interface */}
+        <div className="p-2 border-b border-gray-200 dark:border-gray-700 space-y-2">
+          {/* Inline Translation Selector */}
+          <select
+            value={selectedTranslation}
+            onChange={(e) => setSelectedTranslation(e.target.value)}
+            className="w-full p-1.5 text-xs border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-1 focus:ring-gray-900 dark:focus:ring-white"
+          >
+            <option value="">{texts.allTrans}</option>
+            {translations.map((translation) => (
+              <option key={translation.id} value={translation.id}>
+                {translation.name.split(' ')[0]} {/* Show only first word */}
+              </option>
+            ))}
+          </select>
 
           {searchMode === 'quick' && (
-            <div className="flex space-x-2">
-              <div className="flex-1 relative min-w-0">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <div className="flex space-x-1">
+              <div className="flex-1 relative">
+                <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400 w-3 h-3" />
                 <input
                   ref={searchInputRef}
                   type="text"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  placeholder={texts.quickSearchPlaceholder}
-                  className="w-full pl-10 pr-4 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-1 focus:ring-gray-900 dark:focus:ring-white focus:border-transparent"
+                  placeholder="Juan 3:16 o amor"
+                  className="w-full pl-6 pr-2 py-1.5 text-xs border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-1 focus:ring-gray-900 dark:focus:ring-white"
                 />
               </div>
               <button
                 onClick={handleQuickSearch}
                 disabled={!query.trim() || isLoading}
-                className="px-4 py-2 text-sm bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-md hover:bg-gray-800 dark:hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors whitespace-nowrap"
+                className="px-3 py-1.5 text-xs bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded hover:bg-gray-800 dark:hover:bg-gray-100 disabled:opacity-50 transition-colors"
               >
                 {texts.search}
               </button>
@@ -370,42 +311,34 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
           )}
 
           {searchMode === 'reference' && (
-            <div className="space-y-2">
-              {/* Book Selector */}
+            <div className="space-y-1">
               <div className="relative">
                 <button
                   onClick={() => setShowBooksList(!showBooksList)}
-                  className="w-full flex items-center justify-between p-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white hover:border-gray-400 dark:hover:border-gray-500 transition-colors"
+                  className="w-full flex items-center justify-between p-1.5 text-xs border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white hover:border-gray-400 dark:hover:border-gray-500"
                 >
                   <span className={selectedBook ? 'text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-400'}>
                     {selectedBook || texts.selectBook}
                   </span>
-                  {showBooksList ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
+                  <ChevronDown className="w-3 h-3" />
                 </button>
                 
                 {showBooksList && (
-                  <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md shadow-lg max-h-48 overflow-y-auto z-10">
+                  <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded shadow-lg max-h-40 overflow-y-auto z-10">
                     {bookCategories.map((category, categoryIndex) => (
                       <div key={categoryIndex}>
-                        {/* Category Header - Enhanced styling */}
-                        <div className="sticky top-0 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 px-3 py-1.5 border-b border-blue-500 dark:border-blue-400">
-                          <h4 className="text-xs font-bold text-white uppercase tracking-wide">
-                            {category.name}
-                          </h4>
+                        <div className="sticky top-0 bg-blue-600 dark:bg-blue-500 px-2 py-1">
+                          <h4 className="text-xs font-bold text-white">{category.name}</h4>
                         </div>
-                        
-                        {/* Books in Category */}
                         {category.books.map((book) => (
                           <button
                             key={book.id}
                             onClick={() => handleBookSelect(book.name)}
-                            className="w-full text-left px-3 py-1.5 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-900 dark:text-white transition-colors border-b border-gray-100 dark:border-gray-700 last:border-b-0 text-sm"
+                            className="w-full text-left px-2 py-1 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-900 dark:text-white text-xs border-b border-gray-100 dark:border-gray-700 last:border-b-0"
                           >
                             <div className="flex items-center justify-between">
                               <span>{book.name}</span>
-                              <span className="text-xs text-gray-500 dark:text-gray-400">
-                                {book.abbreviation}
-                              </span>
+                              <span className="text-xs text-gray-500 dark:text-gray-400">{book.abbreviation}</span>
                             </div>
                           </button>
                         ))}
@@ -415,15 +348,14 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
                 )}
               </div>
 
-              {/* Chapter, Verse, and Search in one row */}
-              <div className="grid grid-cols-4 gap-2">
+              <div className="grid grid-cols-5 gap-1">
                 <input
                   type="number"
                   value={chapter}
                   onChange={(e) => setChapter(e.target.value)}
                   placeholder={texts.chapter}
                   min="1"
-                  className="w-full p-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-1 focus:ring-gray-900 dark:focus:ring-white focus:border-transparent"
+                  className="w-full p-1.5 text-xs border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-1 focus:ring-gray-900 dark:focus:ring-white"
                 />
                 <input
                   type="number"
@@ -431,20 +363,20 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
                   onChange={(e) => setVerse(e.target.value)}
                   placeholder={texts.verse}
                   min="1"
-                  className="w-full p-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-1 focus:ring-gray-900 dark:focus:ring-white focus:border-transparent"
+                  className="w-full p-1.5 text-xs border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-1 focus:ring-gray-900 dark:focus:ring-white"
                 />
                 <input
                   type="number"
                   value={verseEnd}
                   onChange={(e) => setVerseEnd(e.target.value)}
-                  placeholder={language === 'es' ? 'Fin' : language === 'en' ? 'End' : 'Finis'}
+                  placeholder={texts.end}
                   min="1"
-                  className="w-full p-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-1 focus:ring-gray-900 dark:focus:ring-white focus:border-transparent"
+                  className="w-full p-1.5 text-xs border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-1 focus:ring-gray-900 dark:focus:ring-white"
                 />
                 <button
                   onClick={handleReferenceSearch}
                   disabled={!selectedBook || !chapter || !verse || isLoading}
-                  className="w-full p-2 text-sm bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-md hover:bg-gray-800 dark:hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="col-span-2 p-1.5 text-xs bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded hover:bg-gray-800 dark:hover:bg-gray-100 disabled:opacity-50 transition-colors"
                 >
                   {texts.search}
                 </button>
@@ -453,158 +385,112 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
           )}
 
           {searchMode === 'keyword' && (
-            <div className="space-y-2">
-              <div className="flex space-x-2">
-                <div className="flex-1 relative min-w-0">
-                  <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                  <input
-                    type="text"
-                    value={keywordQuery}
-                    onChange={(e) => setKeywordQuery(e.target.value)}
-                    onKeyPress={handleKeyPress}
-                    placeholder={texts.keywordPlaceholder}
-                    className="w-full pl-10 pr-4 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-1 focus:ring-gray-900 dark:focus:ring-white focus:border-transparent"
-                  />
-                </div>
-                <div className="flex space-x-2">
-                  <select
-                    value={resultLimit}
-                    onChange={(e) => setResultLimit(Number(e.target.value))}
-                    className="px-2 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-1 focus:ring-gray-900 dark:focus:ring-white focus:border-transparent"
-                  >
-                    <option value={10}>10</option>
-                    <option value={20}>20</option>
-                    <option value={50}>50</option>
-                    <option value={100}>100</option>
-                  </select>
-                </div>
-                <button
-                  onClick={handleKeywordSearch}
-                  disabled={!keywordQuery.trim() || isLoading}
-                  className="px-4 py-2 text-sm bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-md hover:bg-gray-800 dark:hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors whitespace-nowrap"
-                >
-                  {texts.search}
-                </button>
+            <div className="flex space-x-1">
+              <div className="flex-1 relative">
+                <Filter className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400 w-3 h-3" />
+                <input
+                  type="text"
+                  value={keywordQuery}
+                  onChange={(e) => setKeywordQuery(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  placeholder="amor, paz, salvación"
+                  className="w-full pl-6 pr-2 py-1.5 text-xs border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-1 focus:ring-gray-900 dark:focus:ring-white"
+                />
               </div>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
-                {texts.resultLimit}: {resultLimit} {texts.resultsFound}
-              </p>
+              <select
+                value={resultLimit}
+                onChange={(e) => setResultLimit(Number(e.target.value))}
+                className="px-1 py-1.5 text-xs border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-1 focus:ring-gray-900 dark:focus:ring-white"
+              >
+                <option value={10}>10</option>
+                <option value={20}>20</option>
+                <option value={50}>50</option>
+              </select>
+              <button
+                onClick={handleKeywordSearch}
+                disabled={!keywordQuery.trim() || isLoading}
+                className="px-3 py-1.5 text-xs bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded hover:bg-gray-800 dark:hover:bg-gray-100 disabled:opacity-50 transition-colors"
+              >
+                {texts.search}
+              </button>
             </div>
           )}
         </div>
 
-        {/* Results */}
-        <div className="flex-1 overflow-y-auto p-3">
+        {/* Compact Results */}
+        <div className="flex-1 overflow-y-auto p-2">
           {isLoading ? (
-            <div className="flex items-center justify-center py-12">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 dark:border-white"></div>
-              <span className="ml-3 text-gray-600 dark:text-gray-300">{texts.loading}</span>
+            <div className="flex items-center justify-center py-8">
+              <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-900 dark:border-white"></div>
+              <span className="ml-2 text-xs text-gray-600 dark:text-gray-300">{texts.loading}</span>
             </div>
           ) : error ? (
-            <div className="text-center py-12">
-              <p className="text-sm text-red-600 dark:text-red-400">{texts.error}: {error}</p>
+            <div className="text-center py-8">
+              <p className="text-xs text-red-600 dark:text-red-400">{error}</p>
             </div>
           ) : keywordResults && keywordResults.verses && keywordResults.verses.length > 0 ? (
-            <div className="space-y-4">
-              {/* Keyword Results Header */}
-              <div className="bg-gray-50 dark:bg-gray-800 rounded-md p-3">
-                <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-sm font-medium text-gray-900 dark:text-white flex items-center flex-wrap">
-                    <Filter className="w-5 h-5 mr-2" />
+            <div className="space-y-2">
+              <div className="bg-gray-50 dark:bg-gray-800 rounded p-2">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-xs font-medium text-gray-900 dark:text-white flex items-center">
+                    <Filter className="w-3 h-3 mr-1" />
                     "{keywordResults.keyword}"
-                    {selectedTranslation && (
-                      <span className="ml-2 text-xs bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">
-                        {translations.find(t => t.id === selectedTranslation)?.name || selectedTranslation}
-                      </span>
-                    )}
                   </h3>
-                  <button
-                    onClick={clearResults}
-                    className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
-                  >
+                  <button onClick={clearResults} className="text-xs text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">
                     {texts.clear}
                   </button>
                 </div>
                 <p className="text-xs text-gray-600 dark:text-gray-400">
-                  {texts.showingResults} {keywordResults.verses.length} {texts.of} {keywordResults.count} {texts.resultsFound}
+                  {texts.showing} {keywordResults.verses.length} {texts.of} {keywordResults.count}
                 </p>
               </div>
 
-              {/* Keyword Results */}
-              <div className="space-y-4">
+              <div className="space-y-2">
                 {keywordResults.verses.map((verse, index) => (
-                  <div key={index} className="border border-gray-200 dark:border-gray-700 rounded-md p-3 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-xs font-medium text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-full">
+                  <div key={index} className="border border-gray-200 dark:border-gray-700 rounded p-2 hover:bg-gray-50 dark:hover:bg-gray-800">
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-xs font-medium text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-700 px-1.5 py-0.5 rounded">
                         {verse.book_name} {verse.chapter}:{verse.verse}
                       </span>
                     </div>
-                    <p className="text-sm text-gray-900 dark:text-white leading-relaxed">
-                      {verse.text}
-                    </p>
+                    <p className="text-xs text-gray-900 dark:text-white leading-relaxed">{verse.text}</p>
                   </div>
                 ))}
               </div>
             </div>
           ) : searchResult && searchResult.verses && searchResult.verses.length > 0 ? (
-            <div className="space-y-4">
-              {/* Reference Info */}
-              <div className="bg-gray-50 dark:bg-gray-800 rounded-md p-3">
-                <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-sm font-medium text-gray-900 dark:text-white flex items-center flex-wrap">
-                    <Quote className="w-5 h-5 mr-2" />
+            <div className="space-y-2">
+              <div className="bg-gray-50 dark:bg-gray-800 rounded p-2">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-xs font-medium text-gray-900 dark:text-white flex items-center">
+                    <Quote className="w-3 h-3 mr-1" />
                     {searchResult.reference}
-                    {selectedTranslation && (
-                      <span className="ml-2 text-xs bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">
-                        {translations.find(t => t.id === selectedTranslation)?.name || selectedTranslation}
-                      </span>
-                    )}
                   </h3>
-                  <button
-                    onClick={clearResults}
-                    className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
-                  >
+                  <button onClick={clearResults} className="text-xs text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">
                     {texts.clear}
                   </button>
                 </div>
-                <p className="text-xs text-gray-600 dark:text-gray-400">
-                  {texts.translation}: {searchResult.translation_name}
-                  {searchResult.translation_note && ` - ${searchResult.translation_note}`}
-                </p>
               </div>
 
-              {/* Verses */}
-              <div className="space-y-4">
+              <div className="space-y-2">
                 {searchResult.verses.map((verse, index) => (
-                  <div key={index} className="border-l-4 border-gray-300 dark:border-gray-600 pl-4">
-                    <div className="flex items-center space-x-2 mb-2">
+                  <div key={index} className="border-l-2 border-gray-300 dark:border-gray-600 pl-2">
+                    <div className="flex items-center space-x-1 mb-1">
                       <span className="text-xs font-medium text-gray-500 dark:text-gray-400">
                         {verse.book_name} {verse.chapter}:{verse.verse}
                       </span>
                     </div>
-                    <p className="text-sm text-gray-900 dark:text-white leading-relaxed">
-                      {verse.text}
-                    </p>
+                    <p className="text-xs text-gray-900 dark:text-white leading-relaxed">{verse.text}</p>
                   </div>
                 ))}
               </div>
-
-              {/* Full Text (if different from individual verses) */}
-              {searchResult.text && searchResult.verses.length > 1 && (
-                <div className="bg-gray-50 dark:bg-gray-800 rounded-md p-4">
-                  <h4 className="text-xs font-medium text-gray-700 dark:text-gray-300 mb-3">
-                    {language === 'es' ? 'Texto completo' : language === 'en' ? 'Full text' : 'Textus completus'}
-                  </h4>
-                  <p className="text-sm text-gray-900 dark:text-white leading-relaxed italic">
-                    "{searchResult.text}"
-                  </p>
-                </div>
-              )}
             </div>
           ) : (
-            <div className="text-center py-12 text-gray-500 dark:text-gray-400">
-              <BookOpen className="w-12 h-12 mx-auto mb-4 opacity-50" />
-              <p className="text-sm">{language === 'es' ? 'Realiza una búsqueda para ver los resultados' : language === 'en' ? 'Perform a search to see results' : 'Quaere ut resultata videas'}</p>
+            <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+              <BookOpen className="w-8 h-8 mx-auto mb-2 opacity-50" />
+              <p className="text-xs">
+                {language === 'es' ? 'Busca versículos o palabras' : language === 'en' ? 'Search verses or words' : 'Quaere versus vel verba'}
+              </p>
             </div>
           )}
         </div>
