@@ -271,84 +271,106 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
         </div>
 
         {/* Ultra-compact Search Interface */}
-        <div className="p-2 border-b border-gray-200 dark:border-gray-700 space-y-2">
-          {/* Inline Translation Selector */}
-          <select
-            value={selectedTranslation}
-            onChange={(e) => setSelectedTranslation(e.target.value)}
-            className="w-full p-1.5 text-xs border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-1 focus:ring-gray-900 dark:focus:ring-white"
-          >
-            <option value="">{texts.allTrans}</option>
-            {translations.map((translation) => (
-              <option key={translation.id} value={translation.id}>
-                {translation.name}
-                {translation.note && ` - ${translation.note}`}
-              </option>
-            ))}
-          </select>
+        <div className="p-2 border-b border-gray-200 dark:border-gray-700">
 
           {searchMode === 'quick' && (
-            <div className="flex space-x-1">
-              <div className="flex-1 relative">
-                <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400 w-3 h-3" />
-                <input
-                  ref={searchInputRef}
-                  type="text"
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  onKeyPress={handleKeyPress}
-                  placeholder="Juan 3:16 o amor"
-                  className="w-full pl-6 pr-2 py-1.5 text-xs border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-1 focus:ring-gray-900 dark:focus:ring-white"
-                />
-              </div>
-              <button
-                onClick={handleQuickSearch}
-                disabled={!query.trim() || isLoading}
-                className="px-3 py-1.5 text-xs bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded hover:bg-gray-800 dark:hover:bg-gray-100 disabled:opacity-50 transition-colors"
+            <div className="space-y-1">
+              {/* Translation Selector */}
+              <select
+                value={selectedTranslation}
+                onChange={(e) => setSelectedTranslation(e.target.value)}
+                className="w-full p-1.5 text-xs border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-1 focus:ring-gray-900 dark:focus:ring-white"
               >
-                {texts.search}
-              </button>
+                <option value="">{texts.allTrans}</option>
+                {translations.map((translation) => (
+                  <option key={translation.id} value={translation.id}>
+                    {translation.name}
+                    {translation.note && ` - ${translation.note}`}
+                  </option>
+                ))}
+              </select>
+              
+              {/* Search Input */}
+              <div className="flex space-x-1">
+                <div className="flex-1 relative">
+                  <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400 w-3 h-3" />
+                  <input
+                    ref={searchInputRef}
+                    type="text"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    onKeyPress={handleKeyPress}
+                    placeholder="Juan 3:16 o amor"
+                    className="w-full pl-6 pr-2 py-1.5 text-xs border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-1 focus:ring-gray-900 dark:focus:ring-white"
+                  />
+                </div>
+                <button
+                  onClick={handleQuickSearch}
+                  disabled={!query.trim() || isLoading}
+                  className="px-3 py-1.5 text-xs bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded hover:bg-gray-800 dark:hover:bg-gray-100 disabled:opacity-50 transition-colors"
+                >
+                  {texts.search}
+                </button>
+              </div>
             </div>
           )}
 
           {searchMode === 'reference' && (
             <div className="space-y-1">
-              <div className="relative">
-                <button
-                  onClick={() => setShowBooksList(!showBooksList)}
-                  className="w-full flex items-center justify-between p-1.5 text-xs border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white hover:border-gray-400 dark:hover:border-gray-500"
+              {/* Translation and Book Selectors in same row */}
+              <div className="grid grid-cols-2 gap-1">
+                <select
+                  value={selectedTranslation}
+                  onChange={(e) => setSelectedTranslation(e.target.value)}
+                  className="w-full p-1.5 text-xs border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-1 focus:ring-gray-900 dark:focus:ring-white"
                 >
-                  <span className={selectedBook ? 'text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-400'}>
-                    {selectedBook || texts.selectBook}
-                  </span>
-                  <ChevronDown className="w-3 h-3" />
-                </button>
+                  <option value="">{texts.allTrans}</option>
+                  {translations.map((translation) => (
+                    <option key={translation.id} value={translation.id}>
+                      {translation.name}
+                      {translation.note && ` - ${translation.note}`}
+                    </option>
+                  ))}
+                </select>
                 
-                {showBooksList && (
-                  <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded shadow-lg max-h-40 overflow-y-auto z-10">
-                    {bookCategories.map((category, categoryIndex) => (
-                      <div key={categoryIndex}>
-                        <div className="sticky top-0 bg-blue-600 dark:bg-blue-500 px-2 py-1">
-                          <h4 className="text-xs font-bold text-white">{category.name}</h4>
+                <div className="relative">
+                  <button
+                    onClick={() => setShowBooksList(!showBooksList)}
+                    className="w-full flex items-center justify-between p-1.5 text-xs border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white hover:border-gray-400 dark:hover:border-gray-500"
+                  >
+                    <span className={selectedBook ? 'text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-400'}>
+                      {selectedBook || texts.selectBook}
+                    </span>
+                    <ChevronDown className="w-3 h-3" />
+                  </button>
+                  
+                  {showBooksList && (
+                    <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded shadow-lg max-h-40 overflow-y-auto z-10">
+                      {bookCategories.map((category, categoryIndex) => (
+                        <div key={categoryIndex}>
+                          <div className="sticky top-0 bg-blue-600 dark:bg-blue-500 px-2 py-1">
+                            <h4 className="text-xs font-bold text-white">{category.name}</h4>
+                          </div>
+                          {category.books.map((book) => (
+                            <button
+                              key={book.id}
+                              onClick={() => handleBookSelect(book.name)}
+                              className="w-full text-left px-2 py-1 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-900 dark:text-white text-xs border-b border-gray-100 dark:border-gray-700 last:border-b-0"
+                            >
+                              <div className="flex items-center justify-between">
+                                <span>{book.name}</span>
+                                <span className="text-xs text-gray-500 dark:text-gray-400">{book.abbreviation}</span>
+                              </div>
+                            </button>
+                          ))}
                         </div>
-                        {category.books.map((book) => (
-                          <button
-                            key={book.id}
-                            onClick={() => handleBookSelect(book.name)}
-                            className="w-full text-left px-2 py-1 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-900 dark:text-white text-xs border-b border-gray-100 dark:border-gray-700 last:border-b-0"
-                          >
-                            <div className="flex items-center justify-between">
-                              <span>{book.name}</span>
-                              <span className="text-xs text-gray-500 dark:text-gray-400">{book.abbreviation}</span>
-                            </div>
-                          </button>
-                        ))}
-                      </div>
-                    ))}
-                  </div>
-                )}
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
 
+              {/* Chapter, Verse, End, Search in same row */}
               <div className="grid grid-cols-5 gap-1">
                 <input
                   type="number"
@@ -386,34 +408,52 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
           )}
 
           {searchMode === 'keyword' && (
-            <div className="flex space-x-1">
-              <div className="flex-1 relative">
-                <Filter className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400 w-3 h-3" />
-                <input
-                  type="text"
-                  value={keywordQuery}
-                  onChange={(e) => setKeywordQuery(e.target.value)}
-                  onKeyPress={handleKeyPress}
-                  placeholder="amor, paz, salvación"
-                  className="w-full pl-6 pr-2 py-1.5 text-xs border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-1 focus:ring-gray-900 dark:focus:ring-white"
-                />
-              </div>
+            <div className="space-y-1">
+              {/* Translation Selector */}
               <select
-                value={resultLimit}
-                onChange={(e) => setResultLimit(Number(e.target.value))}
-                className="px-1 py-1.5 text-xs border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-1 focus:ring-gray-900 dark:focus:ring-white"
+                value={selectedTranslation}
+                onChange={(e) => setSelectedTranslation(e.target.value)}
+                className="w-full p-1.5 text-xs border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-1 focus:ring-gray-900 dark:focus:ring-white"
               >
-                <option value={10}>10</option>
-                <option value={20}>20</option>
-                <option value={50}>50</option>
+                <option value="">{texts.allTrans}</option>
+                {translations.map((translation) => (
+                  <option key={translation.id} value={translation.id}>
+                    {translation.name}
+                    {translation.note && ` - ${translation.note}`}
+                  </option>
+                ))}
               </select>
-              <button
-                onClick={handleKeywordSearch}
-                disabled={!keywordQuery.trim() || isLoading}
-                className="px-3 py-1.5 text-xs bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded hover:bg-gray-800 dark:hover:bg-gray-100 disabled:opacity-50 transition-colors"
-              >
-                {texts.search}
-              </button>
+                
+              {/* Keyword Search */}
+              <div className="flex space-x-1">
+                <div className="flex-1 relative">
+                  <Filter className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400 w-3 h-3" />
+                  <input
+                    type="text"
+                    value={keywordQuery}
+                    onChange={(e) => setKeywordQuery(e.target.value)}
+                    onKeyPress={handleKeyPress}
+                    placeholder="amor, paz, salvación"
+                    className="w-full pl-6 pr-2 py-1.5 text-xs border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-1 focus:ring-gray-900 dark:focus:ring-white"
+                  />
+                </div>
+                <select
+                  value={resultLimit}
+                  onChange={(e) => setResultLimit(Number(e.target.value))}
+                  className="px-1 py-1.5 text-xs border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-1 focus:ring-gray-900 dark:focus:ring-white"
+                >
+                  <option value={10}>10</option>
+                  <option value={20}>20</option>
+                  <option value={50}>50</option>
+                </select>
+                <button
+                  onClick={handleKeywordSearch}
+                  disabled={!keywordQuery.trim() || isLoading}
+                  className="px-3 py-1.5 text-xs bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded hover:bg-gray-800 dark:hover:bg-gray-100 disabled:opacity-50 transition-colors"
+                >
+                  {texts.search}
+                </button>
+              </div>
             </div>
           )}
         </div>
