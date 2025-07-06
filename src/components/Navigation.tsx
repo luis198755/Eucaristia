@@ -1,5 +1,5 @@
 import React from 'react';
-import { Cross, Menu, X, Moon, Sun, Globe, Search } from 'lucide-react';
+import { Church, Menu, X, Moon, Sun, Globe, Search } from 'lucide-react';
 import { EucharistData } from '../types/eucharist';
 import { Language } from '../hooks/useLanguage';
 
@@ -48,7 +48,7 @@ export default function Navigation({
       <div className="max-w-6xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center space-x-3">
-            <Cross className="w-6 h-6 text-gray-900 dark:text-white" />
+            <Church className="w-6 h-6 text-gray-900 dark:text-white" />
             {/* <span className="text-lg font-medium text-gray-900 dark:text-white">{data.navigation.brand}</span> */}
           </div>
           
