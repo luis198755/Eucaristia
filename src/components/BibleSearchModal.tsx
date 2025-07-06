@@ -328,30 +328,26 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
         </div>
 
         {/* Search Interface */}
-        <div className="p-3 md:p-6 border-b border-gray-200 dark:border-gray-700">
-          {/* Translation Selector - Common for all modes */}
-          <div className="mb-4">
-            <label className="block text-xs md:text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              {texts.selectTranslation}
-            </label>
+        <div className="p-3 border-b border-gray-200 dark:border-gray-700">
+          {/* Compact Translation Selector */}
+          <div className="mb-3">
             <select
               value={selectedTranslation}
               onChange={(e) => setSelectedTranslation(e.target.value)}
-              className="w-full p-2 md:p-3 text-sm md:text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-gray-900 dark:focus:ring-white focus:border-transparent"
+              className="w-full p-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-1 focus:ring-gray-900 dark:focus:ring-white focus:border-transparent"
             >
               <option value="">{texts.allTranslations}</option>
               {translations.map((translation) => (
                 <option key={translation.id} value={translation.id}>
                   {translation.name}
-                  {translation.note && ` - ${translation.note}`}
                 </option>
               ))}
             </select>
           </div>
 
           {searchMode === 'quick' && (
-            <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-3">
-              <div className="flex-1 relative">
+            <div className="flex space-x-2">
+              <div className="flex-1 relative min-w-0">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                 <input
                   ref={searchInputRef}
@@ -360,13 +356,13 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
                   onChange={(e) => setQuery(e.target.value)}
                   onKeyPress={handleKeyPress}
                   placeholder={texts.quickSearchPlaceholder}
-                  className="w-full pl-10 pr-4 py-2 md:py-3 text-sm md:text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-gray-900 dark:focus:ring-white focus:border-transparent"
+                  className="w-full pl-10 pr-4 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-1 focus:ring-gray-900 dark:focus:ring-white focus:border-transparent"
                 />
               </div>
               <button
                 onClick={handleQuickSearch}
                 disabled={!query.trim() || isLoading}
-                className="px-4 md:px-6 py-2 md:py-3 text-sm md:text-base bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg hover:bg-gray-800 dark:hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="px-4 py-2 text-sm bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-md hover:bg-gray-800 dark:hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors whitespace-nowrap"
               >
                 {texts.search}
               </button>
@@ -374,12 +370,12 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
           )}
 
           {searchMode === 'reference' && (
-            <div className="space-y-3 md:grid md:grid-cols-5 md:gap-3 md:space-y-0">
+            <div className="space-y-2">
               {/* Book Selector */}
-              <div className="md:col-span-2 relative order-1">
+              <div className="relative">
                 <button
                   onClick={() => setShowBooksList(!showBooksList)}
-                  className="w-full flex items-center justify-between p-2 md:p-3 text-sm md:text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white hover:border-gray-400 dark:hover:border-gray-500 transition-colors"
+                  className="w-full flex items-center justify-between p-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white hover:border-gray-400 dark:hover:border-gray-500 transition-colors"
                 >
                   <span className={selectedBook ? 'text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-400'}>
                     {selectedBook || texts.selectBook}
@@ -388,12 +384,12 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
                 </button>
                 
                 {showBooksList && (
-                  <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg shadow-lg max-h-60 md:max-h-80 overflow-y-auto z-10">
+                  <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md shadow-lg max-h-48 overflow-y-auto z-10">
                     {bookCategories.map((category, categoryIndex) => (
                       <div key={categoryIndex}>
                         {/* Category Header - Enhanced styling */}
-                        <div className="sticky top-0 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 px-3 md:px-4 py-2 md:py-3 border-b border-blue-500 dark:border-blue-400">
-                          <h4 className="text-xs md:text-sm font-bold text-white uppercase tracking-wide">
+                        <div className="sticky top-0 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 px-3 py-1.5 border-b border-blue-500 dark:border-blue-400">
+                          <h4 className="text-xs font-bold text-white uppercase tracking-wide">
                             {category.name}
                           </h4>
                         </div>
@@ -403,7 +399,7 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
                           <button
                             key={book.id}
                             onClick={() => handleBookSelect(book.name)}
-                            className="w-full text-left px-3 md:px-4 py-2 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-900 dark:text-white transition-colors border-b border-gray-100 dark:border-gray-700 last:border-b-0 text-sm md:text-base"
+                            className="w-full text-left px-3 py-1.5 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-900 dark:text-white transition-colors border-b border-gray-100 dark:border-gray-700 last:border-b-0 text-sm"
                           >
                             <div className="flex items-center justify-between">
                               <span>{book.name}</span>
@@ -419,59 +415,47 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
                 )}
               </div>
 
-              {/* Chapter */}
-              <div className="order-2">
+              {/* Chapter, Verse, and Search in one row */}
+              <div className="grid grid-cols-4 gap-2">
                 <input
                   type="number"
                   value={chapter}
                   onChange={(e) => setChapter(e.target.value)}
                   placeholder={texts.chapter}
                   min="1"
-                  className="w-full p-2 md:p-3 text-sm md:text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-gray-900 dark:focus:ring-white focus:border-transparent"
+                  className="w-full p-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-1 focus:ring-gray-900 dark:focus:ring-white focus:border-transparent"
                 />
-              </div>
-
-              {/* Verse */}
-              <div className="order-3">
                 <input
                   type="number"
                   value={verse}
                   onChange={(e) => setVerse(e.target.value)}
                   placeholder={texts.verse}
                   min="1"
-                  className="w-full p-2 md:p-3 text-sm md:text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-gray-900 dark:focus:ring-white focus:border-transparent"
+                  className="w-full p-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-1 focus:ring-gray-900 dark:focus:ring-white focus:border-transparent"
                 />
-              </div>
-
-              {/* Search Button */}
-              <div className="order-5 md:order-4">
-                <button
-                  onClick={handleReferenceSearch}
-                  disabled={!selectedBook || !chapter || !verse || isLoading}
-                  className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg hover:bg-gray-800 dark:hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                >
-                  {texts.search}
-                </button>
-              </div>
-
-              {/* Optional End Verse - Full Width */}
-              <div className="md:col-span-5 order-4 md:order-5">
                 <input
                   type="number"
                   value={verseEnd}
                   onChange={(e) => setVerseEnd(e.target.value)}
-                  placeholder={`${texts.verseEnd} (${language === 'es' ? 'opcional' : language === 'en' ? 'optional' : 'optionale'})`}
+                  placeholder={language === 'es' ? 'Fin' : language === 'en' ? 'End' : 'Finis'}
                   min="1"
-                  className="w-full p-2 md:p-3 text-sm md:text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-gray-900 dark:focus:ring-white focus:border-transparent"
+                  className="w-full p-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-1 focus:ring-gray-900 dark:focus:ring-white focus:border-transparent"
                 />
+                <button
+                  onClick={handleReferenceSearch}
+                  disabled={!selectedBook || !chapter || !verse || isLoading}
+                  className="w-full p-2 text-sm bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-md hover:bg-gray-800 dark:hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                >
+                  {texts.search}
+                </button>
               </div>
             </div>
           )}
 
           {searchMode === 'keyword' && (
-            <div className="space-y-4">
-              <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-3">
-                <div className="flex-1 relative">
+            <div className="space-y-2">
+              <div className="flex space-x-2">
+                <div className="flex-1 relative min-w-0">
                   <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                   <input
                     type="text"
@@ -479,14 +463,14 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
                     onChange={(e) => setKeywordQuery(e.target.value)}
                     onKeyPress={handleKeyPress}
                     placeholder={texts.keywordPlaceholder}
-                    className="w-full pl-10 pr-4 py-2 md:py-3 text-sm md:text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-gray-900 dark:focus:ring-white focus:border-transparent"
+                    className="w-full pl-10 pr-4 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-1 focus:ring-gray-900 dark:focus:ring-white focus:border-transparent"
                   />
                 </div>
-                <div className="flex space-x-2 md:space-x-3">
+                <div className="flex space-x-2">
                   <select
                     value={resultLimit}
                     onChange={(e) => setResultLimit(Number(e.target.value))}
-                    className="px-2 md:px-4 py-2 md:py-3 text-sm md:text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-gray-900 dark:focus:ring-white focus:border-transparent"
+                    className="px-2 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-1 focus:ring-gray-900 dark:focus:ring-white focus:border-transparent"
                   >
                     <option value={10}>10</option>
                     <option value={20}>20</option>
@@ -497,12 +481,12 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
                 <button
                   onClick={handleKeywordSearch}
                   disabled={!keywordQuery.trim() || isLoading}
-                  className="px-4 md:px-6 py-2 md:py-3 text-sm md:text-base bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg hover:bg-gray-800 dark:hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors whitespace-nowrap"
+                  className="px-4 py-2 text-sm bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-md hover:bg-gray-800 dark:hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors whitespace-nowrap"
                 >
                   {texts.search}
                 </button>
               </div>
-              <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-xs text-gray-500 dark:text-gray-400">
                 {texts.resultLimit}: {resultLimit} {texts.resultsFound}
               </p>
             </div>
@@ -510,7 +494,7 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
         </div>
 
         {/* Results */}
-        <div className="flex-1 overflow-y-auto p-3 md:p-6">
+        <div className="flex-1 overflow-y-auto p-3">
           {isLoading ? (
             <div className="flex items-center justify-center py-12">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 dark:border-white"></div>
@@ -518,18 +502,18 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
             </div>
           ) : error ? (
             <div className="text-center py-12">
-              <p className="text-sm md:text-base text-red-600 dark:text-red-400">{texts.error}: {error}</p>
+              <p className="text-sm text-red-600 dark:text-red-400">{texts.error}: {error}</p>
             </div>
           ) : keywordResults && keywordResults.verses && keywordResults.verses.length > 0 ? (
-            <div className="space-y-6">
+            <div className="space-y-4">
               {/* Keyword Results Header */}
-              <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+              <div className="bg-gray-50 dark:bg-gray-800 rounded-md p-3">
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-base md:text-lg font-medium text-gray-900 dark:text-white flex items-center flex-wrap">
+                  <h3 className="text-sm font-medium text-gray-900 dark:text-white flex items-center flex-wrap">
                     <Filter className="w-5 h-5 mr-2" />
                     "{keywordResults.keyword}"
                     {selectedTranslation && (
-                      <span className="ml-2 text-xs md:text-sm bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">
+                      <span className="ml-2 text-xs bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">
                         {translations.find(t => t.id === selectedTranslation)?.name || selectedTranslation}
                       </span>
                     )}
@@ -541,7 +525,7 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
                     {texts.clear}
                   </button>
                 </div>
-                <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-xs text-gray-600 dark:text-gray-400">
                   {texts.showingResults} {keywordResults.verses.length} {texts.of} {keywordResults.count} {texts.resultsFound}
                 </p>
               </div>
@@ -549,13 +533,13 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
               {/* Keyword Results */}
               <div className="space-y-4">
                 {keywordResults.verses.map((verse, index) => (
-                  <div key={index} className="border border-gray-200 dark:border-gray-700 rounded-lg p-3 md:p-4 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                  <div key={index} className="border border-gray-200 dark:border-gray-700 rounded-md p-3 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
                     <div className="flex items-center justify-between mb-3">
-                      <span className="text-xs md:text-sm font-medium text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-700 px-2 md:px-3 py-1 rounded-full">
+                      <span className="text-xs font-medium text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-full">
                         {verse.book_name} {verse.chapter}:{verse.verse}
                       </span>
                     </div>
-                    <p className="text-sm md:text-base text-gray-900 dark:text-white leading-relaxed">
+                    <p className="text-sm text-gray-900 dark:text-white leading-relaxed">
                       {verse.text}
                     </p>
                   </div>
@@ -563,15 +547,15 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
               </div>
             </div>
           ) : searchResult && searchResult.verses && searchResult.verses.length > 0 ? (
-            <div className="space-y-6">
+            <div className="space-y-4">
               {/* Reference Info */}
-              <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+              <div className="bg-gray-50 dark:bg-gray-800 rounded-md p-3">
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-base md:text-lg font-medium text-gray-900 dark:text-white flex items-center flex-wrap">
+                  <h3 className="text-sm font-medium text-gray-900 dark:text-white flex items-center flex-wrap">
                     <Quote className="w-5 h-5 mr-2" />
                     {searchResult.reference}
                     {selectedTranslation && (
-                      <span className="ml-2 text-xs md:text-sm bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">
+                      <span className="ml-2 text-xs bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">
                         {translations.find(t => t.id === selectedTranslation)?.name || selectedTranslation}
                       </span>
                     )}
@@ -583,7 +567,7 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
                     {texts.clear}
                   </button>
                 </div>
-                <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-xs text-gray-600 dark:text-gray-400">
                   {texts.translation}: {searchResult.translation_name}
                   {searchResult.translation_note && ` - ${searchResult.translation_note}`}
                 </p>
@@ -592,13 +576,13 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
               {/* Verses */}
               <div className="space-y-4">
                 {searchResult.verses.map((verse, index) => (
-                  <div key={index} className="border-l-4 border-gray-300 dark:border-gray-600 pl-3 md:pl-6">
+                  <div key={index} className="border-l-4 border-gray-300 dark:border-gray-600 pl-4">
                     <div className="flex items-center space-x-2 mb-2">
-                      <span className="text-xs md:text-sm font-medium text-gray-500 dark:text-gray-400">
+                      <span className="text-xs font-medium text-gray-500 dark:text-gray-400">
                         {verse.book_name} {verse.chapter}:{verse.verse}
                       </span>
                     </div>
-                    <p className="text-sm md:text-lg text-gray-900 dark:text-white leading-relaxed">
+                    <p className="text-sm text-gray-900 dark:text-white leading-relaxed">
                       {verse.text}
                     </p>
                   </div>
@@ -607,11 +591,11 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
 
               {/* Full Text (if different from individual verses) */}
               {searchResult.text && searchResult.verses.length > 1 && (
-                <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
-                  <h4 className="text-xs md:text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+                <div className="bg-gray-50 dark:bg-gray-800 rounded-md p-4">
+                  <h4 className="text-xs font-medium text-gray-700 dark:text-gray-300 mb-3">
                     {language === 'es' ? 'Texto completo' : language === 'en' ? 'Full text' : 'Textus completus'}
                   </h4>
-                  <p className="text-sm md:text-lg text-gray-900 dark:text-white leading-relaxed italic">
+                  <p className="text-sm text-gray-900 dark:text-white leading-relaxed italic">
                     "{searchResult.text}"
                   </p>
                 </div>
@@ -620,7 +604,7 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
           ) : (
             <div className="text-center py-12 text-gray-500 dark:text-gray-400">
               <BookOpen className="w-12 h-12 mx-auto mb-4 opacity-50" />
-              <p className="text-sm md:text-base">{language === 'es' ? 'Realiza una búsqueda para ver los resultados' : language === 'en' ? 'Perform a search to see results' : 'Quaere ut resultata videas'}</p>
+              <p className="text-sm">{language === 'es' ? 'Realiza una búsqueda para ver los resultados' : language === 'en' ? 'Perform a search to see results' : 'Quaere ut resultata videas'}</p>
             </div>
           )}
         </div>
