@@ -142,8 +142,6 @@ function App() {
         toggleBookmark={toggleBookmark}
       />
 
-      <ReadingModePanel language={language} />
-
       {/* Floating Action Buttons */}
       <div className="fixed right-6 top-20 z-40">
         <div className="flex flex-col space-y-2">
