@@ -17,7 +17,7 @@ export default function Footer({ data }: FooterProps) {
           <p className="text-gray-300 dark:text-gray-400 mb-8 max-w-2xl mx-auto font-light">
             "{data.footer.quote}"
           </p>
-          <p className="text-base text-gray-400 dark:text-gray-500 font-light">{data.footer.reference}</p>
+          <p className="text-lg text-gray-400 dark:text-gray-500 font-light">{data.footer.reference}</p>
           
           <div className="border-t border-gray-700 dark:border-gray-800 mt-12 pt-8">
             <p className="text-gray-400 dark:text-gray-500 text-sm font-light">
