@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { 
-  Eye, 
+  BookOpen, 
   Type, 
   AlignLeft, 
-  BookOpen, 
+  Eye, 
   Moon, 
   Sun, 
   Settings, 
@@ -101,7 +101,7 @@ export default function ReadingModePanel({ language }: ReadingModePanelProps) {
           : `${isReadingMode ? 'Disable' : 'Enable'} reading mode (Alt+R)`
         }
       >
-        <BookOpen className="w-5 h-5" />
+        <Eye className="w-5 h-5" />
         
         {/* Discrete label behind the icon */}
         <span className="absolute right-full mr-3 top-1/2 transform -translate-y-1/2 px-2 py-1 bg-gray-900/80 dark:bg-white/80 text-white dark:text-gray-900 text-xs font-medium rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none">
@@ -132,7 +132,7 @@ export default function ReadingModePanel({ language }: ReadingModePanelProps) {
             {/* Header */}
             <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
               <div className="flex items-center space-x-3">
-                <BookOpen className="w-6 h-6 text-gray-900 dark:text-white" />
+                <Eye className="w-6 h-6 text-gray-900 dark:text-white" />
                 <h2 className="text-xl font-medium text-gray-900 dark:text-white">
                   {language === 'es' ? 'Configuración de Lectura' : 'Reading Settings'}
                 </h2>
