@@ -104,28 +104,28 @@ export default function ReadingModePanel({ language }: ReadingModePanelProps) {
       >
         <Eye className="w-5 h-5" />
         
-        {/* Discrete label behind the icon */}
-        <span className="absolute right-full mr-3 top-1/2 transform -translate-y-1/2 px-2 py-1 bg-gray-900/80 dark:bg-white/80 text-white dark:text-gray-900 text-xs font-medium rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none">
+        {/* Discrete label below the icon */}
+        <span className="absolute top-full mt-2 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-gray-900/80 dark:bg-white/80 text-white dark:text-gray-900 text-xs font-medium rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none">
           {getReadingModeLabel()}
         </span>
-      </button>
+        </button>
 
-      {/* Settings Button (only visible when reading mode is active) */}
-      {isReadingMode && (
+        {/* Settings Button (only visible when reading mode is active) */}
+        {isReadingMode && (
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="group relative p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-105 bg-white/90 dark:bg-gray-900/90 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white backdrop-blur-sm border border-gray-200 dark:border-gray-700"
+            className="group relative p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-105 bg-white/90 dark:bg-gray-900/90 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white backdrop-blur-sm border border-gray-200 dark:border-gray-700"
           title={language === 'es' ? 'Configurar lectura' : 'Reading settings'}
         >
           <Settings className="w-5 h-5" />
           
-          {/* Discrete label behind the icon */}
-          <span className="absolute right-full mr-3 top-1/2 transform -translate-y-1/2 px-2 py-1 bg-gray-900/80 dark:bg-white/80 text-white dark:text-gray-900 text-xs font-medium rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none">
+          {/* Discrete label below the icon */}
+          <span className="absolute top-full mt-2 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-gray-900/80 dark:bg-white/80 text-white dark:text-gray-900 text-xs font-medium rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none">
             {getSettingsLabel()}
           </span>
         </button>
-      )}
-    </>
+        )}
+      </div>
 
       {/* Reading Mode Settings Panel */}
       {isOpen && isReadingMode && (

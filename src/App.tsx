@@ -142,17 +142,22 @@ function App() {
         toggleBookmark={toggleBookmark}
       />
 
-      {/* Floating Action Buttons - Right side */}
+      {/* Reading Mode Buttons - Left side below menu with horizontal spacing */}
+      <div className="fixed left-6 top-36 z-40">
+        <div className="flex items-center space-x-3">
+        <ReadingModePanel language={language} />
+        </div>
+      </div>
+
+      {/* Bible Search Button - Right side */}
       <div className="fixed right-6 top-20 z-40">
         <div className="flex flex-col space-y-2">
           <BibleSearchButton 
             onClick={handleBibleSearchOpen}
             language={language}
           />
-          <ReadingModePanel language={language} />
         </div>
       </div>
-
 
       <main role="main">
         <HeroSection scrollToSection={handleScrollToSection} data={data} />
