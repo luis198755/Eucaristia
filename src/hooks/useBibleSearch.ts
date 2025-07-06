@@ -39,7 +39,7 @@ interface KeywordSearchResult {
   count: number;
 }
 
-const API_BASE_URL = 'https://apibible.luissalberto.com';
+const API_BASE_URL = 'https://apigo.luissalberto.com';
 
 export function useBibleSearch() {
   const [books, setBooks] = useState<Book[]>([]);
