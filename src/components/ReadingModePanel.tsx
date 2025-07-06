@@ -127,8 +127,8 @@ export default function ReadingModePanel({ language }: ReadingModePanelProps) {
 
       {/* Reading Mode Settings Panel */}
       {isOpen && isReadingMode && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white dark:bg-gray-900 rounded-lg shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden">
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-white dark:bg-gray-900 rounded-lg shadow-2xl w-full max-w-2xl my-8 flex flex-col">
             {/* Header */}
             <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
               <div className="flex items-center space-x-3">
@@ -168,7 +168,7 @@ export default function ReadingModePanel({ language }: ReadingModePanelProps) {
             </div>
 
             {/* Content */}
-            <div className="p-6 max-h-96 overflow-y-auto">
+            <div className="p-6 flex-1 overflow-y-auto">
               {activeTab === 'font' && (
                 <div className="space-y-6">
                   {/* Font Size */}
@@ -385,13 +385,13 @@ export default function ReadingModePanel({ language }: ReadingModePanelProps) {
             <div className="flex items-center justify-between p-6 border-t border-gray-200 dark:border-gray-700">
               <button
                 onClick={resetSettings}
-                className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+                className="flex items-center space-x-2 px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800"
               >
                 <RotateCcw className="w-4 h-4" />
                 <span>{language === 'es' ? 'Restablecer' : 'Reset'}</span>
               </button>
               
-              <div className="text-xs text-gray-500 dark:text-gray-400">
+              <div className="text-sm font-medium text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 px-3 py-2 rounded-lg">
                 {language === 'es' ? 'Alt+R para activar/desactivar' : 'Alt+R to toggle'}
               </div>
             </div>
