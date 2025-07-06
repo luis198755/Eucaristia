@@ -281,7 +281,8 @@ export default function BibleSearchModal({ isOpen, onClose, language }: BibleSea
             <option value="">{texts.allTrans}</option>
             {translations.map((translation) => (
               <option key={translation.id} value={translation.id}>
-                {translation.name.split(' ')[0]} {/* Show only first word */}
+                {translation.name}
+                {translation.note && ` - ${translation.note}`}
               </option>
             ))}
           </select>
