@@ -16,25 +16,43 @@ export default function SymbolsSection({ data }: SymbolsSectionProps) {
   const renderSymbol = (item: any) => {
     if (item.icon) {
       const IconComponent = iconMap[item.icon as keyof typeof iconMap];
-      return <IconComponent className="w-8 h-8 text-gray-900 dark:text-white mx-auto mb-6" />;
+      return (
+        <IconComponent 
+          className="w-8 h-8 text-gray-900 dark:text-white mx-auto mb-6"
+          aria-label={`Símbolo eucarístico: ${item.title}`}
+          role="img"
+        />
+      );
     }
     
     switch (item.symbol) {
       case 'circle':
         return (
-          <div className="w-16 h-16 border border-gray-300 dark:border-gray-600 rounded-full flex items-center justify-center mb-6 mx-auto">
+          <div 
+            className="w-16 h-16 border border-gray-300 dark:border-gray-600 rounded-full flex items-center justify-center mb-6 mx-auto"
+            aria-label={`Símbolo circular representando ${item.title}`}
+            role="img"
+          >
             <div className="w-6 h-6 bg-gray-900 dark:bg-white rounded-full"></div>
           </div>
         );
       case 'circle-gray':
         return (
-          <div className="w-16 h-16 border border-gray-300 dark:border-gray-600 rounded-full flex items-center justify-center mb-6 mx-auto">
+          <div 
+            className="w-16 h-16 border border-gray-300 dark:border-gray-600 rounded-full flex items-center justify-center mb-6 mx-auto"
+            aria-label={`Símbolo circular gris representando ${item.title}`}
+            role="img"
+          >
             <div className="w-6 h-6 bg-gray-600 dark:bg-gray-400 rounded-full"></div>
           </div>
         );
       case 'light':
         return (
-          <div className="w-8 h-8 border border-gray-400 dark:border-gray-500 rounded-full flex items-center justify-center mx-auto mb-6">
+          <div 
+            className="w-8 h-8 border border-gray-400 dark:border-gray-500 rounded-full flex items-center justify-center mx-auto mb-6"
+            aria-label={`Símbolo de luz representando ${item.title}`}
+            role="img"
+          >
             <div className="w-2 h-2 bg-gray-900 dark:bg-white rounded-full"></div>
           </div>
         );

@@ -16,7 +16,11 @@ export default function HeroSection({ scrollToSection, data }: HeroSectionProps)
       itemType="https://schema.org/WebPageElement"
     >
       <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
-        <Cross className="w-12 h-12 text-gray-900 dark:text-white mx-auto mb-8" aria-hidden="true" />
+        <Cross 
+          className="w-12 h-12 text-gray-900 dark:text-white mx-auto mb-8" 
+          aria-label="Cruz cristiana - Símbolo central de la fe católica"
+          role="img"
+        />
         
         <h1 
           className="text-5xl md:text-7xl font-light text-gray-900 dark:text-white mb-8 tracking-tight"
@@ -44,10 +48,10 @@ export default function HeroSection({ scrollToSection, data }: HeroSectionProps)
         <button
           onClick={() => scrollToSection('definition')}
           className="inline-flex items-center space-x-2 text-gray-900 dark:text-white border border-gray-900 dark:border-white px-8 py-3 hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 transition-all duration-300"
-          aria-label="Explorar información sobre la Eucaristía"
+          aria-label="Explorar información detallada sobre la Eucaristía - Ir a la sección de definición"
         >
           <span className="font-medium">{data.hero.cta}</span>
-          <ChevronRight className="w-4 h-4" aria-hidden="true" />
+          <ChevronRight className="w-4 h-4" aria-label="Icono de flecha hacia la derecha" />
         </button>
       </div>
     </section>

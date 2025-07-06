@@ -50,8 +50,9 @@ export default function DefinitionSection({ data }: DefinitionSectionProps) {
                 role="listitem"
               >
                 <IconComponent 
-                  className="w-8 h-8 text-gray-900 dark:text-white mx-auto mb-6" 
-                  aria-hidden="true"
+                  className="w-8 h-8 text-gray-900 dark:text-white mx-auto mb-6"
+                  aria-label={`Icono representativo de ${card.title}`}
+                  role="img"
                 />
                 <h3 
                   className="text-xl font-medium text-gray-900 dark:text-white mb-4"
