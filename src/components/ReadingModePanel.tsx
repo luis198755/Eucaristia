@@ -91,12 +91,6 @@ export default function ReadingModePanel({ language }: ReadingModePanelProps) {
       {/* Reading Mode Toggle Button */}
       <div className="flex items-center space-x-3">
         <button
-          className="group relative flex flex-col items-center"
-          onClick={toggleReadingMode}
-          title={language === 'es' 
-            ? `${isReadingMode ? 'Desactivar' : 'Activar'} modo lectura (Alt+R)` 
-            : `${isReadingMode ? 'Disable' : 'Enable'} reading mode (Alt+R)`
-          }
         onClick={toggleReadingMode}
         className={`group relative p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-105 ${
           isReadingMode
