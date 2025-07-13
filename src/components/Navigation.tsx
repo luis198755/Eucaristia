@@ -1,5 +1,5 @@
 import React from 'react';
-import { Cross, Menu, X, Moon, Sun, Globe, Search } from 'lucide-react';
+import { Cross, Menu, X, Moon, Sun, Globe, Search, Github } from 'lucide-react';
 import { EucharistData } from '../types/eucharist';
 import { Language } from '../hooks/useLanguage';
 
@@ -77,6 +77,17 @@ export default function Navigation({
               <Search className="w-5 h-5" />
             </button>
             
+            {/* GitHub Link */}
+            <a
+              href="https://github.com/tu-usuario/tu-repositorio"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors duration-200"
+              aria-label="Ver código en GitHub"
+            >
+              <Github className="w-5 h-5" />
+            </a>
+            
             {/* Language Selector */}
             <div className="relative">
               <button
@@ -130,6 +141,17 @@ export default function Navigation({
             >
               <Search className="w-5 h-5" />
             </button>
+            
+            {/* Mobile GitHub Link */}
+            <a
+              href="https://github.com/tu-usuario/tu-repositorio"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors duration-200"
+              aria-label="Ver código en GitHub"
+            >
+              <Github className="w-5 h-5" />
+            </a>
             
             {/* Mobile Language Selector */}
             <div className="relative">
